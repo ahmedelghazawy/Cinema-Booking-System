@@ -34,7 +34,7 @@ cmake-build-debug/
 
 # IntelliJ
 /out/
-toucan/.idea/
+TillApp/.idea/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
