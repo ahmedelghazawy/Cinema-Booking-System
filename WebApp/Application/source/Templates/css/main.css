@@ -1,0 +1,17 @@
+.carousel_pic img{
+    max-height: 600px;
+    width:  100%;
+    object-fit: cover;
+
+}
+.carousel{
+    max-height: 600px;
+}
+.carousel-caption{
+    background-color:  rgba(0,0,0,0.3)
+}
+.navbar-logo{
+    height: 40px;
+    display: inline-block;
+    margin-top:5px;
+}
