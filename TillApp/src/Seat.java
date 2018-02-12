@@ -2,31 +2,24 @@
  * Created by sc16tdad on 09/02/18.
  */
 public class Seat {
-    private String seatNumber;
     private String type;
+    private String row;
+    private int column;
     private boolean availability;
 
-    public Seat(String seatNumber, String type, boolean availability){}
-
-    public void changeAvailability(){}
+    public Seat(String type, String row, int column, boolean availability){}
 
     public String getType() {
         return type;
     }
 
-    public String getSeatNumber() {
-        return seatNumber;
+    public String getRow() {
+        return row;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+    public int getColumn() { return column; }
 
-    public void setAvailability(boolean availability) {
-        this.availability = availability;
-    }
+    public boolean getAvailability() { return availability; }
 
-    public void setSeatNumber(String seatNumber) {
-        this.seatNumber = seatNumber;
-    }
+    public void changeAvailability(){ this.availability = !availability; }
 }

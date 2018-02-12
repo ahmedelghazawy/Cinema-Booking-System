@@ -24,5 +24,4 @@ public class Order {
     public void checkout(){}
 
     public void printTickets(){}
-    
 }
