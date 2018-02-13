@@ -3,13 +3,13 @@ import datetime
 
 
 
-class UserData(models.Model):
+class User(models.Model):
     name = models.CharField(max_length = 200)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length = 200)
 class Actor(models.Model):
     name = models.CharField(max_length = 200)
-    
+
 class Movie(models.Model):
     title = models.CharField(max_length = 150)
     blurb = models.TextField(max_length = 2000)
