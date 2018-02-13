@@ -1,14 +1,60 @@
-.carousel_pic img{
-    object-fit: fill;
-}
-.carousel{
-    height: 600px;
-}
-.carousel-caption{
-    background-color:  rgba(0,0,0,0.3)
-}
+
+/* ------------------- Navbar Styling --------------------- */
+
 .navbar-logo{
     height: 40px;
     display: inline-block;
     margin-top:5px;
+}
+/* ------------------- Carousel Styling ------------------- */
+
+.img-responsive,
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 600px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.carousel-caption{
+    background-color:  rgba(0,0,0,0.3)
+}
+
+/* ------------------- Movie Tiles ------------------- */
+.movie-tile-no-time-wrap{
+    text-align: center;
+}
+.movie-tile-no-time{
+    display: inline-block;
+    margin: 10 auto;
+    width: auto;
+    text-align: center;
+}
+.movie-tile-no-time > img{
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: top;
+}
+.movie-tile-no-time > img:hover{
+    box-shadow: 0px 0px 10px 10px #ccc;
+}
+
+/* ------------------- Jumbotron homepage ------------------- */
+.jumbotron-homepage {
+    color:white !important;
+    text-align: center;
+    border-radius: 0px !important;
+    background-color: rgba(227, 123, 15,1) !important;
+    box-shadow:inset 0px 0px 30px 10px rgba(173, 88, 0, 0.3) !important;
+}
+/* ------------------- footer -------------------------- */
+.footer{
+    background-color: #494949;
 }
