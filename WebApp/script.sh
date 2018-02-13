@@ -12,4 +12,9 @@ python manage.py makemigrations
 
 python manage.py migrate
 
+
+python PopulateDatabase.py
+
+python manage.py migrate
+
 python manage.py runserver
