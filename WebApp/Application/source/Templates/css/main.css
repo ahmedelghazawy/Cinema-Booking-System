@@ -54,6 +54,21 @@
     background-color: rgba(227, 123, 15,1) !important;
     box-shadow:inset 0px 0px 30px 10px rgba(173, 88, 0, 0.3) !important;
 }
+/* ------------------- Social Links ------------------- */
+.social {
+    -webkit-filter: brig(100%); /* Safari 6.0 - 9.0 */
+    filter: brightness(100%);
+    -webkit-transition:  2s ease-out;
+  -moz-transition:  2s ease-out;
+  -o-transition:  2s ease-out;
+  transition: 0.5s ease-out;
+}
+.social img:hover {
+    -webkit-filter: brig(100%); /* Safari 6.0 - 9.0 */
+    filter: brightness(60%);
+    cursor:pointer;
+}
+
 /* ------------------- footer -------------------------- */
 .footer{
     background-color: #494949;
