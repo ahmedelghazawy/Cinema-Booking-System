@@ -3,7 +3,7 @@ import datetime
 
 
 
-class User(models.Model):
+class UserData(models.Model):
     name = models.CharField(max_length = 200)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length = 200)
@@ -13,14 +13,14 @@ class Movie(models.Model):
     blurb = models.TextField(max_length = 2000)
     cover = models.TextField(max_length = 500)
     rating = models.FloatField()
-    duration = models.DurationField()
+    duration = models.IntegerField()
     director = models.CharField(max_length = 200)
     certificate = models.CharField(max_length = 150)
     releaseDate = models.DateField(auto_now_add=False)
+    cast = models.ManyToManyField(Actor)
 
 class Actor(models.Model):
     name = models.CharField(max_length = 200)
-    movies = models.ManyToManyField(Movie)
 
 class Screen(models.Model):
     standardSeats = models.IntegerField()
@@ -48,4 +48,4 @@ class Ticket(models.Model):
     movie_id = models.ForeignKey('Movie',on_delete=models.CASCADE,)
     time_id = models.ForeignKey('Timing',on_delete=models.CASCADE,)
     seat_id = models.ForeignKey('Seat',on_delete=models.CASCADE,)
-    user_id = models.ForeignKey('User',on_delete=models.CASCADE,)
+    UserData_id = models.ForeignKey('UserData',on_delete=models.CASCADE,)
