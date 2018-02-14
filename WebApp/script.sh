@@ -1,8 +1,8 @@
+module load python
+
 pip install virtualenv
 
 virtualenv env
-
-module load python
 
 source env/bin/activate
 

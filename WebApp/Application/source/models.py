@@ -49,4 +49,4 @@ class Ticket(models.Model):
     movie_id = models.ForeignKey('Movie',on_delete=models.CASCADE,)
     time_id = models.ForeignKey('Timing',on_delete=models.CASCADE,)
     seat_id = models.ForeignKey('Seat',on_delete=models.CASCADE,)
-    UserData_id = models.ForeignKey('UserData',on_delete=models.CASCADE,)
+    user_id = models.ForeignKey('User',on_delete=models.CASCADE,)
