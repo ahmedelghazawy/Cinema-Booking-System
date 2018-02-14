@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		{% load static %}
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="">
@@ -11,14 +12,14 @@
 		<!-- Bootstrap core CSS -->
 		<link href="css/main.css" rel="stylesheet">
 		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-		<script src="js/jquery.min.js"></script>
-		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="{% static "js/jquery.min.js" %"></script>
+		<script src="{% static "bootstrap/js/bootstrap.min.js" %"></script>
 	</head>
 	<body>
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a href="#" class="navbar-left"><img class="navbar-logo" src="img/logo.png"></a>
+					<a href="#" class="navbar-left"><img class="navbar-logo" src="{% static "img/logo.png" %"></a>
 					<a class="navbar-brand" href="#">&nbsp; Toucan</a>
 				</div>
 				<ul class="nav navbar-nav">
@@ -41,7 +42,7 @@
 						<!-- Wrapper for slides -->
 						<div class="carousel-inner" >
 							<div class="item active carousel_pic"  >
-							<img src="img/slide_1.jpg" alt="Popcorn">
+							<img src="{% static "img/slide_1.jpg" %" alt="Popcorn">
 							<div class="carousel-caption">
 								<h1>Cheap Popcorn</h1>
 								<p>There is never enough!</p>
@@ -49,7 +50,7 @@
 							</div>
 
 							<div class="item carousel_pic">
-							<img src="img/slide_2.jpg" alt="Cinema">
+							<img src="{% static "img/slide_2.jpg" %" alt="Cinema">
 							<div class="carousel-caption">
 								<h1>New cinema seats</h1>
 								<p>get comfy!</p>
@@ -57,7 +58,7 @@
 							</div>
 
 							<div class="item carousel_pic">
-							<img src="img/slide_3.jpg" alt="Movie">
+							<img src="{% static "img/slide_3.jpg" %" alt="Movie">
 							<div class="carousel-caption">
 								<h1>Newest releases</h1>
 								<p>Checkout our what's new section</p>
@@ -86,10 +87,10 @@
 				<div class="col-lg-3 col-sm-6 col-xs-12 movie-tile-no-time-wrap">
 					<a href="#">
 						<div class=" movie-tile-no-time">
-							<img src="img/MovieCovers/BlackPanther.jpg">
+							<img src="{% static "img/MovieCovers/BlackPanther.jpg" %">
                             <div class="movie-tile-no-time-inner">
     							<h1>Black Panther</h1>
-                                
+
                             </div>
 						</div>
                         <!-- <hr/> -->
@@ -98,10 +99,10 @@
 				<div class="col-lg-3 col-sm-6 col-xs-12 movie-tile-no-time">
 					<a href="#">
 						<div class=" movie-tile-no-time">
-							<img src="img/MovieCovers/TheGreatestShowman.jpg">
+							<img src="{% static "img/MovieCovers/TheGreatestShowman.jpg" %">
                             <div class="movie-tile-no-time-inner">
     							<h1>The Greatest Showman ever ever eer</h1>
-                                
+
                             </div>
 						</div>
                         <!-- <hr/> -->
@@ -110,10 +111,10 @@
 				<div class="col-lg-3 col-sm-6 col-xs-12 movie-tile-no-time">
 					<a href="#">
 						<div class=" movie-tile-no-time">
-							<img src="img/MovieCovers/Coco.jpg">
+							<img src="{% static "img/MovieCovers/Coco.jpg" %">
                             <div class="movie-tile-no-time-inner">
     							<h1>Coco</h1>
-                                
+
                             </div>
 						</div>
                         <!-- <hr/> -->
@@ -122,10 +123,10 @@
 				<div class="col-lg-3 col-sm-6 col-xs-12 movie-tile-no-time">
 					<a href="#">
 						<div class=" movie-tile-no-time">
-							<img src="img/MovieCovers/EarlyMan.jpg">
+							<img src="{% static "img/MovieCovers/EarlyMan.jpg" %">
                             <div class="movie-tile-no-time-inner">
         						<h1>Early Man</h1>
-                                
+
                             </div>
 						</div>
                         <!-- <hr/> -->
@@ -135,7 +136,7 @@
 			<div class = "row footer social">
 				<div style = "text-align:center;" class="col-lg-4 col-sm-12 ">
 					<a href="#" >
-						<img  src="img/logo2.png" alt="logo" height="200">
+						<img  src="{% static "img/logo2.png" alt="logo" height="200" %">
 					</a>
 
 				</div>
@@ -144,11 +145,11 @@
 				</div>
 				<div style = "text-align:center" class="col-lg-4 col-sm-12 ">
 					<h2 >Connect</h2>
-					<img class = "social" style = "padding:6px; " src="img/SocialMedia/facebook.png" alt="facebook" height="70">
-					<img class = "social" style = "padding:7px; " src="img/SocialMedia/twitter.png" alt="facebook" height="70">
-					<img class = "social" style = "padding:7px; " src="img/SocialMedia/instagram.png" alt="facebook" height="70">
-					<img class = "social" style = "padding:7px; " src="img/SocialMedia/google.png" alt="facebook" height="70">
-					<img class = "social" style = "padding:7px; " src="img/SocialMedia/snapchat.png" alt="facebook" height="70">
+					<img class = "social" style = "padding:6px; " src="{% static "img/SocialMedia/facebook.png" %" alt="facebook" height="70">
+					<img class = "social" style = "padding:7px; " src="{% static "img/SocialMedia/twitter.png" %" alt="facebook" height="70">
+					<img class = "social" style = "padding:7px; " src="{% static "img/SocialMedia/instagram.png" %" alt="facebook" height="70">
+					<img class = "social" style = "padding:7px; " src="{% static "img/SocialMedia/google.png" %" alt="facebook" height="70">
+					<img class = "social" style = "padding:7px; " src="{% static "img/SocialMedia/snapchat.png" %" alt="facebook" height="70">
 				</div>
                 <hr/>
 			</div>
