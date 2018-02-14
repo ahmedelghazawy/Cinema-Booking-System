@@ -1,4 +1,10 @@
 
+.movie-tile-no-time hr{
+	border: 2px solid #ddd !important;
+	box-shadow: 0px -3px 10px -1px #000;
+}
+
+
 /* ------------------- Navbar Styling --------------------- */
 
 .navbar-logo{
@@ -13,12 +19,12 @@
 .thumbnail a > img,
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: 600px;
-  object-fit: cover;
-  object-position: top;
+	display: block;
+	width: 100%;
+	height: auto;
+	max-height: 600px;
+	object-fit: cover;
+	object-position: top;
 }
 
 .carousel-caption{
@@ -32,8 +38,9 @@
 .movie-tile-no-time{
     display: inline-block;
     margin: 10 auto;
-    width: auto;
+    width: 100%;
     text-align: center;
+    word-wrap: normal;
 }
 .movie-tile-no-time > img{
     display: block;
@@ -41,6 +48,11 @@
     height: auto;
     object-fit: cover;
     object-position: top;
+	box-shadow: 0px 10px 15px -8px #999;
+}
+.movie-tile-no-time-inner{
+	width: 100%;
+	word-wrap: normal;
 }
 .movie-tile-no-time > img:hover{
     box-shadow: 0px 0px 10px 10px #ccc;
@@ -71,5 +83,11 @@
 
 /* ------------------- footer -------------------------- */
 .footer{
-    background-color: #494949;
+    background-color: #333;
+    color: white;
+    font-size:14px;
+}
+.footer-col{
+	border-top: 3px solid #fff;
+	box-shadow: inset 0px 5px 10px -5px #fff;
 }
