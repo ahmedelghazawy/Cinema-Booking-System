@@ -76,8 +76,8 @@ local_settings.py
 *.db
 media
 env/
-*/migrations/*.py
-!*/migrations/__init__.py
+**/migrations/*.py
+!**/migrations/__init__.py
 
 ################## Linux ##################
 *~
