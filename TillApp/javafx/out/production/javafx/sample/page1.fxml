@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-
 <GridPane fx:controller="sample.Controller"
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10"
 
@@ -23,6 +22,7 @@
     <Button text="Proceed" GridPane.rowIndex="5" GridPane.columnIndex="4" GridPane.halignment="RIGHT"/>
 
 
+    <!--<Button style="-fx-image: url(https://images.mymovies.net/images/film/cin/350x522/fid17746.jpg)" GridPane.rowIndex="0" GridPane.columnIndex="0"/>-->
     <Button GridPane.rowIndex="0" GridPane.columnIndex="0" maxWidth="175" maxHeight="261">
         <graphic>
             <ImageView>
@@ -36,6 +36,7 @@
         </font>
     </Label>
 
+    <!--<Button style="-fx-image: url(https://images.mymovies.net/images/film/cin/350x522/fid18048.jpg)" GridPane.rowIndex="0" GridPane.columnIndex="1"/>-->
     <Button GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="175" maxHeight="261">
         <graphic>
             <ImageView>
@@ -49,8 +50,8 @@
         </font>
     </Label>
 
-    <Button GridPane.rowIndex="0" GridPane.columnIndex="2" maxWidth="175" maxHeight="261" >
-            <!--onAction="#handleSubmitButtonAction">-->
+    <!--<Button style="-fx-graphic: url(https://images.mymovies.net/images/film/cin/350x522/fid17741.jpg)" GridPane.rowIndex="0" GridPane.columnIndex="2" maxWidth="175" maxHeight="261" />-->
+    <Button GridPane.rowIndex="0" GridPane.columnIndex="2" maxWidth="175" maxHeight="261">
         <graphic>
             <ImageView>
                 <Image url="@/sample/media/banner3.jpg"/>
@@ -63,6 +64,7 @@
         </font>
     </Label>
 
+    <!--<Button style="-fx-image: url(https://images.mymovies.net/images/film/cin/350x522/fid18098.jpg)" GridPane.rowIndex="0" GridPane.columnIndex="3"/>-->
     <Button GridPane.rowIndex="0" GridPane.columnIndex="3" maxWidth="175" maxHeight="261">
         <graphic>
             <ImageView>
@@ -76,6 +78,7 @@
         </font>
     </Label>
 
+    <!--<Button style="-fx-graphic: url(https://images.mymovies.net/images/film/cin/350x522/fid17806.jpg)" GridPane.rowIndex="0" GridPane.columnIndex="4"/>-->
     <Button GridPane.rowIndex="0" GridPane.columnIndex="4" maxWidth="175" maxHeight="261">
         <graphic>
             <ImageView>
@@ -95,6 +98,7 @@
 
 
 
+    <!--<Button style="-fx-image: url(https://images.mymovies.net/images/film/cin/350x522/fid17746.jpg)" GridPane.rowIndex="0" GridPane.columnIndex="0"/>-->
     <Button GridPane.rowIndex="2" GridPane.columnIndex="0" maxWidth="175" maxHeight="261">
         <graphic>
             <ImageView>
@@ -108,6 +112,7 @@
         </font>
     </Label>
 
+    <!--<Button style="-fx-image: url(https://images.mymovies.net/images/film/cin/350x522/fid18048.jpg)" GridPane.rowIndex="0" GridPane.columnIndex="1"/>-->
     <Button GridPane.rowIndex="2" GridPane.columnIndex="1" maxWidth="175" maxHeight="261">
         <graphic>
             <ImageView>
@@ -121,6 +126,7 @@
         </font>
     </Label>
 
+    <!--<Button style="-fx-graphic: url(https://images.mymovies.net/images/film/cin/350x522/fid17741.jpg)" GridPane.rowIndex="0" GridPane.columnIndex="2" maxWidth="175" maxHeight="261" />-->
     <Button GridPane.rowIndex="2" GridPane.columnIndex="2" maxWidth="175" maxHeight="261">
         <graphic>
             <ImageView>
@@ -134,6 +140,7 @@
         </font>
     </Label>
 
+    <!--<Button style="-fx-image: url(https://images.mymovies.net/images/film/cin/350x522/fid18098.jpg)" GridPane.rowIndex="0" GridPane.columnIndex="3"/>-->
     <Button GridPane.rowIndex="2" GridPane.columnIndex="3" maxWidth="175" maxHeight="261">
         <graphic>
             <ImageView>
@@ -147,6 +154,7 @@
         </font>
     </Label>
 
+    <!--<Button style="-fx-graphic: url(https://images.mymovies.net/images/film/cin/350x522/fid17806.jpg)" GridPane.rowIndex="0" GridPane.columnIndex="4"/>-->
     <Button GridPane.rowIndex="2" GridPane.columnIndex="4" maxWidth="175" maxHeight="261">
         <graphic>
             <ImageView>

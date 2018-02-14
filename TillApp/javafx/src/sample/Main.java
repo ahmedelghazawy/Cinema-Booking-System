@@ -6,7 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene; // what changes within the stage - backed by a scene graph - contains the UI nodes - scenes make it easier to use a container
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage; // top level UI container in Java - the window frame itself
+import javafx.stage.Stage; // top level UI container in JavaFX - the window frame itself
 
 import java.awt.*;
 
