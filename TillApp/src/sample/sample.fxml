@@ -50,7 +50,7 @@
     </Label>
 
     <Button GridPane.rowIndex="0" GridPane.columnIndex="2" maxWidth="175" maxHeight="261" >
-            <!--onAction="#handleSubmitButtonAction">-->
+        <!--onAction="#handleSubmitButtonAction">-->
         <graphic>
             <ImageView>
                 <Image url="@/sample/media/banner3.jpg"/>
@@ -164,11 +164,11 @@
 
 
     <!--<Button text="TEST" GridPane.rowIndex="0" GridPane.columnIndex="2" prefWidth="175" prefHeight="261" >-->
-        <!--<graphic>-->
-            <!--<ImageView>-->
-                <!--<Image url="@/sample/media/image.jpg"/>-->
-            <!--</ImageView>-->
-        <!--</graphic>-->
+    <!--<graphic>-->
+    <!--<ImageView>-->
+    <!--<Image url="@/sample/media/image.jpg"/>-->
+    <!--</ImageView>-->
+    <!--</graphic>-->
     <!--</Button>-->
 
 
