@@ -1,14 +1,18 @@
-module load python
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+echo $DIR
+
+module add python
 
 pip install virtualenv
 
-virtualenv env
+virtualenv $DIR/env
 
-source env/bin/activate
+source $DIR/env/bin/activate
 
 pip install django
 
-cd Application/
+cd $DIR/Application/
 
 python manage.py makemigrations
 
