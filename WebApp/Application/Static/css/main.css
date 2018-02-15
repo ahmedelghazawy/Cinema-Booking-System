@@ -1,0 +1,89 @@
+
+.movie-tile-no-time hr{
+	border: 2px solid #ddd !important;
+	box-shadow: 0px -3px 10px -1px #000;
+}
+
+
+/* ------------------- Navbar Styling --------------------- */
+
+.navbar-logo{
+    height: 40px;
+    display: inline-block;
+    margin-top:5px;
+}
+/* ------------------- Carousel Styling ------------------- */
+
+.img-responsive,
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+	display: block;
+	width: 100%;
+	height: auto;
+	max-height: 600px;
+	object-fit: cover;
+	object-position: top;
+}
+
+.carousel-caption{
+    background-color:  rgba(0,0,0,0.3)
+}
+
+/* ------------------- Movie Tiles ------------------- */
+.movie-tile-no-time-wrap{
+    text-align: center;
+}
+.movie-tile-no-time{
+    display: inline-block;
+    margin: 10 auto;
+    width: 100%;
+    text-align: center;
+    word-wrap: normal;
+}
+.movie-tile-no-time > img{
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: top;
+	box-shadow: 0px 10px 15px -8px #999;
+}
+.movie-tile-no-time-inner{
+	width: 100%;
+	word-wrap: normal;
+}
+.movie-tile-no-time > img:hover{
+    box-shadow: 0px 0px 10px 10px #ccc;
+}
+
+/* ------------------- Jumbotron homepage ------------------- */
+.jumbotron-homepage {
+    color:white !important;
+    text-align: center;
+    border-radius: 0px !important;
+    background-color: rgba(227, 123, 15,1) !important;
+    box-shadow:inset 0px 0px 30px 10px rgba(173, 88, 0, 0.3) !important;
+}
+/* ------------------- Social Links ------------------- */
+.social {
+    -webkit-filter: brig(100%); /* Safari 6.0 - 9.0 */
+    filter: brightness(100%);
+    -webkit-transition:  2s ease-out;
+  -moz-transition:  2s ease-out;
+  -o-transition:  2s ease-out;
+  transition: 0.5s ease-out;
+}
+.social img:hover {
+    -webkit-filter: brig(100%); /* Safari 6.0 - 9.0 */
+    filter: brightness(60%);
+    cursor:pointer;
+}
+
+/* ------------------- footer -------------------------- */
+.footer{
+    background-color: #333;
+    color: white;
+    font-size:14px;
+}
