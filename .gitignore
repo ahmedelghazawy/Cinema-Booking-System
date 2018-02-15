@@ -34,7 +34,7 @@ cmake-build-debug/
 
 # IntelliJ
 /out/
-TillApp/.idea/
+.idea/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -66,6 +66,11 @@ fabric.properties
 .idea/sonarlint
 
 
+############ JavaFX ###############
+
+!**/sample/media
+
+
 ################# Django ##################
 *.log
 *.pot
@@ -79,5 +84,3 @@ django/
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
 # <django-project-name>/staticfiles/
-
-
