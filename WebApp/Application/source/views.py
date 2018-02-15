@@ -6,7 +6,10 @@ def index(request):
 
     return render(request,'index.html')
 
+def whatson(request):
 
+    return render(request,'whatson.html')
+    
 def test1(request):
 
     return HttpResponse("<h1>test 1</h1>")
