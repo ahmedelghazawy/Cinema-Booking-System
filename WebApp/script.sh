@@ -14,9 +14,7 @@ python manage.py makemigrations
 
 python manage.py migrate
 
-python manage.py shell
-
-python manage.py populate_db 
+python manage.py populate_db
 
 python manage.py migrate
 
