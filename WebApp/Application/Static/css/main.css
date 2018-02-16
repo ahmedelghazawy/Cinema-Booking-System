@@ -8,9 +8,9 @@
 /* ------------------- Navbar Styling --------------------- */
 
 .navbar-logo{
-    height: 40px;
-    display: inline-block;
-    margin-top:5px;
+	height: 40px;
+	display: inline-block;
+	margin-top:5px;
 }
 /* ------------------- Carousel Styling ------------------- */
 
@@ -28,62 +28,91 @@
 }
 
 .carousel-caption{
-    background-color:  rgba(0,0,0,0.3)
+	background-color:  rgba(0,0,0,0.3)
 }
 
 /* ------------------- Movie Tiles ------------------- */
 .movie-tile-no-time-wrap{
-    text-align: center;
+	text-align: center;
 }
 .movie-tile-no-time{
-    display: inline-block;
-    margin: 10 auto;
-    width: 100%;
-    text-align: center;
-    word-wrap: normal;
+	position: relative;
+	display: inline-block;
+	margin: 10 auto;
+	width: 100%;
+	text-align: center;
+	word-wrap: normal;
 }
 .movie-tile-no-time > img{
-    display: block;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    object-position: top;
+	display: block;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	object-position: top;
 	box-shadow: 0px 10px 15px -8px #999;
 }
 .movie-tile-no-time-inner{
 	width: 100%;
 	word-wrap: normal;
 }
-.movie-tile-no-time > img:hover{
-    box-shadow: 0px 0px 10px 10px #ccc;
+.movie-tile-no-time .image-wrapper:hover .book-now{
+	opacity: 100;
+}
+.book-now{
+	opacity: 0;
+	text-shadow: 1px 1px #636363;
+	box-shadow: inset 0px -51px 38px -20px #ff8100;
+	color:white;
+	font-size: 50px;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	-webkit-transition: opacity 0.3s ease-out;
+	-moz-transition: opacity 0.3s ease-out;
+	-o-transition: opacity 0.3s ease-out;
+	transition: opacity 0.3s ease-out;
 }
 
+.image-wrapper{
+	padding: 0px;
+	margin: 0px;
+	position: relative;
+	width:auto;
+	display: inline-block;
+}
 /* ------------------- Jumbotron homepage ------------------- */
 .jumbotron-homepage {
-    color:white !important;
-    text-align: center;
-    border-radius: 0px !important;
-    background-color: rgba(227, 123, 15,1) !important;
-    box-shadow:inset 0px 0px 30px 10px rgba(173, 88, 0, 0.3) !important;
+	color:white !important;
+	text-align: center;
+	border-radius: 0px !important;
+	background-color: rgba(227, 123, 15,1) !important;
+	box-shadow:inset 0px 0px 30px 10px rgba(173, 88, 0, 0.3) !important;
+}
+
+.jumbotron-whatson{
+
 }
 /* ------------------- Social Links ------------------- */
 .social {
-    -webkit-filter: brig(100%); /* Safari 6.0 - 9.0 */
-    filter: brightness(100%);
-    -webkit-transition:  2s ease-out;
-  -moz-transition:  2s ease-out;
-  -o-transition:  2s ease-out;
-  transition: 0.5s ease-out;
+	-webkit-filter: brig(100%); /* Safari 6.0 - 9.0 */
+	filter: brightness(100%);
+	-webkit-transition:  0.3s ease-out;
+	-moz-transition:  0.3s ease-out;
+	-o-transition:  0.3s ease-out;
+	transition: 0.3s ease-out;
 }
 .social img:hover {
-    -webkit-filter: brig(100%); /* Safari 6.0 - 9.0 */
-    filter: brightness(60%);
-    cursor:pointer;
+	-webkit-filter: brig(100%); /* Safari 6.0 - 9.0 */
+	filter: brightness(40%);
+	cursor:pointer;
 }
 
 /* ------------------- footer -------------------------- */
 .footer{
-    background-color: #333;
-    color: white;
-    font-size:14px;
+	background-color: #333;
+	color: white;
+	font-size:14px;
 }
