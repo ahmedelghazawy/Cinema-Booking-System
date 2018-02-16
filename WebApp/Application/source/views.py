@@ -5,8 +5,8 @@ from source.models import *
 
 # Create your views here.
 def index(request):
-
-	return render(request,'index.html',{'nbar':'home'})
+	latest_movies = Movie.objects.order_by('-releaseDate')[:4]
+	return render(request,'index.html',{'nbar':'home','latest_movies':latest_movies})
 
 def whatson(request):
 	movies = Movie.objects.all()

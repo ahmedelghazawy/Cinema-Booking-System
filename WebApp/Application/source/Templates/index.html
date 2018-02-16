@@ -56,52 +56,20 @@
 					<h1>New Releases</h1>
 					<p>Check what new movies have appeared in our cinema this week</p>
 				</div>
-				<div class="col-lg-3 col-sm-6 col-xs-12 movie-tile-no-time-wrap">
-					<a href="#">
-						<div class=" movie-tile-no-time">
-							<img src="{% static 'img/MovieCovers/BlackPanther.jpg' %}">
-							<div class="movie-tile-no-time-inner">
-								<h1>Black Panther</h1>
-
-							</div>
-						</div>
-						<!-- <hr/> -->
-					</a>
-				</div>
+				{% for movie in latest_movies %}
 				<div class="col-lg-3 col-sm-6 col-xs-12 movie-tile-no-time">
 					<a href="#">
 						<div class=" movie-tile-no-time">
-							<img src="{% static 'img/MovieCovers/TheGreatestShowman.jpg' %}">
+							<div class="image-wrapper">
+								<img src="{% static movie.cover %}">
+								<div class="book-now">Book Now</div>
+							</div>
 							<div class="movie-tile-no-time-inner">
-								<h1>The Greatest Showman ever ever eer</h1>
-
+								<h1>{{ movie.title }}</h1>
 							</div>
 						</div>
-						<!-- <hr/> -->
 					</a>
 				</div>
-				<div class="col-lg-3 col-sm-6 col-xs-12 movie-tile-no-time">
-					<a href="#">
-						<div class=" movie-tile-no-time">
-							<img src="{% static 'img/MovieCovers/Coco.jpg' %}">
-							<div class="movie-tile-no-time-inner">
-								<h1>Coco</h1>
-
-							</div>
-						</div>
-						<!-- <hr/> -->
-					</a>
-				</div>
-				<div class="col-lg-3 col-sm-6 col-xs-12 movie-tile-no-time">
-					<a href="#">
-						<div class=" movie-tile-no-time">
-							<img src="{% static 'img/MovieCovers/EarlyMan.jpg' %}">
-							<div class="movie-tile-no-time-inner">
-								<h1>Early Man</h1>
-							</div>
-						</div>
-						<!-- <hr/> -->
-					</a>
-				</div>
+				{% endfor %}
 			</div>
 {% include 'footer.html' %}
