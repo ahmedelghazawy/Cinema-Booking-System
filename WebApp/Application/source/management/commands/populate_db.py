@@ -99,7 +99,7 @@ class Command(BaseCommand):
         movie5.cast.add(actor14)
         movie5.cast.add(actor15)
 
-        movie6 = Movie(title = "Fifty Shades Freed", blurb = "Anastasia and Christian get married, but Jack Hyde continues to threaten their relationship.", cover = "img/MovieCovers/FifityShadesFreed.jpg", rating = 4.2  ,duration = "105", director = "James Foley", certificate = "R", releaseDate = "2018-02-09")
+        movie6 = Movie(title = "Fifty Shades Freed", blurb = "Anastasia and Christian get married, but Jack Hyde continues to threaten their relationship.", cover = "img/MovieCovers/FiftyShadesFreed.jpg", rating = 4.2  ,duration = "105", director = "James Foley", certificate = "R", releaseDate = "2018-02-09")
         movie6.save()
         movie6.cast.add(actor16)
         movie6.cast.add(actor17)
@@ -111,7 +111,7 @@ class Command(BaseCommand):
         movie7.cast.add(actor20)
         movie7.cast.add(actor21)
 
-        movie8 = Movie(title = "Maze Runner: The Death Cure", blurb = "Young hero Thomas embarks on a mission to find a cure for a deadly disease known as the 'Flare'.", cover = "img/MovieCovers/MazeRunnerTheDeathCure. jpg", rating = 6.9  ,duration = "141", director = "Wes Ball", certificate = "13", releaseDate = "2018-01-26")
+        movie8 = Movie(title = "Maze Runner: The Death Cure", blurb = "Young hero Thomas embarks on a mission to find a cure for a deadly disease known as the 'Flare'.", cover = "img/MovieCovers/MazeRunnerTheDeathCure.jpg", rating = 6.9  ,duration = "141", director = "Wes Ball", certificate = "13", releaseDate = "2018-01-26")
         movie8.save()
         movie8.cast.add(actor22)
         movie8.cast.add(actor23)
