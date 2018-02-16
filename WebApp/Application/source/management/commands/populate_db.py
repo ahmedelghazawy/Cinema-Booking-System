@@ -93,7 +93,7 @@ class Command(BaseCommand):
         movie4.cast.add(actor11)
         movie4.cast.add(actor12)
 
-        movie5 = Movie(title = "The Shape of Water", blurb = "At a top secret research facility in the 1960s, a lonely janitor forms a unique relationship with an amphibious creature that is being held in captivity.", cover = "img/MovieCovers/TheShapeofWater.jpg", rating = 7.8  ,duration = "123", director = "Guillermo der Toro", certificate = "R", releaseDate = "2017-12-22")
+        movie5 = Movie(title = "The Shape of Water", blurb = "At a top secret research facility in the 1960s, a lonely janitor forms a unique relationship with an amphibious creature that is being held in captivity.", cover = "img/MovieCovers/TheShapeOfWater.jpg", rating = 7.8  ,duration = "123", director = "Guillermo der Toro", certificate = "R", releaseDate = "2017-12-22")
         movie5.save()
         movie5.cast.add(actor13)
         movie5.cast.add(actor14)

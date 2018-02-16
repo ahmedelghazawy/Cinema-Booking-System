@@ -1,33 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		{% load staticfiles %}
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="">
-
-		<title>Toucan</title>
-
-		<!-- Bootstrap core CSS -->
-		<link href="{% static 'css/main.css' %}" rel="stylesheet">
-		<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-		<script src="{% static 'js/jquery.min.js' %}"></script>
-		<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-	</head>
-	<body>
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a href="/" class="navbar-left"><img class="navbar-logo" src="{% static 'img/logo.png' %}"></a>
-					<a class="navbar-brand" href="#">&nbsp; Toucan</a>
-				</div>
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="/">Home</a></li>
-					<li><a href="/whatson">What's On</a></li>
-				</ul>
-			</div>
-		</nav>
+{% load staticfiles %}
+{% include "navbar.html" %}
 		<div class="container-fluid" >
 			<div class="row" >
 				<div class="col-sm-12">
@@ -126,48 +98,10 @@
 							<img src="{% static 'img/MovieCovers/EarlyMan.jpg' %}">
 							<div class="movie-tile-no-time-inner">
 								<h1>Early Man</h1>
-
 							</div>
 						</div>
 						<!-- <hr/> -->
 					</a>
 				</div>
 			</div>
-			<div class = "row footer social">
-				<div style = "text-align:center;" class="col-lg-4 col-sm-12 ">
-					<a href="#" >
-						<img  src="{% static 'img/logo2.png' %}" alt="logo" height="200px">
-					</a>
-
-				</div>
-				<div class="col-lg-4 col-sm-12 ">
-					<p></p>
-				</div>
-				<div style = "text-align:center" class="col-lg-4 col-sm-12 ">
-					<h2 >Connect</h2>
-					<img class = "social" style = "padding:6px; " src="{% static 'img/SocialMedia/facebook.png' %}" alt="facebook" height="70">
-					<img class = "social" style = "padding:7px; " src="{% static 'img/SocialMedia/twitter.png' %}" alt="twitter" height="70">
-					<img class = "social" style = "padding:7px; " src="{% static 'img/SocialMedia/instagram.png' %}" alt="instagram" height="70">
-					<img class = "social" style = "padding:7px; " src="{% static 'img/SocialMedia/google.png' %}" alt="google+" height="70">
-					<img class = "social" style = "padding:7px; " src="{% static 'img/SocialMedia/snapchat.png' %}" alt="snapchat" height="70">
-				</div>
-				<hr/>
-			</div>
-			<div class="row footer" style="text-align:center; padding:20px" >
-					<div class="col-lg-4 col-sm-12">
-						<h3 >Website map</h3>
-						<ul>
-							<li>Home</li>
-							<li>What's On</li>
-						</ul>
-					</div>
-					<div class="col-lg-4 col-sm-12 ">
-						<h3>Legal</h3>
-					</div>
-					<div class="col-lg-4 col-sm-12">
-						<h3>About Toucan</h3>
-					</div>
-			</div>
-		</div>
-	</body>
-</html>
+{% include 'footer.html' %}
