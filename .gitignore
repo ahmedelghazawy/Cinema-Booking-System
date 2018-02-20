@@ -118,6 +118,9 @@ Icon
 # Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop
+
+#Class files directory
+TillApp/bin
 Network Trash Folder
 Temporary Items
 .apdisk

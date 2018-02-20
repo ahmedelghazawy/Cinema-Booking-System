@@ -11,7 +11,7 @@ public class Movie {
     private String title;
     private String certificate;
     private Timestamp duration;
-    private List<Screening> screenings;
+    //private List<Screening> screenings;
 
     public String getTitle() {
         return title;
@@ -34,7 +34,7 @@ class MovieData {
 
         try (Connection conn = database.open())
         {
-            List<Movie> movies = conn.createQuery("SELECT * FROM Movie").executeAndFetch(Movie.class);
+            List<Movie> movies = conn.createQuery("SELECT title, certificate, duration FROM source_movie").executeAndFetch(Movie.class);
 
             for (Movie movie: movies)
             {
