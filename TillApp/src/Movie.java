@@ -43,9 +43,4 @@ class MovieData {
         }
 
     }
-
-    public static void main(String[] args) {
-      Sql2o db = new Sql2o("jdbc:sqlite:../../WebApp/Application/databse.db", "", "");
-      queryTitle(db);
-    }
 }
