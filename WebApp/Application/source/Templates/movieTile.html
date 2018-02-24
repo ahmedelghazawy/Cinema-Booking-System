@@ -1,14 +1,154 @@
 {% load staticfiles %}
-<div class="col-lg-3 col-sm-6 col-xs-12 movie-tile-no-time">
-    <a href="#">
-        <div class=" movie-tile-no-time">
-            <div class="image-wrapper">
-                <img src="{% static 'img/MovieCovers/TheGreatestShowman.jpg' %}">
-                <div class="book-now">Book Now</div>
-            </div>
-            <div class="movie-tile-no-time-inner">
-                <h1>The Greatest Showman</h1>
-            </div>
+{% include 'navbar.html' %}
+<style>
+.bodyaq{
+  width: 90%;
+  margin:auto;
+}
+
+.ratingBlock p{
+  display: inline;
+}
+.ratingBlock span{
+  font-size: 30px;
+}
+.ratingBlock i{
+  font-size: 22px;
+  color: gold;
+}
+.movieBlurb{
+  margin: 20px 0 30px 0;
+  font-size: 16px;
+  line-height: 1.7;
+
+}
+.timingTime{
+  font-size: 18px;
+  color: white;
+  background: black;
+
+  margin: 5px;
+  padding: 4px 8px;
+  display: inline-block;
+}
+
+
+
+/**
+ * Tabs
+ */
+.tabs {
+	display: flex;
+	flex-wrap: wrap; // make sure it wraps
+}
+.tabs label {
+	order: 1; // Put the labels first
+	display: block;
+	padding: 1rem 2rem;
+	margin-right: 0.2rem;
+	cursor: pointer;
+  background: #90CAF9;
+  font-weight: bold;
+  transition: background ease 0.2s;
+}
+.tabs .tab {
+  order: 99; // Put the tabs last
+  flex-grow: 1;
+	width: 100%;
+	display: none;
+  padding: 1rem;
+  background: #fff;
+}
+.tabs input[type="radio"] {
+	display: none;
+}
+.tabs input[type="radio"]:checked + label {
+	background: #fff;
+}
+.tabs input[type="radio"]:checked + label + .tab {
+	display: block;
+}
+
+@media (max-width: 45em) {
+  .tabs .tab,
+  .tabs label {
+    order: initial;
+  }
+  .tabs label {
+    width: 100%;
+    margin-right: 0;
+    margin-top: 0.2rem;
+  }
+}
+
+/**
+ * Generic Styling
+*/
+
+
+
+
+
+
+
+</style>
+<div class="container bodyaq">
+  <div class="row">
+    <div class="col-lg-4" style="text-align:center;">
+      <img src="{% static movie.cover %}"/>
+    </div>
+    <div class="col-lg-6" style="">
+      <div class="ratingBlock">
+        <h1>{{movie.title}}</h1>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-half-o"></i>
+        <p><span>{{movie.rating}}</span> / 10<p>
+      </div>
+      <p class="movieBlurb">{{movie.blurb}}{{movie.blurb}}{{movie.blurb}}</p>
+      <h3>Timings</h3>
+
+      <div class="tabs">
+        <input type="radio" name="tabs" id="tabone" checked="checked">
+        <label for="tabone">Today</label>
+        <div class="tab">
+          {% for timing in timings %}
+            {% if movie.title == timing.screening_id.movie_id.title %}
+            <p class="timingTime">{{timing.time|time:"H:i"}}</p>
+            <p class="timingTime">{{timing.time|time:"H:i"}}</p>
+            {% endif %}
+          {% endfor %}
         </div>
-    </a>
+
+        <input type="radio" name="tabs" id="tabtwo">
+        <label for="tabtwo">Tuesday</label>
+        <div class="tab">
+          {% for timing in timings %}
+            {% if movie.title == timing.screening_id.movie_id.title %}
+            <p class="timingTime">{{timing.time|time:"H:i"}}</p>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <input type="radio" name="tabs" id="tabthree">
+        <label for="tabthree">Wednesday</label>
+        <div class="tab">
+          {% for timing in timings %}
+            {% if movie.title == timing.screening_id.movie_id.title %}
+            <p class="timingTime">{{timing.time|time:"H:i"}}</p>
+            <p class="timingTime">{{timing.time|time:"H:i"}}</p>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+  </div>
 </div>
+{% include 'footer.html' %}
