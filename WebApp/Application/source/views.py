@@ -12,6 +12,10 @@ def whatson(request):
 	movies = Movie.objects.all()
 	return render(request,'whatson.html',{'nbar':'whatson','movies':movies} )
 
+
+def booking(request):
+        return render(request,'booking.html')
+
 def test1(request):
 
 	return HttpResponse("<h1>test 1</h1>")
