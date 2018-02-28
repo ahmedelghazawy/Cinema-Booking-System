@@ -12,12 +12,22 @@ import java.awt.*;
 
 public class Main extends Application {
 
+    private Stage secondStage;
+
+    private Stage window;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
+
+        window = primaryStage;
+
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Cine-Toucan");
-        primaryStage.setScene(new Scene(root, 1165, 700));
-        primaryStage.show();
+
+        Parent second = FXMLLoader.load(getClass().getResource("test.fxml"));
+
+        window.setTitle("Cine-Toucan");
+        window.setScene(new Scene(root, 1165, 700));
+        window.show();
     }
 
 
