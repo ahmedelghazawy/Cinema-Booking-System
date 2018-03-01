@@ -10,7 +10,11 @@ virtualenv $DIR/env
 
 source $DIR/env/bin/activate
 
-pip install django
+ pip install django
+
+pip install djangorestframework
+
+pip install django-filter
 
 cd $DIR/Application/
 
