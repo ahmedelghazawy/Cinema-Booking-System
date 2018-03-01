@@ -12,9 +12,11 @@ def whatson(request):
 	movies = Movie.objects.all()
 	return render(request,'whatson.html',{'nbar':'whatson','movies':movies} )
 
-def test1(request):
-
-	return HttpResponse("<h1>test 1</h1>")
+def moviePage(request, MovieID):
+	movie = Movie.objects.get(id=MovieID)
+	screenings = Screening.objects.all()
+	timings = Timing.objects.all()
+	return render(request,'movieTile.html',{'movie':movie, 'screenings':screenings, 'timings':timings} )
 
 
 def test2(request):
