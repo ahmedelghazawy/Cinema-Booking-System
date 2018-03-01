@@ -8,8 +8,10 @@
 					<a href="#">
 						<div class=" movie-tile-no-time">
 							<div class="image-wrapper">
-								<img src="{% static movie.cover %}">
-								<div class="book-now">Book Now</div>
+								<a href="/moviePage/{{movie.id}}">
+									<img src="{% static movie.cover %}">
+									<div class="book-now">Book Now</div>
+								</a>
 							</div>
 							<div class="movie-tile-no-time-inner">
 								<h1>{{ movie.title }}</h1>
