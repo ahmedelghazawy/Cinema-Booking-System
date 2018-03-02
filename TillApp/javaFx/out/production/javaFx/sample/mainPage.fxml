@@ -46,7 +46,7 @@
         </font>
     </Label>
 
-    <Button maxHeight="261" maxWidth="175" onAction="#handleButtonAction" GridPane.columnIndex="2" GridPane.rowIndex="0">
+    <Button maxHeight="261" maxWidth="175" onAction="#moveToTicket" GridPane.columnIndex="2" GridPane.rowIndex="0">
         <graphic>
             <ImageView>
                 <Image url="@/sample/media/banner3.jpg" />

@@ -27,28 +27,44 @@ import java.io.*;
 
 public class Controller {
 
-//    @FXML
-//    private Parent second;
-//    private Stage window;
+    @FXML
+    private Parent second;
+    private Stage window;
 
 
     @FXML
-    public void handleButtonAction(ActionEvent event) throws IOException {
-        Parent second = FXMLLoader.load(getClass().getResource("test.fxml"));
-        Scene secondScene = new Scene(second, 1165, 700);
+    public void moveToTicket(ActionEvent event) throws IOException {
+        Parent ticket = FXMLLoader.load(getClass().getResource("ticketType.fxml"));
+        Scene ticketScene = new Scene(ticket, 1165, 700);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(secondScene);
+        window.setScene(ticketScene);
     }
 
 
     @FXML
     public void backToMain(ActionEvent event) throws IOException {
-        Parent main = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent main = FXMLLoader.load(getClass().getResource("mainPage.fxml"));
         Scene mainScene = new Scene(main, 1165, 700);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(mainScene);
     }
 
 
+    @FXML
+    public void moveToSeating(ActionEvent event) throws IOException {
+        Parent seat = FXMLLoader.load(getClass().getResource("seatSelection.fxml"));
+        Scene seatingScene = new Scene(seat, 1165, 700);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(seatingScene);
+    }
+
+
+    @FXML
+    public void backToTicket(ActionEvent event) throws IOException {
+        Parent ticket = FXMLLoader.load(getClass().getResource("ticketType.fxml"));
+        Scene ticketScene = new Scene(ticket, 1165, 700);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(ticketScene);
+    }
 
 }
