@@ -17,6 +17,9 @@ def whatson(request):
 	movies = Movie.objects.all()
 	return render(request,'whatson.html',{'nbar':'whatson','movies':movies} )
 
+def login(request):
+    return render(request,'login.html',{'nbar':'login'} )
+
 def moviePage(request, MovieID):
 	movie = Movie.objects.filter(id=MovieID).first()
 	currentDateTime = datetime.now()
