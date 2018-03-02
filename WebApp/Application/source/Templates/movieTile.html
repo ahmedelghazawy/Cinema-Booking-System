@@ -2,8 +2,8 @@
 {% include 'navbar.html' %}
 <style>
 .bodyaq{
-  width: 90%;
-  margin:auto;
+  width: 100%;
+  margin: 40px auto 100px auto;
 }
 
 .ratingBlock p{
@@ -26,10 +26,21 @@
   font-size: 18px;
   color: white;
   background: black;
-
   margin: 5px;
   padding: 4px 8px;
   display: inline-block;
+}
+.timingTime:hover{
+  border: 1px solid orange;
+  margin: 4px;
+  cursor: pointer;
+}
+.backgroundgrey{
+  background: grey;
+}
+.backgroundgrey:hover{
+  border: 1px solid white;
+  cursor: default;
 }
 
 
@@ -45,18 +56,19 @@
 	order: 1; // Put the labels first
 	display: block;
 	padding: 1rem 2rem;
-	margin-right: 0.2rem;
-	cursor: pointer;
-  background: #90CAF9;
+	margin-right: 0;
+
+  background: #fff;
   font-weight: bold;
   transition: background ease 0.2s;
+  color:#8C8C8C;
 }
 .tabs .tab {
   order: 99; // Put the tabs last
   flex-grow: 1;
 	width: 100%;
 	display: none;
-  padding: 1rem;
+  padding: 16px 16px 16px 0;
   background: #fff;
 }
 .tabs input[type="radio"] {
@@ -64,6 +76,7 @@
 }
 .tabs input[type="radio"]:checked + label {
 	background: #fff;
+  color:#141414;
 }
 .tabs input[type="radio"]:checked + label + .tab {
 	display: block;
@@ -75,7 +88,7 @@
     order: initial;
   }
   .tabs label {
-    width: 100%;
+    width: 80%;
     margin-right: 0;
     margin-top: 0.2rem;
   }
@@ -92,13 +105,13 @@
 
 
 </style>
-<div class="container bodyaq">
+<div class="bodyaq">
   <div class="row">
     <div class="col-lg-4" style="text-align:center;">
       <img src="{% static movie.cover %}"/>
     </div>
-    <div class="col-lg-6" style="">
-      <div class="ratingBlock">
+    <div class="col-lg-6" >
+      <div class="ratingBlock" >
         <h1>{{movie.title}}</h1>
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
@@ -106,8 +119,12 @@
         <i class="fa fa-star"></i>
         <i class="fa fa-star-half-o"></i>
         <p><span>{{movie.rating}}</span> / 10<p>
+        <p style="float:right;margin-top:14px;font-size:18px;">Duration: {{movie.duration}} mins </p>
       </div>
       <p class="movieBlurb">{{movie.blurb}}{{movie.blurb}}{{movie.blurb}}</p>
+      <p>Director: {{movie.director}}</p>
+
+
       <h3>Timings</h3>
 
       <div class="tabs">
@@ -115,9 +132,13 @@
         <label for="tabone">Today</label>
         <div class="tab">
           {% for timing in timings %}
-            {% if movie.title == timing.screening_id.movie_id.title %}
-            <p class="timingTime">{{timing.time|time:"H:i"}}</p>
-            <p class="timingTime">{{timing.time|time:"H:i"}}</p>
+            {% if movie.title == timing.movie_id.title %}
+              {% if currentTime > timing.time %}
+              <p class="timingTime backgroundgrey">{{timing.time|time:"H:i"}}</p>
+              {% endif %}
+              {% if currentTime < timing.time %}
+                  <p class="timingTime">{{timing.time|time:"H:i"}}</p>
+              {% endif %}
             {% endif %}
           {% endfor %}
         </div>
@@ -126,8 +147,13 @@
         <label for="tabtwo">Tuesday</label>
         <div class="tab">
           {% for timing in timings %}
-            {% if movie.title == timing.screening_id.movie_id.title %}
-            <p class="timingTime">{{timing.time|time:"H:i"}}</p>
+            {% if movie.title == timing.movie_id.title %}
+              {% if currentTime > timing.time %}
+              <p class="timingTime backgroundgrey">{{timing.time|time:"H:i"}}</p>
+              {% endif %}
+              {% if currentTime < timing.time %}
+              <p class="timingTime">{{timing.time|time:"H:i"}}</p>
+              {% endif %}
             {% endif %}
           {% endfor %}
         </div>
@@ -136,19 +162,40 @@
         <label for="tabthree">Wednesday</label>
         <div class="tab">
           {% for timing in timings %}
-            {% if movie.title == timing.screening_id.movie_id.title %}
-            <p class="timingTime">{{timing.time|time:"H:i"}}</p>
-            <p class="timingTime">{{timing.time|time:"H:i"}}</p>
+            {% if movie.title == timing.movie_id.title %}
+              {% if currentTime > timing.time %}
+              <p class="timingTime backgroundgrey">{{timing.time|time:"H:i"}}</p>
+              {% endif %}
+              {% if currentTime < timing.time %}
+              <p class="timingTime">{{timing.time|time:"H:i"}}</p>
+              {% endif %}
             {% endif %}
           {% endfor %}
         </div>
       </div>
 
 
-
-
-
     </div>
+  </div>
+  <div class="row" style="width:100%;margin-top:90px;background:#F0F0F0;">
+    <div class="col-lg-12" style="text-align:center;">
+      <h1 style="margin:0 0 60px 0;padding-top:30px;">Also Showing</h1>
+    </div>
+    {% for movie in latest_movies %}
+    <div class="col-lg-3 col-sm-6 col-xs-12 movie-tile-no-time" style="margin-bottom:60px;">
+      <a href="#">
+        <div class=" movie-tile-no-time">
+          <div class="image-wrapper">
+            <img src="{% static movie.cover %}" style="width:75%;">
+            <div class="book-now">Book Now</div>
+          </div>
+          <div class="movie-tile-no-time-inner">
+            <h3 style="color:#141414;">{{ movie.title }}</h3>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
   </div>
 </div>
 {% include 'footer.html' %}

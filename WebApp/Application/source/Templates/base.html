@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="">
 		<meta name="author" content="">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 		<title>Toucan</title>
 
@@ -16,16 +17,20 @@
 		<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 	</head>
 	<body>
-		<nav class="navbar navbar-default">
+		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<a href="/" class="navbar-left"><img class="navbar-logo" src="{% static 'img/logo.png' %}"></a>
-					<a class="navbar-brand" href="#">&nbsp; Toucan</a>
+					<a class="navbar-brand" href="/">&nbsp; Toucan</a>
 				</div>
 				<ul class="nav navbar-nav">
 					<li><a href="/">Home</a></li>
 					<li  class="active"><a href="/whatson">What's On</a></li>
 				</ul>
+				<ul class="nav navbar-nav navbar-right">
+		      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+		      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+		    </ul>
 			</div>
 		</nav>
 		{% block content %}
