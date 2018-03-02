@@ -63,11 +63,11 @@
 	text-shadow: 1px 1px #636363;
 	box-shadow: inset 0px -51px 38px -20px #ff8100;
 	color:white;
-	font-size: 50px;
+	font-size: 40px;
 	position: absolute;
 	bottom: 0px;
-	left: 0px;
-	width: 100%;
+	left: 12.5%;
+	width: 75%;
 	text-align: center;
 	font-weight: bold;
 	-webkit-transition: opacity 0.3s ease-out;
@@ -96,7 +96,14 @@
 
 }
 /* ------------------- Social Links ------------------- */
-.social {
+.socialFooter{
+	text-align: center;
+	width: 100%;
+
+	padding: 50px auto;
+	background: #262626;
+}
+.socialFooter {
 	-webkit-filter: brig(100%); /* Safari 6.0 - 9.0 */
 	filter: brightness(100%);
 	-webkit-transition:  0.3s ease-out;
@@ -104,15 +111,44 @@
 	-o-transition:  0.3s ease-out;
 	transition: 0.3s ease-out;
 }
+.social{
+	color: blue;
+	width: 20%;
+	height: 20%;
+	max-width: 60px;
+	max-height: 60px;
+	margin: 15px 5px;
+}
+.social img {
+
+}
 .social img:hover {
-	-webkit-filter: brig(100%); /* Safari 6.0 - 9.0 */
-	filter: brightness(40%);
-	cursor:pointer;
+
+}
+
+.infoFooter{
+	background: #141414;
+	color: white;
+	padding-top: 10px;
+	font-size: 14px;
+}
+.footerList{
+	padding: 0;
+	list-style: none;
+	background:#141414;
+}
+
+
+.logoFooter{
+	background: #141414;
+}
+.logoFooter img{
+	margin: auto;
+	width: 10%;
+	height: 10%;
 }
 
 /* ------------------- footer -------------------------- */
-.footer{
-	background-color: #333;
-	color: white;
-	font-size:14px;
+footer{
+	background:#141414;
 }
