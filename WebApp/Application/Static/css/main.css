@@ -63,11 +63,11 @@
 	text-shadow: 1px 1px #636363;
 	box-shadow: inset 0px -51px 38px -20px #ff8100;
 	color:white;
-	font-size: 50px;
+	font-size: 40px;
 	position: absolute;
 	bottom: 0px;
-	left: 0px;
-	width: 100%;
+	left: 12.5%;
+	width: 75%;
 	text-align: center;
 	font-weight: bold;
 	-webkit-transition: opacity 0.3s ease-out;

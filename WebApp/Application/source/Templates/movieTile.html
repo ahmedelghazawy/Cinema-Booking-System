@@ -2,7 +2,7 @@
 {% include 'navbar.html' %}
 <style>
 .bodyaq{
-  width: 90%;
+  width: 100%;
   margin: 40px auto 100px auto;
 }
 
@@ -32,11 +32,15 @@
 }
 .timingTime:hover{
   border: 1px solid orange;
-  cursor: pointer;
   margin: 4px;
+  cursor: pointer;
 }
 .backgroundgrey{
   background: grey;
+}
+.backgroundgrey:hover{
+  border: 1px solid white;
+  cursor: default;
 }
 
 
@@ -53,8 +57,8 @@
 	display: block;
 	padding: 1rem 2rem;
 	margin-right: 0;
-	cursor: pointer;
-  background: #E2E2E2;
+
+  background: #fff;
   font-weight: bold;
   transition: background ease 0.2s;
   color:#8C8C8C;
@@ -101,7 +105,7 @@
 
 
 </style>
-<div class="container bodyaq">
+<div class="bodyaq">
   <div class="row">
     <div class="col-lg-4" style="text-align:center;">
       <img src="{% static movie.cover %}"/>
@@ -133,9 +137,7 @@
               <p class="timingTime backgroundgrey">{{timing.time|time:"H:i"}}</p>
               {% endif %}
               {% if currentTime < timing.time %}
-
-                <p class="timingTime">{{timing.time|time:"H:i"}}</p>
-              
+                  <p class="timingTime">{{timing.time|time:"H:i"}}</p>
               {% endif %}
             {% endif %}
           {% endfor %}
@@ -172,8 +174,28 @@
         </div>
       </div>
 
+
     </div>
   </div>
-
+  <div class="row" style="width:100%;margin-top:90px;background:#F0F0F0;">
+    <div class="col-lg-12" style="text-align:center;">
+      <h1 style="margin:0 0 60px 0;padding-top:30px;">Also Showing</h1>
+    </div>
+    {% for movie in latest_movies %}
+    <div class="col-lg-3 col-sm-6 col-xs-12 movie-tile-no-time" style="margin-bottom:60px;">
+      <a href="#">
+        <div class=" movie-tile-no-time">
+          <div class="image-wrapper">
+            <img src="{% static movie.cover %}" style="width:75%;">
+            <div class="book-now">Book Now</div>
+          </div>
+          <div class="movie-tile-no-time-inner">
+            <h3 style="color:#141414;">{{ movie.title }}</h3>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 {% include 'footer.html' %}
