@@ -174,6 +174,10 @@ span {
       </div>
       <p class="movieBlurb">{{movie.blurb}}{{movie.blurb}}{{movie.blurb}}</p>
       <p>Director: {{movie.director}}</p>
+      <p style="display:inline;">Starring:</p>
+      {% for i in movie.cast.all %}
+      <p style="display:inline;">{{i.name}}, </p>
+      {% endfor%}
 
 
       <h3>Timings</h3>
