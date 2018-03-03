@@ -99,6 +99,42 @@
 */
 
 
+.star_rating {
+  position: relative;
+  display: inline-block;
+  letter-spacing:5px;
+}
+
+.star_rating:before {
+    display:block;
+    font-size:20px;
+    top:0;
+    left:0;
+    font-family: FontAwesome;
+    content: "\f005\f005\f005\f005\f005";
+    color: #DEDEDE;
+    padding-left:5px;
+}
+span {
+    position:absolute;
+    top:0;
+    left:0;
+    height:100%;
+    display:block;
+    overflow:hidden;
+}
+    span:before{
+      font-size:20px;
+      font-family: FontAwesome;
+      color: #FFDC00;
+      position: absolute;
+      left: 0;
+      top:0;
+      content:"\f005\f005\f005\f005\f005";
+      display:block;
+      padding-left:5px;
+    }
+
 
 
 
@@ -106,6 +142,8 @@
 
 </style>
 <div class="bodyaq">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
   <div class="row">
     <div class="col-lg-4" style="text-align:center;">
       <img src="{% static movie.cover %}"/>
@@ -113,13 +151,26 @@
     <div class="col-lg-6" >
       <div class="ratingBlock" >
         <h1>{{movie.title}}</h1>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star-half-o"></i>
-        <p><span>{{movie.rating}}</span> / 10<p>
-        <p style="float:right;margin-top:14px;font-size:18px;">Duration: {{movie.duration}} mins </p>
+        <p><div class="star_rating">{{movie.rating}}</div>{{movie.rating}} / 10<p>
+
+        <script>
+        $( document ).ready(function() {
+        $(function(){
+          $('.star_rating').rating();
+        });
+
+        /**
+         * Star module
+         * jayjamero@propertyguru.com.sg
+        **/
+        $.fn.rating = function() {
+            var val = 0, size = 0, stars = 5;
+            return this.each(function(i,e){ val = parseFloat(($(e).text()/2)); size = ( $(e).width() / stars ); $(e).html($('<span/>').animate({ width: val * size }, 0 ) ); });
+        };
+        });
+
+        </script>
+        <p style="float:right;margin-top:0px;font-size:18px;">Duration: {{movie.duration}} mins </p>
       </div>
       <p class="movieBlurb">{{movie.blurb}}{{movie.blurb}}{{movie.blurb}}</p>
       <p>Director: {{movie.director}}</p>
