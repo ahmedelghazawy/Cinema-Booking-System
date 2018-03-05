@@ -1,3 +1,4 @@
+#!/bin/sh
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo $DIR
@@ -26,4 +27,10 @@ python manage.py populate_db
 
 python manage.py migrate
 
-python manage.py runserver
+if [ $1 == "devel" ]
+then
+	echo "Running DEVELOPMENT session"
+else
+	echo "Running NORMAL session"
+	python manage.py runserver
+fi
