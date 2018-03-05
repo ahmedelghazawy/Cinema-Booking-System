@@ -1,0 +1,103 @@
+{% load staticfiles %}
+{% include 'navbar.html' %}
+<link rel="stylesheet" href="{% static 'css/movieBlurb.css' %}">
+<div class="bodyaq">
+	<div class="row">
+		<div class="col-lg-4" style="text-align:center;">
+			<img src="{% static movie.cover %}"/>
+		</div>
+		<div class="col-lg-6" >
+			<div class="ratingBlock" >
+				<h1>{{movie.title}}</h1>
+				<i class="fa fa-star"></i>
+				<i class="fa fa-star"></i>
+				<i class="fa fa-star"></i>
+				<i class="fa fa-star"></i>
+				<i class="fa fa-star-half-o"></i>
+				<p><span>{{movie.rating}}</span> / 10<p>
+				<p style="float:right;margin-top:14px;font-size:18px;">Duration: {{movie.duration}} mins </p>
+			</div>
+			<p class="movieBlurb">{{movie.blurb}}{{movie.blurb}}{{movie.blurb}}</p>
+			<p>Director: {{movie.director}}</p>
+
+
+			<h3>Timings</h3>
+
+			<div class="tabs">
+				<input type="radio" name="tabs" id="tabone" checked="checked">
+				<label for="tabone">Today</label>
+				<div class="tab">
+					{% for timing in timings %}
+						{% if movie.title == timing.movie_id.title %}
+							{% if currentDate == timing.date %}
+								{% if currentTime > timing.time %}
+								<p class="timingTime backgroundgrey">{{timing.time|time:"H:i"}}</p>
+								{% endif %}
+								{% if currentTime < timing.time %}
+										<p class="timingTime">{{timing.time|time:"H:i"}}</p>
+								{% endif %}
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+				</div>
+
+				<input type="radio" name="tabs" id="tabtwo">
+				<label for="tabtwo">Tuesday</label>
+				<div class="tab">
+					{% for timing in timings %}
+						{% if movie.title == timing.movie_id.title %}
+							{% if (currentDate + datetime.timedelta(days=1)) == timing.date %}
+								{% if currentTime > timing.time %}
+								<p class="timingTime backgroundgrey">{{timing.time|time:"H:i"}}</p>
+								{% endif %}
+								{% if currentTime < timing.time %}
+								<p class="timingTime">{{timing.time|time:"H:i"}}</p>
+								{% endif %}
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+				</div>
+
+				<input type="radio" name="tabs" id="tabthree">
+				<label for="tabthree">Wednesday</label>
+				<div class="tab">
+					{% for timing in timings %}
+						{% if movie.title == timing.movie_id.title %}
+							{% if (currentDate + datetime.timedelta(days=2)) == timing.date %}
+								{% if currentTime > timing.time %}
+								<p class="timingTime backgroundgrey">{{timing.time|time:"H:i"}}</p>
+								{% endif %}
+								{% if currentTime < timing.time %}
+								<p class="timingTime">{{timing.time|time:"H:i"}}</p>
+								{% endif %}
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+	<div class="row" style="width:100%;margin-top:90px;background:#F0F0F0;">
+		<div class="col-lg-12" style="text-align:center;">
+			<h1 style="margin:0 0 60px 0;padding-top:30px;">Also Showing</h1>
+		</div>
+		{% for movie in latest_movies %}
+		<div class="col-lg-3 col-sm-6 col-xs-12 movie-tile-no-time" style="margin-bottom:60px;">
+			<a href="#">
+				<div class=" movie-tile-no-time">
+					<div class="image-wrapper">
+						<img src="{% static movie.cover %}" style="width:75%;">
+						<div class="book-now">Book Now</div>
+					</div>
+					<div class="movie-tile-no-time-inner">
+						<h3 style="color:#141414;">{{ movie.title }}</h3>
+					</div>
+				</div>
+			</a>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% include 'footer.html' %}

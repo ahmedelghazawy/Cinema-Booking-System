@@ -21,9 +21,13 @@ def moviePage(request, MovieID):
 	movie = Movie.objects.filter(id=MovieID).first()
 	currentDateTime = datetime.now()
 	currentTime = currentDateTime.time
-	timings = Screening.objects.order_by('time').all()
+	dates = []
+	for day in range(0,7):
+		dates.append(currentDateTime.date + datetime.timedelta(days=day))
+	currentDate = currentDateTime.date
+	timings = Screening.objects.order_by('data').order_by('time').all().fiter(movie_id=MovieID)
 	latest_movies = Movie.objects.order_by('-releaseDate')[:4]
-	return render(request,'movieTile.html',{'movie':movie, 'timings':timings, 'currentTime':currentTime, 'latest_movies':latest_movies} )
+	return render(request,'movieBlurb.html',{'movie':movie, 'timings':timings, 'currentTime':currentTime, 'Dates':Dates, 'latest_movies':latest_movies} )
 
 def BookingPage(request):
 	movies = Movie.objects.all()
