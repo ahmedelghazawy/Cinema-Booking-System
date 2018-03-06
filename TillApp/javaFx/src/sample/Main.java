@@ -23,9 +23,11 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("mainPage.fxml"));
 
-        Parent second = FXMLLoader.load(getClass().getResource("ticketType.fxml"));
+        Parent ticket = FXMLLoader.load(getClass().getResource("ticketType.fxml"));
 
+        Parent seat = FXMLLoader.load(getClass().getResource("seatSelection.fxml"));
 
+        Parent payment = FXMLLoader.load(getClass().getResource("payment.fxml"));
 
         window.setTitle("Cine-Toucan");
         window.setScene(new Scene(root, 1165, 700));

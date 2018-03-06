@@ -1,5 +1,6 @@
 package sample;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -26,6 +27,7 @@ import java.io.*;
 
 
 public class Controller {
+
 
     @FXML
     private Parent second;
@@ -65,6 +67,29 @@ public class Controller {
         Scene ticketScene = new Scene(ticket, 1165, 700);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(ticketScene);
+    }
+
+
+    @FXML
+    public void proceedToPayment(ActionEvent event) throws IOException {
+        Parent payment = FXMLLoader.load(getClass().getResource("payment.fxml"));
+        Scene paymentScene = new Scene(payment, 1165, 700);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(paymentScene);
+    }
+
+    @FXML
+    public void backToSeatSelection(ActionEvent event) throws IOException {
+        Parent seat = FXMLLoader.load(getClass().getResource("seatSelection.fxml"));
+        Scene seatingScene = new Scene(seat, 1165, 700);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(seatingScene);
+    }
+
+
+    @FXML
+    public void seatSelected(ActionEvent event) throws IOException {
+
     }
 
 }
