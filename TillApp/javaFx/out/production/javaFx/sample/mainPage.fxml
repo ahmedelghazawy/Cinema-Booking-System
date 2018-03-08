@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" gridLinesVisible="false" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="sample.Controller">
+
+    <!--<columnConstraints>-->
+    <!--<ColumnConstraints percentWidth="20.0"/>-->
+    <!--<ColumnConstraints percentWidth="20.0"/>-->
+    <!--</columnConstraints>-->
+
+    <!--<Button text="Back" GridPane.columnIndex="0" GridPane.rowIndex="5" />-->
+    <!--<Button text="Proceed" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />-->
+
+
+    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <graphic>
+            <ImageView>
+                <Image url="@/sample/media/banner1.jpg" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <Label text="Film Title 1" textFill="darkgreen" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <font>
+            <Font size="15" />
+        </font>
+    </Label>
+
+    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="1" GridPane.rowIndex="0">
+        <graphic>
+            <ImageView>
+                <Image url="@/sample/media/banner2.jpg" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <Label text="Film Title 2" textFill="darkgreen" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <font>
+            <Font size="15" />
+        </font>
+    </Label>
+
+    <Button maxHeight="261" maxWidth="175" onAction="#moveToTicket" GridPane.columnIndex="2" GridPane.rowIndex="0">
+        <graphic>
+            <ImageView>
+                <Image url="@/sample/media/banner3.jpg" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <Label text="Film Title 3" textFill="darkgreen" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <font>
+            <Font size="15" />
+        </font>
+    </Label>
+
+    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="3" GridPane.rowIndex="0">
+        <graphic>
+            <ImageView>
+                <Image url="@/sample/media/banner4.jpg" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <Label text="Film Title 4" textFill="darkgreen" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <font>
+            <Font size="15" />
+        </font>
+    </Label>
+
+    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="4" GridPane.rowIndex="0">
+        <graphic>
+            <ImageView>
+                <Image url="@/sample/media/banner5.jpg" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <Label text="Film Title 5" textFill="darkgreen" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <font>
+            <Font size="15" />
+        </font>
+    </Label>
+
+
+
+    <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+
+    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="0" GridPane.rowIndex="2">
+        <graphic>
+            <ImageView>
+                <Image url="@/sample/media/banner6.jpg" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <Label text="Film Title 6" textFill="darkgreen" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+        <font>
+            <Font size="15" />
+        </font>
+    </Label>
+
+    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <graphic>
+            <ImageView>
+                <Image url="@/sample/media/banner7.jpg" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <Label text="Film Title 7" textFill="darkgreen" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+        <font>
+            <Font size="15" />
+        </font>
+    </Label>
+
+    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="2" GridPane.rowIndex="2">
+        <graphic>
+            <ImageView>
+                <Image url="@/sample/media/banner8.jpg" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <Label text="Film Title 8" textFill="darkgreen" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+        <font>
+            <Font size="15" />
+        </font>
+    </Label>
+
+    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="3" GridPane.rowIndex="2">
+        <graphic>
+            <ImageView>
+                <Image url="@/sample/media/banner9.jpg" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <Label text="Film Title 9" textFill="darkgreen" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+        <font>
+            <Font size="15" />
+        </font>
+    </Label>
+
+    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="4" GridPane.rowIndex="2">
+        <graphic>
+            <ImageView>
+                <Image url="@/sample/media/banner10.jpg" />
+            </ImageView>
+        </graphic>
+    </Button>
+    <Label text="Film Title 10" textFill="darkgreen" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+        <font>
+            <Font size="15" />
+        </font>
+    </Label>
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+
+
+
+
+    <!--<Button text="TEST" GridPane.rowIndex="0" GridPane.columnIndex="2" prefWidth="175" prefHeight="261" >-->
+    <!--<graphic>-->
+    <!--<ImageView>-->
+    <!--<Image url="@/sample/media/image.jpg"/>-->
+    <!--</ImageView>-->
+    <!--</graphic>-->
+    <!--</Button>-->
+
+
+
+
+</GridPane>
