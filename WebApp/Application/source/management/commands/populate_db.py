@@ -140,15 +140,19 @@ class Command(BaseCommand):
 				screen_id = screens[random.sample(range(0, 4),1)[0]],
 				date = Command.today + datetime.timedelta(days=random.sample(range(0,6),1)[0]),
 				time = datetime.time(hour = random.sample(range(4,11),1)[0]*2)))
-
+		
+		for scr in screenings:
+			scr.save()
+		
 		seats = []
 
 		for scr in screenings:
-			for num, seat in enumerate(scr.screen_id.vipSeats):
-				seats.append(Seat(screening_id = scr.id, vipSeat = True, row = math.floor(num/rowWidth), column = num%rowWidth ))
-			vipRows = math.floor(scr.screen_id.vipSeats/rowWidth)
-			for num, seat in enumerate(scr.screen_id.standardSeats):
-				seats.append(Seat(screening_id = scr.id, vipSeat = False, row = math.floor(num/rowWidth)+ vipRows, column = num%rowWidth ))
-			
-		for scr in screenings:
-			scr.save()
+			for seat in range(scr.screen_id.vipSeats):
+				seats.append(Seat(screening_id = scr.id, vipSeat = True, row = math.floor(seat/Command.rowWidth), column = seat%Command.rowWidth ))
+			vipRows = math.floor(scr.screen_id.vipSeats/Command.rowWidth)
+			for seat in range(scr.screen_id.standardSeats):
+				seats.append(Seat(screening_id = scr.id, vipSeat = False, row = math.floor(seat/Command.rowWidth)+ vipRows, column = seat%Command.rowWidth ))
+		
+		for seat in seats:
+			seat.save()
+		
