@@ -6,28 +6,40 @@ from django.http import HttpResponse
 from django.db import models
 from source.models import *
 from source.serializers import *
-from datetime import datetime, time
+import datetime
 
 # Create your views here.
 def index(request):
-	latest_movies = Movie.objects.order_by('-releaseDate')[:4]
-	return render(request,'index.html',{'nbar':'home','latest_movies':latest_movies})
+	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
+	return render(request,'index.html',{'nbar':'home','latestMovies':latestMovies})
 
 def whatson(request):
 	movies = Movie.objects.all()
 	return render(request,'whatson.html',{'nbar':'whatson','movies':movies} )
 
 def moviePage(request, MovieID):
+
 	movie = Movie.objects.filter(id=MovieID).first()
-	currentDateTime = datetime.now()
-	currentTime = currentDateTime.time
+	currentDateTime = datetime.datetime.today()
+	currentTime = currentDateTime.time()
+	currentDate = currentDateTime.date()
+	# Get all avaiable dates with times for the current movie and sort it
+	timings = Screening.objects.order_by('data').order_by('time').all().filter(movie_id=MovieID)
+	# Gets a 2d array with days: 1,2,3... and their avaiable timings
 	dates = []
 	for day in range(0,7):
-		dates.append(currentDateTime.date + datetime.timedelta(days=day))
-	currentDate = currentDateTime.date
-	timings = Screening.objects.order_by('data').order_by('time').all().fiter(movie_id=MovieID)
-	latest_movies = Movie.objects.order_by('-releaseDate')[:4]
-	return render(request,'movieBlurb.html',{'movie':movie, 'timings':timings, 'currentTime':currentTime, 'Dates':Dates, 'latest_movies':latest_movies} )
+		name = ""
+		# Get the date
+		dayFromToday = currentDate + datetime.timedelta(days=day)
+		# Get the string for date
+		if (day==0):
+			name = "Today"
+		else:
+			name = dayFromToday.strftime("%A")
+		# Add the date string ant the timings for the date to array
+		dates.append([name, timings.filter(date=dayFromToday)])
+	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
+	return render(request,'movieBlurb.html',{'movie':movie, 'currentTime':currentTime, 'dates':dates, 'latestMovies':latestMovies} )
 
 def BookingPage(request):
 	movies = Movie.objects.all()
