@@ -1,39 +1,49 @@
 {% load staticfiles %}
 		<div class="container-fluid">
-			<div class = "row footer social">
-				<div style = "text-align:center;" class="col-lg-4 col-sm-12 ">
-					<a href="/" >
-						<img  src="{% static 'img/logo2.png' %}" alt="logo" height="200px">
-					</a>
-				</div>
-				<div class="col-lg-4 col-sm-12 ">
-					<p></p>
-				</div>
-				<div style = "text-align:center" class="col-lg-4 col-sm-12 ">
-					<h2 >Connect</h2>
+			<div class="row">
+				<div style = "text-align:center" class="socialFooter col-lg-12">
 					<img class = "social" style = "padding:6px; " src="{% static 'img/SocialMedia/facebook.png' %}" alt="facebook" height="70">
 					<img class = "social" style = "padding:7px; " src="{% static 'img/SocialMedia/twitter.png' %}" alt="twitter" height="70">
 					<img class = "social" style = "padding:7px; " src="{% static 'img/SocialMedia/instagram.png' %}" alt="instagram" height="70">
 					<img class = "social" style = "padding:7px; " src="{% static 'img/SocialMedia/google.png' %}" alt="google+" height="70">
 					<img class = "social" style = "padding:7px; " src="{% static 'img/SocialMedia/snapchat.png' %}" alt="snapchat" height="70">
 				</div>
-				<hr/>
 			</div>
-			<div style="text-align:center; padding:20px" class="row footer">
-					<div class="col-lg-4 col-sm-12">
-						<h3 >Website map</h3>
-						<ul>
-							<li>Home</li>
-							<li>What's On</li>
-						</ul>
-					</div>
-					<div class="col-lg-4 col-sm-12 ">
-						<h3>Legal</h3>
-					</div>
-					<div class="col-lg-4 col-sm-12">
-						<h3>About Toucan</h3>
-					</div>
+			<div class="row">
+				<div style = "text-align:center" class="infoFooter col-lg-4">
+					<h4>Site map</h4>
+					<ul class="footerList">
+						<li>Home</li>
+						<li>What's on</li>
+						<li>My Account<li>
+					</ul>
+				</div>
+				<div style = "text-align:center" class="infoFooter col-lg-4">
+					<h4>About Toucan</h4>
+					<ul class="footerList">
+						<li>About us</li>
+						<li>Careers</li>
+						<li>Our Events</li>
+					</ul>
+				</div>
+				<div style = "text-align:center" class="infoFooter col-lg-4">
+					<h4>Help and Support</h4>
+					<ul class="footerList">
+						<li>FAQs</li>
+						<li>Accessibility</li>
+						<li>Contact us<li>
+					</ul>
+				</div>
 			</div>
+			<div class="row">
+				<div style = "text-align:center" class="logoFooter col-lg-12">
+					<a href="/" >
+						<img  src="{% static 'img/logo2.png' %}" alt="logo" height="200px">
+					</a>
+				</div>
+			</div>
+
+
 		</div>
 	</body>
 </html>
