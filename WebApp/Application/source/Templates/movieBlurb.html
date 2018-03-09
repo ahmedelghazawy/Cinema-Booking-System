@@ -1,0 +1,87 @@
+{% load staticfiles %}
+{% include 'navbar.html' %}
+<link rel="stylesheet" href="{% static 'css/movieBlurb.css' %}">
+<div class="bodyaq">
+	<div class="row">
+		<div class="col-lg-4" style="text-align:center;">
+			<img src="{% static movie.cover %}"/>
+		</div>
+		<div class="col-lg-6" >
+			<div class="ratingBlock" >
+				<h1>{{movie.title}}</h1>
+				{% for star in stars %}
+					{% if star == 2 %}
+						<i class="fa fa-star"></i>
+					{% endif %}
+					{% if star == 1 %}
+						<i class="fa fa-star-half-full"></i>
+					{% endif %}
+					{% if star == 0 %}
+						<i class="fa fa-star-o"></i>
+					{% endif %}
+				{% endfor %}
+
+
+				<p><span>{{movie.rating}}</span> / 10<p>
+				<p style="float:right;margin-top:14px;font-size:18px;">Duration: {{movie.duration}} mins </p>
+			</div>
+			<p class="movieBlurb">{{movie.blurb}}{{movie.blurb}}{{movie.blurb}}</p>
+			<p>Director: {{movie.director}}</p>
+
+
+			<h3>Timings</h3>
+
+			<ul class="nav nav-tabs">
+			<li class="active">
+			{% for day in dates %}
+				{% if forloop.first %}
+					<li class="active"><a data-toggle="tab" href="#{{ day.0 }}">{{ day.0 }}</a></li>
+				{% else %}
+					<li><a data-toggle="tab" href="#{{ day.0 }}">{{ day.0 }}</a></li>
+				{% endif %}
+			{% endfor %}
+			</ul>
+			<div class = "tab-content">
+				{% for day in dates %}
+					{% if forloop.first %}
+						<div id="{{ day.0 }}" class="tab-pane fade in active">
+					{% else %}
+						<div id="{{ day.0 }}" class="tab-pane fade">
+					{% endif %}
+						{% for timing in day.1 %}
+							{% if currentTime > timing.time %}
+							<p class="timingTime backgroundgrey">{{timing.time|time:"H:i"}}</p>
+							{% endif %}
+							{% if currentTime < timing.time %}
+							<p class="timingTime">{{timing.time|time:"H:i"}}</p>
+							{% endif %}
+						{% empty %}
+							<h3>Sorry, there are no screenings for this day.</h3>
+						{% endfor %}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	<div class="row" style="width:100%;margin-top:90px;background:#F0F0F0;">
+		<div class="col-lg-12" style="text-align:center;">
+			<h1 style="margin:0 0 60px 0;padding-top:30px;">Also Showing</h1>
+		</div>
+		{% for movie in latestMovies %}
+		<div class="col-lg-3 col-sm-6 col-xs-12 movie-tile-no-time" style="margin-bottom:60px;">
+			<a href="#">
+				<div class=" movie-tile-no-time">
+					<div class="image-wrapper">
+						<img src="{% static movie.cover %}" style="width:75%;">
+						<div class="book-now">Book Now</div>
+					</div>
+					<div class="movie-tile-no-time-inner">
+						<h3 style="color:#141414;">{{ movie.title }}</h3>
+					</div>
+				</div>
+			</a>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% include 'footer.html' %}
