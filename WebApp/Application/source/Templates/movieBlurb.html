@@ -9,11 +9,19 @@
 		<div class="col-lg-6" >
 			<div class="ratingBlock" >
 				<h1>{{movie.title}}</h1>
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star-half-o"></i>
+				{% for star in stars %}
+					{% if star == 2 %}
+						<i class="fa fa-star"></i>
+					{% endif %}
+					{% if star == 1 %}
+						<i class="fa fa-star-half-full"></i>
+					{% endif %}
+					{% if star == 0 %}
+						<i class="fa fa-star-o"></i>
+					{% endif %}
+				{% endfor %}
+
+
 				<p><span>{{movie.rating}}</span> / 10<p>
 				<p style="float:right;margin-top:14px;font-size:18px;">Duration: {{movie.duration}} mins </p>
 			</div>
