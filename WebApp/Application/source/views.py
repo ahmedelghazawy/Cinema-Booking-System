@@ -25,9 +25,9 @@ def moviePage(request, MovieID):
 	latest_movies = Movie.objects.order_by('-releaseDate')[:4]
 	return render(request,'movieTile.html',{'movie':movie, 'timings':timings, 'currentTime':currentTime, 'latest_movies':latest_movies} )
 
-def BookingPage(request):
-	movies = Movie.objects.all()
-	return render(request,'whatson.html',{'nbar':'whatson','movies':movies} )
+def bookingPage(request):
+	seats = Seat.objects.filter(screening_id = 1).all()
+	return render(request,'booking.html',{'nbar':'whatson','seats':seats} )
 
 class whatsonapi(APIView):
 	def get(self, request):
@@ -43,4 +43,9 @@ class movieTimingsapi(APIView):
 		date = datetime.strptime(date, "%Y-%m-%d").date()
 		timing = Screening.objects.filter(movie_id = movie).filter(date = date).all()
 		serializer = ScreeningSerializer(timing, many=True)
+		return Response(serializer.data)
+class seatingapi(APIView):
+	def get(self, request, screeningId):
+		seats = Seat.objects.filter(screening_id = screeningId).all()
+		serializer = SeatSerializer(seats , many = True)
 		return Response(serializer.data)

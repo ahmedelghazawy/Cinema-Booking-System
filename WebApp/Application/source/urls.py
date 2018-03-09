@@ -7,8 +7,10 @@ urlpatterns = [
     url(r'^whatson$', views.whatson, name = 'whatson'),
     url(r'^api/whatsonapi$', views.whatsonapi.as_view()),
     url(r'^api/movieTimingsapi/(?P<MovieID>\d+)/(?P<date>[\w\-]+)/$', views.movieTimingsapi.as_view()),
+    url(r'^api/seatingapi/(?P<screeningId>\d+)/$', views.seatingapi.as_view()),
     #url(r'^test2$', views.test2.as_view()),
     url(r'^moviePage/(?P<MovieID>\d+)/$', views.moviePage, name = 'moviePage'),
+    url(r'^bookingPage$', views.bookingPage, name = 'bookingPage'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
