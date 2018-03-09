@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name = 'index'),
+    url(r'^login$', views.login, name = 'login'),           
     url(r'^whatson$', views.whatson, name = 'whatson'),
     url(r'^api/whatsonapi$', views.whatsonapi.as_view()),
     url(r'^api/movieTimingsapi/(?P<MovieID>\d+)/(?P<date>[\w\-]+)/$', views.movieTimingsapi.as_view()),
