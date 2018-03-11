@@ -31,7 +31,7 @@ class Screening(models.Model):
     time = models.TimeField(auto_now_add=False, null=True)
 
 class Seat(models.Model):
-    screening_id = models.ForeignKey('Screening',on_delete=models.CASCADE, default = 1)
+    screening_id = models.ForeignKey('Screening',on_delete=models.CASCADE, default="")
     vipSeat = models.BooleanField(default=False)
     row = models.IntegerField()
     column = models.IntegerField()
@@ -39,6 +39,6 @@ class Seat(models.Model):
 
 class Ticket(models.Model):
     movie_id = models.ForeignKey('Movie',on_delete=models.CASCADE,)
-    screening_id = models.ForeignKey('Screening',on_delete=models.CASCADE,)
+    screening_id = models.ForeignKey('Screening',on_delete=models.CASCADE, default="")
     seat_id = models.ForeignKey('Seat',on_delete=models.CASCADE,)
     user_id = models.ForeignKey('User',on_delete=models.CASCADE,)
