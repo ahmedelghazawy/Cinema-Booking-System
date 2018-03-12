@@ -1,0 +1,15 @@
+{% load staticfiles %}
+{% include 'navbar.html' %}
+
+<div class="col-lg-6">
+  <h1>{{user}}</h1>
+  <h1>{{user.email}}</h1>
+  <h1>tickets:</h1>
+  {% for ticket in tickets %}
+
+  <p>{{ticket.screening_id}}</p>
+  <p>{{ticket.movie_id.title}}</p>
+  {% endfor %}
+</div>
+
+{% include 'footer.html' %}
