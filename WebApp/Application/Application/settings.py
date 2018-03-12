@@ -122,3 +122,5 @@ USE_TZ = True
 STATIC_URL = "/Static/"
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "Static_deploy")
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "Static")]
+
+LOGIN_REDIRECT_URL = '/'
