@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^login$', views.loginPage, name = 'loginPage'),
     url(r'^logout$', views.logoutPage, name = 'logoutPage'),
     url(r'^register$', views.registerPage, name = 'registerPage'),
+    url(r'^profile$', views.profilePage, name = 'profilePage'),
     url(r'^api/whatsonapi$', views.whatsonapi.as_view()),
     url(r'^api/movieTimingsapi/(?P<MovieID>\d+)/(?P<date>[\w\-]+)/$', views.movieTimingsapi.as_view()),
     #url(r'^test2$', views.test2.as_view()),

@@ -10,6 +10,8 @@ from source.serializers import *
 from datetime import datetime, time
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, get_user_model, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 # Create your views here.
 def index(request):
 	latest_movies = Movie.objects.order_by('-releaseDate')[:4]
@@ -47,7 +49,12 @@ def registerPage(request):
 	return render(request,'login.html',{'title':title,'form':form} )
 def logoutPage(request):
 	logout(request)
-	return render(request,'login.html',{} )
+	return redirect("/")
+
+def profilePage(request):
+	if request.user.is_authenticated:
+		tickets = Ticket.objects.filter(id = request.user.id).all()
+	return render(request,'profile.html')
 
 def moviePage(request, MovieID):
 	movie = Movie.objects.filter(id=MovieID).first()
