@@ -73,3 +73,11 @@ class movieTimingsapi(APIView):
 		timing = Screening.objects.filter(movie_id = movie).filter(date = date).all()
 		serializer = ScreeningSerializer(timing, many=True)
 		return Response(serializer.data)
+
+class screenapi(APIView):
+	def get(self, request, ScreeningID):
+		screening = Screening.objects.filter(id = ScreeningID).first()
+		screen = screening.screen_id
+		#screen = Screen.objects.filter(id = screenId).first()
+		serializer = ScreenSerializer(screen, many=False)
+		return Response(serializer.data)
