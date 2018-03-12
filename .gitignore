@@ -99,6 +99,9 @@ env/
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
 
+################# Java ##################
+TillApp/bin/
+
 ################# macOS ##################
 *.DS_Store
 .AppleDouble
