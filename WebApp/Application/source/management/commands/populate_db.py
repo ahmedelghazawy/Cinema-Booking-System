@@ -115,6 +115,10 @@ class Command(BaseCommand):
 ####################### Screens #######################
 
 		screens = []
+		### IMPORTANT ###
+		# The assumption was made that each row in screen has 10 seats
+		# therfore numbers MUST be in multiple of 10's
+		# and that there is a maximum of 10 rows per screen, 100 seats
 
 		screens.append(Screen(standardSeats = 50 ,vipSeats = 20 ))
 		screens.append(Screen(standardSeats = 50 ,vipSeats = 20 ))
