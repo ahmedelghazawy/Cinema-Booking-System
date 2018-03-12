@@ -11,3 +11,8 @@ class ScreeningSerializer(serializers.ModelSerializer):
     class Meta:
         model = Screening
         fields = '__all__'
+
+class ScreenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Screen
+        fields = '__all__'
