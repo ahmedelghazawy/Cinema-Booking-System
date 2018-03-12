@@ -1,7 +1,18 @@
 {% load staticfiles %}
 {% include 'navbar.html' %}
+<script>
+
+</script>
 <link rel="stylesheet" href="{% static 'css/booking.css' %}">
 <div class="container-fluid">
+	<div class = "row">
+		<div class="col-lg-4" style="text-align:center;">
+			<img src="{% static movie.cover %}"/>
+		</div>
+		<div class="col-lg-6" >
+			<h1>{{movie.title}}</h1>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-lg-2">
 		</div>

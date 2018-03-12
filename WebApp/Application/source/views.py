@@ -58,6 +58,13 @@ def bookingPage(request):
 	seats = Seat.objects.filter(screening_id = 1).all()
 	return render(request,'booking.html',{'nbar':'whatson','seats':seats} )
 
+def bookingChoose(request, MovieID):
+	# Passing first element of the query as query is a list with 1 object
+	movie = Movie.objects.filter(id=MovieID)[0]
+	screening = Screening.objects.filter(movie_id = MovieID).first()
+	print(movie.cover)
+	return render(request,'bookingChoose.html',{'nbar':'whatson','movie':movie, 'screening':screening} )
+
 class whatsonapi(APIView):
 	def get(self, request):
 		movies = Movie.objects.all()

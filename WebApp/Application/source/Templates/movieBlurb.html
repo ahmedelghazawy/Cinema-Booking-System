@@ -50,10 +50,10 @@
 					{% endif %}
 						{% for timing in day.1 %}
 							{% if currentTime > timing.time %}
-							<p class="timingTime backgroundgrey">{{timing.time|time:"H:i"}}</p>
+							<a href=/bookingChoose/{{ timing.movie_id.id }}><p class="timingTime backgroundgrey">{{timing.time|time:"H:i"}}</p></a>
 							{% endif %}
 							{% if currentTime < timing.time %}
-							<p class="timingTime">{{timing.time|time:"H:i"}}</p>
+							<a href=/bookingChoose/{{ timing.movie_id.id }}><p class="timingTime">{{timing.time|time:"H:i"}}</p></a>
 							{% endif %}
 						{% empty %}
 							<h3>Sorry, there are no screenings for this day.</h3>
