@@ -48,12 +48,14 @@
 					{% else %}
 						<div id="{{ day.0 }}" class="tab-pane fade">
 					{% endif %}
-						{% for timing in day.1 %}
-							{% if currentTime > timing.time %}
-							<a href=/bookingChoose/{{ timing.movie_id.id }}><p class="timingTime backgroundgrey">{{timing.time|time:"H:i"}}</p></a>
+						{% for screening in day.1 %}
+							{% if currentTime > screening.time %}
+							<p class="screeningTime backgroundgrey">{{screening.time|time:"H:i"}}</p>
 							{% endif %}
-							{% if currentTime < timing.time %}
-							<a href=/bookingChoose/{{ timing.movie_id.id }}><p class="timingTime">{{timing.time|time:"H:i"}}</p></a>
+							{% if currentTime < screening.time %}
+							<a href="/bookingChoose/{{ screening.id }}">
+								<p class="screeningTime">{{screening.time|time:"H:i"}}</p>
+							</a>
 							{% endif %}
 						{% empty %}
 							<h3>Sorry, there are no screenings for this day.</h3>

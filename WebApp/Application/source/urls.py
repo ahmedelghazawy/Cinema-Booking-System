@@ -12,7 +12,7 @@ urlpatterns = [
     #url(r'^test2$', views.test2.as_view()),
     url(r'^moviePage/(?P<MovieID>\d+)/$', views.moviePage, name = 'moviePage'),
     url(r'^bookingPage$', views.bookingPage, name = 'bookingPage'),
-	url(r'^bookingChoose/(?P<MovieID>\d+)/$', views.bookingChoose, name = 'bookingChoose'),
+	url(r'^bookingChoose/(?P<screeningId>\d+)/$', views.bookingChoose, name = 'bookingChoose'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
