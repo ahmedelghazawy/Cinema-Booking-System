@@ -1,27 +1,42 @@
 .theatre{
-  background-color:#ccc;
-  height:100%;
-  width:100%;
-  padding:0px;
+	background-color:#eee;
+	height:100%;
+	width:100%;
+	padding:20px;
+	text-align: center;
+	border-radius: 10px;
 }
 .seat{
-  width:100%;
-  background-color:orange;
-  height:100%;
-  border-top-left-radius:10px;
-  border-top-right-radius:10px;
-  margin:0px;
-  padding:0px;
-  display:inline-block;
-  text-align:center;
-  color: white;
+	border-top-left-radius:10px;
+	border-top-right-radius:10px;
+	position:relative;
+	display:inline-block;
+	width:calc(10% - 10px);
+	padding-top: calc(7.5% - 10px);
+	margin:5px;
+	box-sizing: border-box;
 }
-.seat-wrapper{
-  position:relative;
-  display:inline-block;
-  width:10%;
-  height:10%;
-  padding:5px;
-  margin:0px;
-  box-sizing: border-box;
+.seat.free{
+	background-color: white;
+	border: 2px solid #999;
+}
+.seat.reserved{
+	background-color:orange;
+}
+.seat.freevip{
+	background-color: white;
+	border: 2px solid orange;
+	box-shadow: inset 0px 0px 3px orange;
+}
+.seat.legend{
+	vertical-align: middle;
+	width:calc(20% - 10px);
+	padding-top: calc(15% - 10px);
+}
+#seatAlert{
+	position: fixed;
+	top: 20px;
+	right:20px;
+	display:none;
+	z-index: 30;
 }
