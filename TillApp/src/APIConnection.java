@@ -58,10 +58,12 @@ public class APIConnection{
 
 // Small version of Movie for testing
 class Movie {
-    private String title = "";
-    private int id = 0;
+    protected int id = 0;
+    protected String title = "";
 
-    public Movie(){
+
+    public Movie()
+    {
         this.id = 0;
         this.title = null;
     }
@@ -73,4 +75,16 @@ class Movie {
     }
 
     public String getTitle() { return title; }
+
+    public int getID() { return id;}
+
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
+    public void setID(int id)
+    {
+        this.id = id;
+    }
 }
