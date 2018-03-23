@@ -5,10 +5,9 @@ import java.util.*;
 
 public class APIConnection{
 
-    public static String[] get(URL url) throws Exception
+    public static String[] get(String link) throws Exception
     {
-        // URL url = new URL ("http://127.0.0.1:8000/api/movieTimingsapi/1/2018-03-15/?format=json");
-        // URL url = new URL ("http://127.0.0.1:8000/api/whatsonapi?format=json");
+        URL url = new URL (link);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 
@@ -24,20 +23,22 @@ public class APIConnection{
         inputLine = in.readLine();
 		in.close();
 
-        // deleting the []
+        // Deleting the []
         inputLine = inputLine.replace("[","");
         inputLine = inputLine.replace("]","");
 
-		//print result
-		//System.out.println(inputLine);
-
+        // Separating the input by json objects, but also getting "," as a String
         String[] separated = inputLine.split("[{}]");
+        // Getting the length of the separated array
         int sLength = separated.length;
+        // Finding the length of the array of only json objects
         int jLength = sLength - (sLength/2);
+        // Initialising the json objects array
         String[] jsons = new String[jLength];
         int j = 0;
         for (int i = 0; i < sLength; i++)
         {
+            // Adding the json objects to its array
             if (!separated[i].equals(",") && !separated[i].equals(""))
             {
                 String toAdd = "{";
@@ -47,85 +48,6 @@ public class APIConnection{
                 j++;
             }
         }
-
         return jsons;
     }
-
-    public static void main(String[] args)
-    {
-        try
-        {
-            // initialising the URL containing the API
-            URL url = new URL ("http://127.0.0.1:8000/api/whatsonapi?format=json");
-
-            // part of the Jackson library, creating a mapper to map the json object to the movie object
-            ObjectMapper mapper = new ObjectMapper();
-            String[] jsons = APIConnection.get(url);
-            ArrayList<Movie> movies = new ArrayList<>();
-
-            // Turning json object into Movie objects and storing these in the ArrayList created above
-            for (int i = 0; i < jsons.length; i++)
-            {
-                System.out.println(jsons[i]); // for testing
-                Movie movie = mapper.readValue(jsons[i], Movie.class);
-                movies.add(movie);
-            }
-
-            System.out.println();
-            System.out.println("=== From ArrayList ===");
-            System.out.println();
-            
-            for (int j = 0; j < movies.size(); j++)
-            {
-                System.out.println(movies.get(j).getTitle()); // for testing
-            }
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
-        }
-    }
-}
-
-
-class Movie {
-    private String title = "";
-    private int id = 0;
-    private String cover = "";
-    private double rating = 0;
-    private String releaseDate = "";
-    private String certificate = "";
-
-    public Movie(){}
-
-    public Movie(int id, String title, String cover, double rating, String certificate, String releaseDate)
-    {
-        this.id = id;
-        this.title = title;
-    }
-
-    public int geID() { return id;}
-
-    public String getTitle() { return title; }
-
-    public String getCover() { return cover; }
-
-    public double getRating() { return rating; }
-
-    public String getCertificate() { return certificate; }
-
-    public String getReleaseDate() { return releaseDate; }
-
-    public void setID(int id) { this.id = id; }
-
-    public void setTitle(String title) { this.title = title; }
-
-    public void setCover(String cover) { this.cover = cover; }
-
-    public void setRating(double rating) { this.rating = rating; }
-
-    public void setCertificate(String certificate) { this.certificate = certificate; }
-
-    public void setReleaseDate(String releaseDate) { this.releaseDate = releaseDate; }
-
 }

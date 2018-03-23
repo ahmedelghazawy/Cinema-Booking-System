@@ -24,4 +24,14 @@ public class Order {
     public void checkout(){}
 
     public void printTickets(){}
+
+    // Main class for testing if he API connection is work
+    public static void main(String[] args)
+    {
+        System.out.println("======= MOVIEEEEE =======");
+        Movie.getObjectsFromAPI();
+        System.out.println();
+        System.out.println("======= SCREENIIIIING =======");
+        Screening.getObjectsFromAPI();
+    }
 }
