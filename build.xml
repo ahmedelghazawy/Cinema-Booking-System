@@ -14,6 +14,9 @@
 
   <target name="init">
     <mkdir dir="${build.dir}"/>
+    <exec executable="/bin/bash">
+      <arg value="WebApp/script.sh"/>
+    </exec>
   </target>
 
   <target name="compile" depends="init" description="Compile source code">
@@ -38,6 +41,7 @@
   <target name="clean" description="Remove compiled code">
     <delete dir="${build.dir}"/>
     <delete dir="out"/>
+    <delete file="WebApp/Application/databse.db"/>
   </target>
 
 </project>
