@@ -15,6 +15,9 @@ public class Movie {
     private String certificate;
     private List<Screening> screenings;
 
+    /**
+     * Empty constructor for creating a movie with default values
+     */
     public Movie()
     {
         title = "";
@@ -25,6 +28,15 @@ public class Movie {
         certificate= "";
     }
 
+    /**
+     * Constructor for creating a specific movie
+     * @param id Movie ID on the database/api
+     * @param title Movie title to be shown
+     * @param cover Path for cover images
+     * @param rating Movie rating from viewers
+     * @param certificate Certificate for viewing criteria
+     * @param releaseDate Movie release date
+     */
     public Movie(int id, String title, String cover, double rating, String certificate, String releaseDate)
     {
         this.id = id;
@@ -59,8 +71,13 @@ public class Movie {
 
     public void setReleaseDate(String releaseDate) { this.releaseDate = releaseDate; }
 
+    /**
+     * Method for getting an ArrayList of movies for the movies contained within the database
+     * @return ArrayList containing all movie being shown in the cinema
+     */
     public static ArrayList<Movie> getMovies()
     {
+        //ArrayList contain the movies being shown in the cinema
         ArrayList<Movie> movies = new ArrayList<>();
         try
         {
@@ -72,9 +89,9 @@ public class Movie {
             String[] jsons = APIConnection.get(url);
 
             // Turning json object into Movie objects and storing these in the ArrayList created above
-            for (int i = 0; i < jsons.length; i++)
+            for (String json: jsons)
             {
-                Movie movie = mapper.readValue(jsons[i], Movie.class);
+                Movie movie = mapper.readValue(json, Movie.class);
                 movies.add(movie);
             }
             return movies;
