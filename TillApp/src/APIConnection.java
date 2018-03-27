@@ -15,7 +15,6 @@ public class APIConnection{
         con.setRequestProperty("User-Agent", "Mozilla/5.0");
 
         int responseCode = con.getResponseCode();
-        System.out.println("response code = " + responseCode);
 
         BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));

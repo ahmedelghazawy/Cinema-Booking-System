@@ -35,7 +35,7 @@ public class Movie {
         this.releaseDate = releaseDate;
     }
 
-    public int geID() { return id;}
+    public int getID() { return id;}
 
     public String getTitle() { return title; }
 
@@ -59,8 +59,9 @@ public class Movie {
 
     public void setReleaseDate(String releaseDate) { this.releaseDate = releaseDate; }
 
-    public static void getObjectsFromAPI()
+    public static ArrayList<Movie> getMovies()
     {
+        ArrayList<Movie> movies = new ArrayList<>();
         try
         {
             // URL containing the API
@@ -69,28 +70,19 @@ public class Movie {
             // Part of the Jackson library, creating a mapper to map the json object to the movie object
             ObjectMapper mapper = new ObjectMapper();
             String[] jsons = APIConnection.get(url);
-            ArrayList<Movie> movies = new ArrayList<>();
 
             // Turning json object into Movie objects and storing these in the ArrayList created above
             for (int i = 0; i < jsons.length; i++)
             {
-                System.out.println(jsons[i]); // for testing
                 Movie movie = mapper.readValue(jsons[i], Movie.class);
                 movies.add(movie);
             }
-
-            System.out.println();
-            System.out.println("=== From ArrayList ===");
-            System.out.println();
-
-            for (int j = 0; j < movies.size(); j++)
-            {
-                System.out.println(movies.get(j).getTitle()); // for testing
-            }
+            return movies;
         }
         catch(Exception e)
         {
             System.out.println(e);
         }
+        return movies;
     }
 }
