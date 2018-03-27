@@ -69,7 +69,7 @@ class movieTimingsapi(APIView):
 		movie = Movie.objects.filter(id = MovieID).first()
 		movie = movie.id
 		#dateString = year + "-" + month + "-" + day
-		date = datetime.strptime(date, "%Y-%m-%d").date()
+		date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
 		timing = Screening.objects.filter(movie_id = movie).filter(date = date).all()
 		serializer = ScreeningSerializer(timing, many=True)
 		return Response(serializer.data)
