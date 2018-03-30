@@ -40,11 +40,11 @@
     <junit fork="true">
       <classpath refid="project.classpath"/>
       <formatter type="brief" usefile="false"/>
-      <test name="TillApp/test/MovieTest"/>
-      <test name="TillApp/test/OrderTest"/>
-      <test name="TillApp/test/ScreeningTest"/>
-      <test name="TillApp/test/SeatTest"/>
-      <test name="TillApp/test/TicketTest"/>
+      <test name="TillApp/bin/MovieTest"/>
+      <test name="TillApp/bin/OrderTest"/>
+      <test name="TillApp/bin/ScreeningTest"/>
+      <test name="TillApp/bin/SeatTest"/>
+      <test name="TillApp/bin/TicketTest"/>
     </junit>
   </target>
 
