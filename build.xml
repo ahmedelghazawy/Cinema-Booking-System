@@ -2,6 +2,7 @@
 <project name="toucan" basedir="." default="compile">
 
   <property name="src.dir" value="TillApp/src"/>
+  <property name="test.dir" value="TillApp/test"/>
   <property name="lib.dir" value="TillApp/lib"/>
   <property name="scripts.dir" value="scripts"/>
   <property name="build.dir" value="TillApp/bin"/>
@@ -26,6 +27,10 @@
       <http url="http://127.0.0.1:8000/api/whatsonapi?format=json"/>
     </waitfor>
     <javac srcdir="${src.dir}" destdir="${build.dir}"
+      includeantruntime="false">
+      <classpath refid="project.classpath"/>
+    </javac>
+    <javac srcdir="${test.dir}" destdir="${build.dir}"
       includeantruntime="false">
       <classpath refid="project.classpath"/>
     </javac>
