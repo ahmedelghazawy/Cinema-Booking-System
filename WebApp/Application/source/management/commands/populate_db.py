@@ -119,6 +119,10 @@ class Command(BaseCommand):
 ####################### Screens #######################
 
 		screens = []
+		### IMPORTANT ###
+		# The assumption was made that each row in screen has 10 seats
+		# therfore numbers MUST be in multiple of 10's
+		# and that there is a maximum of 10 rows per screen, 100 seats
 
 		screens.append(Screen(standardSeats = 50 ,vipSeats = 20 ))
 		screens.append(Screen(standardSeats = 50 ,vipSeats = 20 ))
@@ -140,10 +144,10 @@ class Command(BaseCommand):
 				screen_id = screens[random.sample(range(0, 4),1)[0]],
 				date = Command.today + datetime.timedelta(days=random.sample(range(0,6),1)[0]),
 				time = datetime.time(hour = random.sample(range(4,11),1)[0]*2)))
-		
+
 		for scr in screenings:
 			scr.save()
-		
+
 		seats = []
 
 		for scr in screenings:
@@ -152,7 +156,20 @@ class Command(BaseCommand):
 			vipRows = math.floor(scr.screen_id.vipSeats/Command.rowWidth)
 			for seat in range(scr.screen_id.standardSeats):
 				seats.append(Seat(screening_id = scr.id, vipSeat = False, row = math.floor(seat/Command.rowWidth)+ vipRows, column = seat%Command.rowWidth ))
-		
+
 		for seat in seats:
 			seat.save()
-		
+
+
+		for scr in screenings:
+			vipSeats = scr.screen_id.vipSeats
+			maxRow = math.floor((vipSeats + scr.screen_id.standardSeats)/10)
+			maxColumn = 10
+			seatsAmount = random.sample(range(0,10),1)[0]
+			for seat in range(seatsAmount):
+				row = random.sample(range(0,maxRow-1),1)[0]
+				column = random.sample(range(0,maxColumn-1),1)[0]
+				vipSeat = False
+				if ( row+1 <= math.floor(vipSeats/10) ):
+					vipSeat = True
+				Seat(screening_id=scr,vipSeat = vipSeat, row = row, column = column).save()

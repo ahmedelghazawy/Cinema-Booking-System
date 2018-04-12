@@ -4,10 +4,18 @@ from .models import *
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ('id','title', 'cover', 'rating','certificate', 'releaseDate')
+        fields = '__all__'
         #fields = '__all__'
 
 class ScreeningSerializer(serializers.ModelSerializer):
     class Meta:
         model = Screening
+        fields = '__all__'
+
+class ScreenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Screen
+class SeatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Seat
         fields = '__all__'

@@ -1,0 +1,85 @@
+.bodyaq{
+	width: 100%;
+	margin: 40px auto 100px auto;
+}
+
+.ratingBlock p{
+	display: inline;
+}
+.ratingBlock span{
+	font-size: 30px;
+}
+.ratingBlock i{
+	font-size: 22px;
+	color: gold;
+}
+.movieBlurb{
+	margin: 20px 0 30px 0;
+	font-size: 16px;
+	line-height: 1.7;
+}
+.screeningTime{
+	font-size: 18px;
+	color: white;
+	background: black;
+	margin: 5px;
+	padding: 4px 8px;
+	display: inline-block;
+}
+.screeningTime:hover{
+	border: 1px solid orange;
+	margin: 4px;
+	cursor: pointer;
+}
+.backgroundgrey{
+	background: grey;
+}
+.backgroundgrey:hover{
+	border: 1px solid white;
+	cursor: default;
+}
+.tabs {
+	display: flex;
+	flex-wrap: wrap; // make sure it wraps
+}
+.tabs label {
+	order: 1; // Put the labels first
+	display: block;
+	padding: 1rem 2rem;
+	margin-right: 0;
+
+	background: #fff;
+	font-weight: bold;
+	transition: background ease 0.2s;
+	color:#8C8C8C;
+}
+.tabs .tab {
+	order: 99; // Put the tabs last
+	flex-grow: 1;
+	width: 100%;
+	display: none;
+	padding: 16px 16px 16px 0;
+	background: #fff;
+}
+.tabs input[type="radio"] {
+	display: none;
+}
+.tabs input[type="radio"]:checked + label {
+	background: #fff;
+	color:#141414;
+}
+.tabs input[type="radio"]:checked + label + .tab {
+	display: block;
+}
+
+@media (max-width: 45em) {
+	.tabs .tab,
+	.tabs label {
+		order: initial;
+	}
+	.tabs label {
+		width: 80%;
+		margin-right: 0;
+		margin-top: 0.2rem;
+	}
+}
