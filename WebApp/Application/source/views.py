@@ -21,6 +21,9 @@ def whatson(request):
 	movies = Movie.objects.all()
 	return render(request,'whatson.html',{'nbar':'whatson','movies':movies} )
 
+def error(request):
+	return render(request,'error.html')
+
 def loginPage(request):
 	title="login"
 	form = UserLoginForm(request.POST or None)
