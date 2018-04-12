@@ -54,9 +54,16 @@ def moviePage(request, MovieID):
 	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
 	return render(request,'movieBlurb.html',{'movie':movie, 'currentTime':currentTime, 'dates':dates, 'latestMovies':latestMovies, 'stars':stars} )
 
-def BookingPage(request):
-	movies = Movie.objects.all()
-	return render(request,'whatson.html',{'nbar':'whatson','movies':movies} )
+def bookingPage(request):
+	seats = Seat.objects.filter(screening_id = 1).all()
+	return render(request,'booking.html',{'nbar':'whatson','seats':seats} )
+
+def bookingChoose(request, screeningId):
+	# Passing first element of the query as query is a list with 1 object
+	screening = Screening.objects.filter(id=screeningId)[0]
+	movie = screening.movie_id
+	screen = screening.screen_id
+	return render(request,'bookingChoose.html',{'nbar':'whatson','movie':movie, 'screen':screen, 'screening':screening} )
 
 class whatsonapi(APIView):
 	def get(self, request):
@@ -72,4 +79,18 @@ class movieTimingsapi(APIView):
 		date = datetime.strptime(date, "%Y-%m-%d").date()
 		timing = Screening.objects.filter(movie_id = movie).filter(date = date).all()
 		serializer = ScreeningSerializer(timing, many=True)
+		return Response(serializer.data)
+
+
+class screenapi(APIView):
+	def get(self, request, ScreeningID):
+		screening = Screening.objects.filter(id = ScreeningID).first()
+		screen = screening.screen_id
+		#screen = Screen.objects.filter(id = screenId).first()
+		serializer = ScreenSerializer(screen, many=False)
+
+class seatingapi(APIView):
+	def get(self, request, screeningId):
+		seats = Seat.objects.filter(screening_id = screeningId).all()
+		serializer = SeatSerializer(seats , many = True)
 		return Response(serializer.data)
