@@ -10,9 +10,13 @@ class Command(BaseCommand):
 
 	############# Settings ##############
 	today = datetime.date.today()
+	# How many screening per week does a movie have
+	# depending on weeks from release data
 	screeningsPerWeek = [30,20,15,10,5,2,0]
+	# Movie duration in minutes (not currently used)
 	movieDuration = 150
-
+	# How many seats there is in a row
+	rowWidth = 10
 
 	# Shifts the date from today to given number of days
 	def getReleaseDate(noOfDays):
@@ -131,11 +135,6 @@ class Command(BaseCommand):
 
 ###################### Screenings ######################
 
-		# Data to be inserted into the database
-		# Key = index of movie object in movies
-		# Value = index of screenobject in screens
-		screenings_data = {}
-
 		screenings = []
 		for movie in movies:
 			amount = Command.getScreenings(movie)
@@ -149,17 +148,15 @@ class Command(BaseCommand):
 		for scr in screenings:
 			scr.save()
 
+		seats = []
 
 		for scr in screenings:
-			vipSeats = scr.screen_id.vipSeats
-			maxRow = math.floor((vipSeats + scr.screen_id.standardSeats)/10)
-			maxColumn = 10
-			seatsAmount = random.sample(range(0,10),1)[0]
-			for seat in range(seatsAmount):
-				row = random.sample(range(0,maxRow-1),1)[0]
-				column = random.sample(range(0,maxColumn-1),1)[0]
-				vipSeat = False
-				if ( row+1 <= math.floor(vipSeats/10) ):
-					vipSeat = True
-				Seat(screening_id=scr,vipSeat = vipSeat, row = row, column = column).save()
-	
+			for seat in range(scr.screen_id.vipSeats):
+				seats.append(Seat(screening_id = scr.id, vipSeat = True, row = math.floor(seat/Command.rowWidth), column = seat%Command.rowWidth ))
+			vipRows = math.floor(scr.screen_id.vipSeats/Command.rowWidth)
+			for seat in range(scr.screen_id.standardSeats):
+				seats.append(Seat(screening_id = scr.id, vipSeat = False, row = math.floor(seat/Command.rowWidth)+ vipRows, column = seat%Command.rowWidth ))
+
+		for seat in seats:
+			seat.save()
+		

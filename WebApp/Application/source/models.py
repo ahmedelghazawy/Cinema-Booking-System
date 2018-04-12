@@ -31,10 +31,10 @@ class Screening(models.Model):
 	time = models.TimeField(auto_now_add=False, null=True)
 
 class Seat(models.Model):
-	screening_id = models.ForeignKey('Screening',on_delete=models.CASCADE, default="")
-	vipSeat = models.BooleanField(default=False)
-	row = models.IntegerField()
-	column = models.IntegerField()
+    screening_id = models.ForeignKey('Screening',on_delete=models.CASCADE,)
+    vipSeat = models.BooleanField(default=False)
+    row = models.IntegerField()
+    column = models.IntegerField()
 
 
 class Ticket(models.Model):

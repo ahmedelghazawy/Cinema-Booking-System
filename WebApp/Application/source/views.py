@@ -1,13 +1,17 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import HttpResponse
 from django.db import models
 from source.models import *
+from source.forms import *
 from source.serializers import *
-import datetime
-
+from datetime import datetime, time
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, get_user_model, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 # Create your views here.
 def index(request):
 	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
@@ -17,8 +21,40 @@ def whatson(request):
 	movies = Movie.objects.all()
 	return render(request,'whatson.html',{'nbar':'whatson','movies':movies} )
 
-def login(request):
-    return render(request,'login.html',{'nbar':'login'} )
+def loginPage(request):
+	title="login"
+	form = UserLoginForm(request.POST or None)
+	if form.is_valid():
+		username = form.cleaned_data.get('username')
+		password = form.cleaned_data.get('password')
+		user = authenticate(username = username, password = password)
+		login(request, user)
+		return redirect("/")
+
+	return render(request,'login.html',{'title':title,'form':form} )
+
+def registerPage(request):
+	title ="register"
+	form = UserRegisterForm(request.POST or None)
+	if form.is_valid():
+		user = form.save(commit = False)
+		password = form.cleaned_data.get('password')
+		user.set_password(password)
+		user.save()
+		new_user = authenticate(username = user.username, password = password)
+		login(request, new_user)
+		return redirect("/")
+
+
+	return render(request,'login.html',{'title':title,'form':form} )
+def logoutPage(request):
+	logout(request)
+	return redirect("/")
+
+def profilePage(request):
+	if request.user.is_authenticated:
+		tickets = Ticket.objects.filter(id = request.user.id).all()
+	return render(request,'profile.html')
 
 def moviePage(request, MovieID):
 	movie = Movie.objects.filter(id=MovieID).first()
@@ -53,17 +89,14 @@ def moviePage(request, MovieID):
 	# Get 4 latest movies
 	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
 	return render(request,'movieBlurb.html',{'movie':movie, 'currentTime':currentTime, 'dates':dates, 'latestMovies':latestMovies, 'stars':stars} )
-
-def bookingPage(request):
-	seats = Seat.objects.filter(screening_id = 1).all()
-	return render(request,'booking.html',{'nbar':'whatson','seats':seats} )
-
-def bookingChoose(request, screeningId):
-	# Passing first element of the query as query is a list with 1 object
-	screening = Screening.objects.filter(id=screeningId)[0]
-	movie = screening.movie_id
-	screen = screening.screen_id
-	return render(request,'bookingChoose.html',{'nbar':'whatson','movie':movie, 'screen':screen, 'screening':screening} )
+def bookingPage(request, ScreeningID):
+	screening = Screening.objects.filter(id = ScreeningID).first()
+	temp = screening.screen_id.id
+	screen = Screen.objects.filter(id = temp).first()
+	totalSeats = screen.standardSeats
+	#emptySeats =
+	seats = Seat.objects.filter(screening_id = ScreeningID).all().count()
+	return render(request,'booking.html',{'nbar':'whatson','seats':seats, 'totalSeats':totalSeats} )
 
 class whatsonapi(APIView):
 	def get(self, request):

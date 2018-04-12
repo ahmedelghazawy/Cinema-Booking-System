@@ -87,24 +87,18 @@
 .container .info span .fa {
   color: #EF3B3A;
 }
-
 </style>
 <!-- <div class="login-page">
   <div class="form">
-    <form class="login-form">
+    <form class="register-form">
       <input type="text" placeholder="username"/>
+      <input type="text" placeholder="email address"/>
       <input type="password" placeholder="password"/>
-      <button>login</button>
-      <p class="message">Not registered? <a href="/register">Create an account</a></p>
+      <input type="password" placeholder="confirm password"/>
+      <button>create</button>
+      <p class="message">Already registered? <a href="/login">Sign In</a></p>
     </form>
   </div>
 </div> -->
-<div class="col-lg-6">
-  <h1>{{title}}</h1>
-  <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
-    {{ form }}
-    <input type='submit' class='btn btn-default' value = '{{ title }}' />
-  </form>
-</div>
 
 {% include 'footer.html' %}
