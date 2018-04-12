@@ -159,4 +159,3 @@ class Command(BaseCommand):
 
 		for seat in seats:
 			seat.save()
-		

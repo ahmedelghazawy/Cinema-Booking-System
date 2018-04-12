@@ -1,0 +1,148 @@
+
+.movie-tile-no-time hr{
+	border: 2px solid #ddd !important;
+	box-shadow: 0px -3px 10px -1px #000;
+}
+
+
+/* ------------------- Navbar Styling --------------------- */
+
+.navbar-logo{
+	height: 40px;
+	display: inline-block;
+	margin-top:5px;
+}
+/* ------------------- Carousel Styling ------------------- */
+
+.img-responsive,
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+	display: block;
+	width: 100%;
+	height: auto;
+	max-height: 600px;
+	object-fit: cover;
+	object-position: top;
+}
+
+.carousel-caption{
+	background-color:  rgba(0,0,0,0.3)
+}
+
+/* ------------------- Movie Tiles ------------------- */
+.movie-tile-no-time-wrap{
+	text-align: center;
+}
+.movie-tile-no-time{
+	position: relative;
+	display: inline-block;
+	margin: 10 auto;
+	width: 100%;
+	text-align: center;
+	word-wrap: normal;
+}
+.movie-tile-no-time > img{
+	display: block;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	object-position: top;
+	box-shadow: 0px 10px 15px -8px #999;
+}
+.movie-tile-no-time-inner{
+	width: 100%;
+	word-wrap: normal;
+}
+.movie-tile-no-time .image-wrapper:hover .book-now{
+	opacity: 100;
+}
+.book-now{
+	opacity: 0;
+	text-shadow: 1px 1px #636363;
+	box-shadow: inset 0px -51px 38px -20px #ff8100;
+	color:white;
+	font-size: 50px;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	-webkit-transition: opacity 0.3s ease-out;
+	-moz-transition: opacity 0.3s ease-out;
+	-o-transition: opacity 0.3s ease-out;
+	transition: opacity 0.3s ease-out;
+}
+
+.image-wrapper{
+	padding: 0px;
+	margin: 0px;
+	position: relative;
+	width:auto;
+	display: inline-block;
+}
+/* ------------------- Jumbotron homepage ------------------- */
+.jumbotron-homepage {
+	color:white !important;
+	text-align: center;
+	border-radius: 0px !important;
+	background-color: rgba(227, 123, 15,1) !important;
+	box-shadow:inset 0px 0px 30px 10px rgba(173, 88, 0, 0.3) !important;
+}
+
+.jumbotron-whatson{
+
+}
+/* ------------------- Social Links ------------------- */
+.socialFooter{
+	text-align: center;
+	width: 100%;
+	margin: 0 auto;
+	background: red;
+}
+.socialFooter {
+	-webkit-filter: brig(100%); /* Safari 6.0 - 9.0 */
+	filter: brightness(100%);
+	-webkit-transition:  0.3s ease-out;
+	-moz-transition:  0.3s ease-out;
+	-o-transition:  0.3s ease-out;
+	transition: 0.3s ease-out;
+}
+.social{
+	background: orange;
+	color: blue;
+	width: 10%;
+}
+.social img {
+
+}
+.social img:hover {
+
+}
+
+.infoFooter{
+	background: #141414;
+	color: white;
+}
+.footerList{
+	padding: 0;
+	list-style: none;
+	background:#141414;
+}
+
+
+.logoFooter{
+	background: #141414;
+}
+.logoFooter img{
+	margin: auto;
+	width: 15%;
+	height: 15%;
+}
+
+/* ------------------- footer -------------------------- */
+footer{
+	background:#141414;
+}

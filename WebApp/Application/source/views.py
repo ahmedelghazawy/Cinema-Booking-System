@@ -58,37 +58,12 @@ def profilePage(request):
 
 def moviePage(request, MovieID):
 	movie = Movie.objects.filter(id=MovieID).first()
-	currentDateTime = datetime.datetime.today()
-	currentTime = currentDateTime.time()
-	currentDate = currentDateTime.date()
-	# Stores the types of stars to print
-	stars = []
-	for star in range(0,10,2):
-		type = movie.rating - star
-		if( type >= 1.5 ):
-			stars.append(2)
-		elif( type <1.5 and type>=0.5 ):
-			stars.append(1)
-		else:
-			stars.append(0)
-	# Get all avaiable dates with times for the current movie and sort it
-	timings = Screening.objects.order_by('data').order_by('time').all().filter(movie_id=MovieID)
-	# Gets a 2d array with days: 1,2,3... and their avaiable timings
-	dates = []
-	for day in range(0,7):
-		name = ""
-		# Get the date
-		dayFromToday = currentDate + datetime.timedelta(days=day)
-		# Get the string for date
-		if (day==0):
-			name = "Today"
-		else:
-			name = dayFromToday.strftime("%A")
-		# Add the date string ant the timings for the date to array
-		dates.append([name, timings.filter(date=dayFromToday)])
-	# Get 4 latest movies
-	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
-	return render(request,'movieBlurb.html',{'movie':movie, 'currentTime':currentTime, 'dates':dates, 'latestMovies':latestMovies, 'stars':stars} )
+	currentDateTime = datetime.now()
+	currentTime = currentDateTime.time
+	timings = Screening.objects.order_by('time').all()
+	latest_movies = Movie.objects.order_by('-releaseDate')[:4]
+	return render(request,'movieTile.html',{'movie':movie, 'timings':timings, 'currentTime':currentTime, 'latest_movies':latest_movies} )
+
 def bookingPage(request, ScreeningID):
 	screening = Screening.objects.filter(id = ScreeningID).first()
 	temp = screening.screen_id.id
