@@ -12,6 +12,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+
+#import pyfpdf
 # Create your views here.
 def index(request):
 	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
@@ -33,6 +35,10 @@ def loginPage(request):
 
 	return render(request,'login.html',{'title':title,'form':form} )
 
+
+def checkoutPage(request):
+	movies = Movie.objects.all()
+	return render(request,'checkoutPage.html' )
 def registerPage(request):
 	title ="register"
 	form = UserRegisterForm(request.POST or None)
@@ -72,6 +78,8 @@ def bookingPage(request, ScreeningID):
 	#emptySeats =
 	seats = Seat.objects.filter(screening_id = ScreeningID).all().count()
 	return render(request,'booking.html',{'nbar':'whatson','seats':seats, 'totalSeats':totalSeats} )
+
+
 
 class whatsonapi(APIView):
 	def get(self, request):
