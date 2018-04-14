@@ -71,6 +71,25 @@ public class Movie {
 
     public void setReleaseDate(String releaseDate) { this.releaseDate = releaseDate; }
 
+    public boolean equals(Object other){
+      if(this == other){
+        return true;
+      }
+      else if(! (other instanceof Movie)){
+        return false;
+      }
+      else{
+        Movie otherMovie = (Movie) other;
+        return this.id == otherMovie.getID()
+                && this.title == otherMovie.getTitle()
+                && this.cover == otherMovie.getCover()
+                && this.rating == otherMovie.getRating()
+                && this.certificate == otherMovie.getCertificate()
+                && this.releaseDate == otherMovie.getReleaseDate();
+      }
+
+    }
+
     /**
      * Method for getting an ArrayList of movies for the movies contained within the database
      * @return ArrayList containing all movie being shown in the cinema
