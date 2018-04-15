@@ -2,8 +2,9 @@
  * Created by sc16tdad on 09/02/18.
  */
 public class Seat {
-    private String type;
-    private String row;
+    private int screening_id;
+    private boolean vipSeat;
+    private int row;
     private int column;
     private boolean availability;
 
