@@ -39,6 +39,11 @@ def loginPage(request):
 def checkoutPage(request):
 	movies = Movie.objects.all()
 	return render(request,'checkoutPage.html' )
+
+def confirmation(request):
+	movies = Movie.objects.all()
+	return render(request,'confirmation.html' )
+
 def registerPage(request):
 	title ="register"
 	form = UserRegisterForm(request.POST or None)
