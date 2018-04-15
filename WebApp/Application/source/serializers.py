@@ -15,6 +15,8 @@ class ScreeningSerializer(serializers.ModelSerializer):
 class ScreenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Screen
+        fields = '__all__'
+
 class SeatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Seat
