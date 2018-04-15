@@ -46,9 +46,8 @@ def registerPage(request):
 		new_user = authenticate(username = user.username, password = password)
 		login(request, new_user)
 		return redirect("/")
+	return render(request,'register.html',{'title':title,'form':form} )
 
-
-	return render(request,'login.html',{'title':title,'form':form} )
 def logoutPage(request):
 	logout(request)
 	return redirect("/")
@@ -125,7 +124,7 @@ class screenapi(APIView):
 	def get(self, request, ScreeningID):
 		screening = Screening.objects.filter(id = ScreeningID).first()
 		screen = screening.screen_id
-		#screen = Screen.objects.filter(id = screenId).first()
+		#screen = Screen.objects.filter(id = screen).first()
 		serializer = ScreenSerializer(screen, many=False)
 
 class seatingapi(APIView):
