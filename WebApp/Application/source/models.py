@@ -5,6 +5,11 @@ class User(models.Model):
 	name = models.CharField(max_length = 200)
 	email = models.EmailField(unique=True)
 	password = models.CharField(max_length = 200)
+	cardNo = models.CharField(blank=True, null=True, max_length = 16)
+	nameOnCard = models.CharField(blank=True, null=True, max_length = 100)
+	expirationMonth = models.CharField(blank=True, null=True, max_length = 2)
+	expirationYear = models.CharField(blank=True, null=True, max_length = 2)
+
 
 class Actor(models.Model):
 	name = models.CharField(max_length = 200)
