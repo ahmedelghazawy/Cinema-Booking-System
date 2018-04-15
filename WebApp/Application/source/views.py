@@ -83,11 +83,12 @@ class movieTimingsapi(APIView):
 
 
 class screenapi(APIView):
-	def get(self, request, ScreeningID):
-		screening = Screening.objects.filter(id = ScreeningID).first()
+	def get(self, request, screeningId):
+		screening = Screening.objects.filter(id = screeningId).first()
 		screen = screening.screen_id
 		#screen = Screen.objects.filter(id = screenId).first()
 		serializer = ScreenSerializer(screen, many=False)
+		return Response(serializer.data)
 
 class seatingapi(APIView):
 	def get(self, request, screeningId):
