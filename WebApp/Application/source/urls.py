@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^api/screenapi/(?P<screeningId>\d+)/$', views.screenapi.as_view()),
     url(r'^moviePage/(?P<MovieID>\d+)/$', views.moviePage, name = 'moviePage'),
     url(r'^booking/(?P<ScreeningID>\d+)/$', views.bookingPage, name = 'bookingPage'),
+	url(r'^bookingChoose/(?P<screeningId>\d+)/$', views.bookingChoose, name = 'bookingChoose'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
