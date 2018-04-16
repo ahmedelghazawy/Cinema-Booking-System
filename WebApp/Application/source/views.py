@@ -12,6 +12,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 def index(request):
 	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
@@ -74,12 +75,14 @@ def bookingPage(request, ScreeningID):
 	return render(request,'booking.html',{'nbar':'whatson','seats':seats, 'totalSeats':totalSeats} )
 
 class whatsonapi(APIView):
+	@csrf_exempt
 	def get(self, request):
 		movies = Movie.objects.all()
 		serializer = MovieSerializer(movies, many=True)
 		return Response(serializer.data)
 
 class movieTimingsapi(APIView):
+	@csrf_exempt
 	def get(self, request, MovieID, date):
 		movie = Movie.objects.filter(id = MovieID).first()
 		movie = movie.id
@@ -91,14 +94,19 @@ class movieTimingsapi(APIView):
 
 
 class screenapi(APIView):
+	@csrf_exempt
 	def get(self, request, ScreeningID):
 		screening = Screening.objects.filter(id = ScreeningID).first()
 		screen = screening.screen_id
-		#screen = Screen.objects.filter(id = screenId).first()
 		serializer = ScreenSerializer(screen, many=False)
+		return Response(serializer.data)
+
 
 class seatingapi(APIView):
+	@csrf_exempt
 	def get(self, request, screeningId):
 		seats = Seat.objects.filter(screening_id = screeningId).all()
 		serializer = SeatSerializer(seats , many = True)
 		return Response(serializer.data)
+	def put(self, request, *args, **kwargs):
+		return self.update(request, *args, **kwargs)
