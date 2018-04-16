@@ -17,6 +17,8 @@ pip install djangorestframework
 
 pip install django-filter
 
+pip install pyfpdf
+
 cd $DIR/Application/
 
 python manage.py makemigrations
