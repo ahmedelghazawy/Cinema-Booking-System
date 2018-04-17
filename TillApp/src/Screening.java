@@ -2,6 +2,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import java.util.*;
 import java.net.*;
 import java.io.*;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by sc16tdad on 09/02/18.
@@ -14,6 +15,9 @@ public class Screening {
     private int movie_id;
     private int screen_id;
 
+    /**
+     * Empty constructor for default screening values
+     */
     public Screening()
     {
         id = 0;
@@ -23,6 +27,14 @@ public class Screening {
         screen_id = 0;
     }
 
+    /**
+     * Screening constructor for creating a screening with certain values
+     * @param id Screening id for a movie
+     * @param date Screening date
+     * @param time Screening time
+     * @param movie_id ID of movie showing
+     * @param screen_id Screen ID showing the movie
+     */
     public Screening(int id, String date, String time, int movie_id, int screen_id)
     {
         this.id = id;
@@ -52,38 +64,46 @@ public class Screening {
 
     public void setScreen_id() { this.screen_id = screen_id; }
 
-    public static void getObjectsFromAPI()
+    /**
+     * Creates a get request to get the list of screenings for a specific movie for a specific day
+     * @param movie Movie which it's screenings are required
+     * @param daysToDate Number for how far away the date is
+     * @return ArrayList of screenings for the specific movie on the specific day
+     */
+    public static ArrayList<Screening> getScreenings(Movie movie, int daysToDate)
     {
+        //ArrayList containing screenings
+        ArrayList<Screening> screenings = new ArrayList<>();
         try
         {
-            // URL containing the API
-            String url = "http://127.0.0.1:8000/api/movieTimingsapi/1/2018-03-23/?format=json";
+            //Acquiring date of screening
+            Date date = new Date();
+            if(daysToDate > 0){
+              Calendar calendar = Calendar.getInstance();
+              calendar.setTime(date);
+              calendar.add(Calendar.DATE, 1);
+              date = calendar.getTime();
+            }
+            //formatting date to suite the URL format
+            String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
+            //URL for the API
+            String url = "http://127.0.0.1:8000/api/movieTimingsapi/" + movie.getID() + "/" + formattedDate + "/?format=json";
 
             // Part of the Jackson library, creating a mapper to map the json object to the screening object
             ObjectMapper mapper = new ObjectMapper();
             String[] jsons = APIConnection.get(url);
-            ArrayList<Screening> screenings = new ArrayList<>();
 
             // Turning json object into Screening objects and storing these in the ArrayList created above
-            for (int i = 0; i < jsons.length; i++)
+            for (String json: jsons)
             {
-                System.out.println(jsons[i]); // for testing
-                Screening screening = mapper.readValue(jsons[i], Screening.class);
+                Screening screening = mapper.readValue(json, Screening.class);
                 screenings.add(screening);
-            }
-
-            System.out.println();
-            System.out.println("=== From ArrayList ===");
-            System.out.println();
-
-            for (int j = 0; j < screenings.size(); j++)
-            {
-                System.out.println(screenings.get(j).getDate()); // for testing
             }
         }
         catch(Exception e)
         {
             System.out.println(e);
         }
+        return screenings;
     }
 }

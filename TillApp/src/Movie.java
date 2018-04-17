@@ -15,6 +15,9 @@ public class Movie {
     private String certificate;
     private List<Screening> screenings;
 
+    /**
+     * Empty constructor for creating a movie with default values
+     */
     public Movie()
     {
         title = "";
@@ -25,6 +28,15 @@ public class Movie {
         certificate= "";
     }
 
+    /**
+     * Constructor for creating a specific movie
+     * @param id Movie ID on the database/api
+     * @param title Movie title to be shown
+     * @param cover Path for cover images
+     * @param rating Movie rating from viewers
+     * @param certificate Certificate for viewing criteria
+     * @param releaseDate Movie release date
+     */
     public Movie(int id, String title, String cover, double rating, String certificate, String releaseDate)
     {
         this.id = id;
@@ -35,7 +47,7 @@ public class Movie {
         this.releaseDate = releaseDate;
     }
 
-    public int geID() { return id;}
+    public int getID() { return id;}
 
     public String getTitle() { return title; }
 
@@ -59,8 +71,33 @@ public class Movie {
 
     public void setReleaseDate(String releaseDate) { this.releaseDate = releaseDate; }
 
-    public static void getObjectsFromAPI()
+    public boolean equals(Object other){
+      if(this == other){
+        return true;
+      }
+      else if(! (other instanceof Movie)){
+        return false;
+      }
+      else{
+        Movie otherMovie = (Movie) other;
+        return this.id == otherMovie.getID()
+                && this.title == otherMovie.getTitle()
+                && this.cover == otherMovie.getCover()
+                && this.rating == otherMovie.getRating()
+                && this.certificate == otherMovie.getCertificate()
+                && this.releaseDate == otherMovie.getReleaseDate();
+      }
+
+    }
+
+    /**
+     * Method for getting an ArrayList of movies for the movies contained within the database
+     * @return ArrayList containing all movie being shown in the cinema
+     */
+    public static ArrayList<Movie> getMovies()
     {
+        //ArrayList contain the movies being shown in the cinema
+        ArrayList<Movie> movies = new ArrayList<>();
         try
         {
             // URL containing the API
@@ -69,28 +106,19 @@ public class Movie {
             // Part of the Jackson library, creating a mapper to map the json object to the movie object
             ObjectMapper mapper = new ObjectMapper();
             String[] jsons = APIConnection.get(url);
-            ArrayList<Movie> movies = new ArrayList<>();
 
             // Turning json object into Movie objects and storing these in the ArrayList created above
-            for (int i = 0; i < jsons.length; i++)
+            for (String json: jsons)
             {
-                System.out.println(jsons[i]); // for testing
-                Movie movie = mapper.readValue(jsons[i], Movie.class);
+                Movie movie = mapper.readValue(json, Movie.class);
                 movies.add(movie);
             }
-
-            System.out.println();
-            System.out.println("=== From ArrayList ===");
-            System.out.println();
-
-            for (int j = 0; j < movies.size(); j++)
-            {
-                System.out.println(movies.get(j).getTitle()); // for testing
-            }
+            return movies;
         }
         catch(Exception e)
         {
             System.out.println(e);
         }
+        return movies;
     }
 }

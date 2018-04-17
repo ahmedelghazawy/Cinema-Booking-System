@@ -7,7 +7,7 @@ from django.db import models
 from source.models import *
 from source.forms import *
 from source.serializers import *
-from datetime import datetime, time
+import datetime
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.decorators import login_required
@@ -34,6 +34,15 @@ def loginPage(request):
 
 	return render(request,'login.html',{'title':title,'form':form} )
 
+
+def checkoutPage(request):
+	movies = Movie.objects.all()
+	return render(request,'checkoutPage.html' )
+
+def confirmation(request):
+	movies = Movie.objects.all()
+	return render(request,'confirmation.html' )
+
 def registerPage(request):
 	title ="register"
 	form = UserRegisterForm(request.POST or None)
@@ -59,11 +68,38 @@ def profilePage(request):
 
 def moviePage(request, MovieID):
 	movie = Movie.objects.filter(id=MovieID).first()
-	currentDateTime = datetime.now()
-	currentTime = currentDateTime.time
-	timings = Screening.objects.order_by('time').all()
-	latest_movies = Movie.objects.order_by('-releaseDate')[:4]
-	return render(request,'movieTile.html',{'movie':movie, 'timings':timings, 'currentTime':currentTime, 'latest_movies':latest_movies} )
+	currentDateTime = datetime.datetime.today()
+	currentTime = currentDateTime.time()
+	currentDate = currentDateTime.date()
+	# Stores the types of stars to print
+	stars = []
+	for star in range(0,10,2):
+		type = movie.rating - star
+		if( type >= 1.5 ):
+			stars.append(2)
+		elif( type <1.5 and type>=0.5 ):
+			stars.append(1)
+		else:
+			stars.append(0)
+	# Get all avaiable dates with times for the current movie and sort it
+	timings = Screening.objects.order_by('data').order_by('time').all().filter(movie_id=MovieID)
+	# Gets a 2d array with days: 1,2,3... and their avaiable timings
+	dates = []
+	for day in range(0,7):
+		name = ""
+		# Get the date
+		dayFromToday = currentDate + datetime.timedelta(days=day)
+		# Get the string for date
+		if (day==0):
+			name = "Today"
+		else:
+			name = dayFromToday.strftime("%A")
+		# Add the date string ant the timings for the date to array
+		dates.append([name, timings.filter(date=dayFromToday)])
+	# Get 4 latest movies
+	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
+	return render(request,'movieBlurb.html',{'movie':movie, 'currentTime':currentTime, 'dates':dates, 'latestMovies':latestMovies, 'stars':stars} )
+
 
 def bookingPage(request, ScreeningID):
 	screening = Screening.objects.filter(id = ScreeningID).first()
@@ -73,6 +109,16 @@ def bookingPage(request, ScreeningID):
 	#emptySeats =
 	seats = Seat.objects.filter(screening_id = ScreeningID).all().count()
 	return render(request,'booking.html',{'nbar':'whatson','seats':seats, 'totalSeats':totalSeats} )
+
+def bookingChoose(request, screeningId):
+	# Passing first element of the query as query is a list with 1 object
+	screening = Screening.objects.filter(id=screeningId)[0]
+	movie = screening.movie_id
+	screen = screening.screen_id
+	return render(request,'bookingChoose.html',{'nbar':'whatson','movie':movie, 'screen':screen, 'screening':screening} )
+
+
+
 
 class whatsonapi(APIView):
 	@csrf_exempt
@@ -87,7 +133,7 @@ class movieTimingsapi(APIView):
 		movie = Movie.objects.filter(id = MovieID).first()
 		movie = movie.id
 		#dateString = year + "-" + month + "-" + day
-		date = datetime.strptime(date, "%Y-%m-%d").date()
+		date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
 		timing = Screening.objects.filter(movie_id = movie).filter(date = date).all()
 		serializer = ScreeningSerializer(timing, many=True)
 		return Response(serializer.data)
@@ -100,7 +146,6 @@ class screenapi(APIView):
 		screen = screening.screen_id
 		serializer = ScreenSerializer(screen, many=False)
 		return Response(serializer.data)
-
 
 class seatingapi(APIView):
 	@csrf_exempt

@@ -29,9 +29,14 @@ public class Order {
     public static void main(String[] args)
     {
         System.out.println("======= MOVIEEEEE =======");
-        Movie.getObjectsFromAPI();
-        System.out.println();
-        System.out.println("======= SCREENIIIIING =======");
-        Screening.getObjectsFromAPI();
+        ArrayList<Movie> movies = Movie.getMovies();
+        for(Movie movie: movies){
+          System.out.println("Movie name: " + movie.getTitle());
+          System.out.println("Screenings:");
+          ArrayList<Screening> screenings = Screening.getScreenings(movie, 1);
+          for(Screening screening: screenings){
+            System.out.println(screening.getTime());
+          }
+        }
     }
 }

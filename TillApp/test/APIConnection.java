@@ -1,15 +1,14 @@
-import java.net.*;
-
+import java.lang.*;
 public class APIConnection{
-  public void get() throws Exception{
-    URL url = new URL ("127.0.0.1:8000/api/movieTimingsapi/1/2018-03-12");
-    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-    
-
-    con.setRequestMethod("GET");
+  public static String[] get(String url) throws Exception{
+    String[] array = new String[1];
+    if(url.contains("whatsonapi")){
+      array[0] = "{\"id\":1, \"title\":\"hello\", \"cover\":\"\", \"rating\":0.0, \"certificate\":\"\", \"releaseDate\":\"\"}";
+    }
+    else if(url.contains("movieTimingsapi")){
+      array[0] = "{\"id\":1, \"date\": \"2018-04-12\", \"time\":\"10:00:00\", \"movie_id\":1, \"screen_id\":2}";
+    }
+    return array;
   }
 
-  public static void main(String[] args) {
-
-  }
 }
