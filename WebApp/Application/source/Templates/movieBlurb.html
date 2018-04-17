@@ -41,6 +41,7 @@
 				{% endif %}
 			{% endfor %}
 			</ul>
+
 			<div class = "tab-content">
 				{% for day in dates %}
 					{% if forloop.first %}
@@ -49,10 +50,9 @@
 						<div id="{{ day.0 }}" class="tab-pane fade">
 					{% endif %}
 						{% for screening in day.1 %}
-							{% if currentTime > screening.time %}
+							{% if currentTime > screening.time and "Today" in day.0 %}
 							<p class="screeningTime backgroundgrey">{{screening.time|time:"H:i"}}</p>
-							{% endif %}
-							{% if currentTime < screening.time %}
+							{% else %}
 							<a href="/bookingChoose/{{ screening.id }}">
 								<p class="screeningTime">{{screening.time|time:"H:i"}}</p>
 							</a>

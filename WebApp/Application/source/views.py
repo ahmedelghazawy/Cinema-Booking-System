@@ -46,13 +46,14 @@ def moviePage(request, MovieID):
 		# Get the string for date
 		if (day==0):
 			name = "Today"
+			currentDay = day
 		else:
 			name = dayFromToday.strftime("%A")
 		# Add the date string ant the timings for the date to array
 		dates.append([name, timings.filter(date=dayFromToday)])
 	# Get 4 latest movies
 	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
-	return render(request,'movieBlurb.html',{'movie':movie, 'currentTime':currentTime, 'dates':dates, 'latestMovies':latestMovies, 'stars':stars} )
+	return render(request,'movieBlurb.html',{'movie':movie,'currentTime':currentTime, 'dates':dates, 'latestMovies':latestMovies, 'stars':stars} )
 
 def bookingPage(request):
 	seats = Seat.objects.filter(screening_id = 1).all()
