@@ -153,5 +153,5 @@ class seatingapi(APIView):
 		seats = Seat.objects.filter(screening_id = screeningId).all()
 		serializer = SeatSerializer(seats , many = True)
 		return Response(serializer.data)
-	def put(self, request, *args, **kwargs):
+	def post(self, request, *args, **kwargs):
 		return self.update(request, *args, **kwargs)

@@ -10,11 +10,11 @@ public class Seat {
 
     public Seat(String type, String row, int column, boolean availability){}
 
-    public String getType() {
-        return type;
+    public boolean getVipSeat() {
+        return vipSeat;
     }
 
-    public String getRow() {
+    public int getRow() {
         return row;
     }
 
