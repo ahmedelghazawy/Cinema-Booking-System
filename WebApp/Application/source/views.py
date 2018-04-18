@@ -13,6 +13,9 @@ from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import send_mail
+from django.conf import settings
+
 # Create your views here.
 def index(request):
 	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
@@ -41,6 +44,18 @@ def checkoutPage(request):
 
 def confirmation(request):
 	movies = Movie.objects.all()
+
+	#send email
+	subject = 'Confirmation'
+	contact_message = "message"
+	from_email = settings.EMAIL_HOST_USER
+	to_email = [settings.EMAIL_HOST_USER]
+
+	send_mail(subject,
+	contact_message,
+	from_email, [to_email],
+	fail_silently = False)
+
 	return render(request,'confirmation.html' )
 
 def registerPage(request):
