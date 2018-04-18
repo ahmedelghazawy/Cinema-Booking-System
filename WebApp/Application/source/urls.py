@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^register$', views.registerPage, name = 'registerPage'),
     url(r'^profile$', views.profilePage, name = 'profilePage'),
     url(r'^checkout$', views.checkoutPage, name = 'checkoutPage'),
+    url(r'^search$', views.search, name = 'search'),
     url(r'^confirmation$', views.confirmation, name = 'confirmation'),
     url(r'^api/whatsonapi$', views.whatsonapi.as_view()),
     url(r'^api/movieTimingsapi/(?P<MovieID>\d+)/(?P<date>[\w\-]+)/$', views.movieTimingsapi.as_view()),

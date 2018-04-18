@@ -13,6 +13,7 @@ from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
 # Create your views here.
 def index(request):
 	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
@@ -21,6 +22,15 @@ def index(request):
 def whatson(request):
 	movies = Movie.objects.all()
 	return render(request,'whatson.html',{'nbar':'whatson','movies':movies} )
+
+def search(request):
+	movies = Movie.objects.all()
+	query = request.GET.get("search")
+	if query:
+		results = movies.filter(Q(title__icontains=query)|Q(director__icontains=query)).all()
+	else:
+		results=""
+	return render(request,'search.html',{'nbar':'whatson','movies':results} )
 
 def loginPage(request):
 	title="login"
