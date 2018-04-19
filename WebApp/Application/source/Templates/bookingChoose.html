@@ -6,30 +6,43 @@
 			$(".table").find("input").each(function() {
 				var amount = $(this).val();
 				var name = $(this).attr("name");
-				var price = $(".price" + name).text().slice(1, 4);
+				var price = $(".price." + name).text().slice(1, 4);
 				var total = (amount * price).toFixed(2);
-				$(".total" + name).text(total);
+				$(".total." + name).text("£"+total);
 
-			})
+			});
+			var totalPounds = 0.0;
+			$(".table").find(".total").each(function() {
+				console.log($(this).text().substring(1));
+				totalPounds += parseFloat($(this).text().substring(1));
+				console.log(totalPounds);
+			});
+			$("#total").text("£"+totalPounds);
 		};
 
 		// Function to update VIP seats amount called from Seat selection code
 		function updateVipAmount() {
 			var amount = $(".theatre").find(".taken").filter(".vip").length;
-			$('.amountVIP').text(amount);
-			var price = $(".priceVIP").text().slice(1,4);
-			$(".totalVIP").text("£"+(price*amount).toFixed(2));
+			$('.amount.vip').text(amount);
+			var price = $(".price.vip").text().substring(1);
+			$(".total.vip").text("£"+(price*amount).toFixed(2));
 		}
 		// ###### Sliding of the form #######
 
 		$("#next").click(function() {
 			$(".form1").fadeOut(200, function() {
 				$(".form2").fadeIn(200);
+				$(".table input").prop("disabled",true);
+				$("#next").prop("disabled",true);
+				$("#previous").prop("disabled",false);
 			});
 		});
 		$("#previous").click(function() {
 			$(".form2").fadeOut(200, function() {
 				$(".form1").fadeIn(200);
+				$(".table input").prop("disabled",false);
+				$("#next").prop("disabled",false);
+				$("#previous").prop("disabled",true);
 			});
 		});
 
@@ -200,9 +213,10 @@
 </div>
 <div class="container">
 	<div class="row formMain">
+		<form  action="/checkout/" method="post">
 		<div class="col-lg-12 col-xs-12">
 
-			<div class="row form1">
+			<div class="row">
 				<div class="col-lg-4" style="text-align:center;">
 					<img src="{% static movie.cover %}" style="width:100%" />
 				</div>
@@ -222,33 +236,40 @@
 							<tbody>
 								<tr>
 									<th scope="row">Normal</th>
-									<td><input class="form-control" type="number" name="Normal" min="0" max="99" value="0" id="normal"></td>
-									<td class="priceNormal">£5.60</td>
-									<td class="totalNormal">£0.00</td>
+									<td><input class="form-control" type="number" name="normal" min="0" max="99" value="0" id="normal"></td>
+									<td class="price normal">£5.60</td>
+									<td class="total normal">£0.00</td>
 								</tr>
 								<tr>
 									<th scope="row">Student</th>
-									<td><input class="form-control" type="number" name="Student" min="0" max="99" value="0" id="student"></td>
-									<td class="priceStudent">£4.00</td>
-									<td class="totalStudent">£0.00</td>
+									<td><input class="form-control" type="number" name="student" min="0" max="99" value="0" id="student"></td>
+									<td class="price student">£4.00</td>
+									<td class="total student">£0.00</td>
 								</tr>
 								<tr>
 									<th scope="row">Senior</th>
-									<td><input class="form-control" type="number" name="Senior" min="0" max="99" value="0" id="senior"></td>
-									<td class="priceSenior">£3.00</td>
-									<td class="totalSenior">£0.00</td>
+									<td><input class="form-control" type="number" name="senior" min="0" max="99" value="0" id="senior"></td>
+									<td class="price senior">£3.00</td>
+									<td class="total senior">£0.00</td>
 								</tr>
 								<tr>
 									<th scope="row">Child</th>
-									<td><input class="form-control" type="number" name="Child" min="0" max="99" value="0" id="child"></td>
-									<td class="priceChild">£3.40</td>
-									<td class="totalChild">£0.00</td>
+									<td><input class="form-control" type="number" name="child" min="0" max="99" value="0" id="child"></td>
+									<td class="price child">£3.40</td>
+									<td class="total child">£0.00</td>
 								</tr>
 								<tr>
 									<th scope="row">VIP</th>
-									<td class="amountVIP"></td>
-									<td class="priceVIP">£2.00</td>
-									<td class="totalVIP">£0.00</td>
+									<td class="amount vip"></td>
+									<td class="price vip">£2.00</td>
+									<td class="total vip">£0.00</td>
+								</tr>
+								<tr>
+									<th scope="row"><h2><b>Total</b></h2></th>
+									<td></td>
+									<td ></td>
+									<td id="total"><h2><b>£0.00</b></h2></td>
+								</h2>
 								</tr>
 							</tbody>
 						</table>
@@ -276,24 +297,7 @@
 				</div>
 			</div>
 			<div class="row form2" style="display:none">
-				<div class="col-sm-6">
-					<label class='control-label'></label>
-					<!-- spacing -->
-					<div class="alert alert-info">
-						<h4><b>Movie:</b> input from db</h4>
-						<h4><b>Time:</b> input from db</h4>
-						<h4><b>Screen:</b> input from db</h4>
-					</div>
-					<div class="row">
-						<div class="col-lg-12 col-xs-12">
-
-							<h3 style="float:right;">Total: You can't afford it...</h3>
-						</div>
-						<br><br><br>
-					</div>
-
-				</div>
-				<div class="col-sm-6">
+				<div class="col-sm-8 col-sm-offset-2">
 					<div class="tab-content">
 						<div id="stripe" class="tab-pane fade in active">
 							<br>
@@ -338,7 +342,7 @@
 							<div class='form-row'>
 								<div class='form-group'>
 									<label class='control-label'></label>
-									<button class='form-control btn btn-primary' type='submit' href="/confirmation"> Continue </button>
+									<button class='form-control btn btn-primary' type='submit' > Continue </button>
 									</form>
 								</div>
 							</div>
@@ -349,7 +353,7 @@
 			<div class="row" style="padding:20px">
 				<div class="col-lg-12">
 					<button id="next" type="button" style="float:right" class="btn btn-warning">Continue</button>
-					<button id="previous" type="button" style="float:left" class="btn btn-warning">Go back</button>
+					<button id="previous" type="button" style="float:left" class="btn btn-warning" disabled="">Go back</button>
 				</div>
 			</div>
 		</div>
