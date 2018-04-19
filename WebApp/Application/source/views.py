@@ -16,6 +16,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 from django.conf import settings
 
+from django.core import mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+
 # Create your views here.
 def index(request):
 	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
@@ -45,16 +49,15 @@ def checkoutPage(request):
 def confirmation(request):
 	movies = Movie.objects.all()
 
-	#send email
-	subject = 'Confirmation'
-	contact_message = "message"
+
+
+	subject = 'Your Toucan cinema ticket'
+	html_message = render_to_string('email.html', {'context': 'values'})
+	plain_message = strip_tags(html_message)
 	from_email = settings.EMAIL_HOST_USER
 	to_email = [settings.EMAIL_HOST_USER]
 
-	send_mail(subject,
-	contact_message,
-	from_email, [to_email],
-	fail_silently = False)
+	mail.send_mail(subject, plain_message, from_email, to_email, html_message=html_message, fail_silently = False)
 
 	return render(request,'confirmation.html' )
 
@@ -70,8 +73,8 @@ def registerPage(request):
 		login(request, new_user)
 		return redirect("/")
 
-
 	return render(request,'login.html',{'title':title,'form':form} )
+
 def logoutPage(request):
 	logout(request)
 	return redirect("/")
