@@ -20,6 +20,8 @@ from django.core import mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
+from django.core.mail import EmailMessage
+
 # Create your views here.
 def index(request):
 	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
@@ -48,16 +50,27 @@ def checkoutPage(request):
 
 def confirmation(request):
 	movies = Movie.objects.all()
-
-
-
+	#email data
 	subject = 'Your Toucan cinema ticket'
 	html_message = render_to_string('email.html', {'context': 'values'})
 	plain_message = strip_tags(html_message)
 	from_email = settings.EMAIL_HOST_USER
 	to_email = [settings.EMAIL_HOST_USER]
+	# mail.send_mail(subject, plain_message, from_email, to_email, html_message=html_message, fail_silently = False)
 
-	mail.send_mail(subject, plain_message, from_email, to_email, html_message=html_message, fail_silently = False)
+	#email attributes
+	email = EmailMessage(
+    subject,
+    plain_message,
+    from_email,
+    to_email,
+    [],
+    reply_to=['toucan.se@gmail.com'],
+    headers={'Message-ID': 'Toucan Cinema'},
+)
+	#send email
+	email.attach_file('Static/img/logo.png')
+	email.send()
 
 	return render(request,'confirmation.html' )
 
