@@ -153,5 +153,11 @@ class seatingapi(APIView):
 		seats = Seat.objects.filter(screening_id = screeningId).all()
 		serializer = SeatSerializer(seats , many = True)
 		return Response(serializer.data)
-	def put(self, request, *args, **kwargs):
-		return self.update(request, *args, **kwargs)
+
+	def post(self, request,screeningId, format = None):
+		serializer = SeatSerializer(data=request.data)
+		if serializer.is_valid():
+			instance = serializer.save()
+			return Response(serializer.data, status=status.HTTP_201_CREATED)
+		else:
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
