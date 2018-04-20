@@ -24,164 +24,164 @@
 
 
 
-   <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints />
-      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-      <RowConstraints />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-   </rowConstraints>
-   <children>
-      <ImageView pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
-         <image>
-            <Image url="@media/bigBanner.jpg" />
-         </image>
-      </ImageView>
-      <HBox alignment="CENTER" GridPane.rowIndex="5">
-         <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#backToTicket" prefHeight="40.0" prefWidth="100.0" text="Back" textAlignment="CENTER" />
-         </children>
-      </HBox>
-      <Label alignment="CENTER" prefHeight="40.0" prefWidth="350.0" text="Black Panther" textAlignment="CENTER" underline="true" GridPane.rowIndex="2">
-         <font>
-            <Font name="System Bold" size="32.0" />
-         </font></Label>
-      <VBox maxWidth="-Infinity" prefHeight="522.0" prefWidth="524.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-         <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <CheckBox mnemonicParsing="false" selected="true" text="Today">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </CheckBox>
-                        <DatePicker>
-                           <VBox.margin>
-                              <Insets top="30.0" />
-                           </VBox.margin>
-                        </DatePicker>
-                     </children>
-                  </VBox>
-                  <Separator orientation="VERTICAL" prefHeight="200.0">
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
-                  </Separator>
-                  <VBox>
-                     <children>
-                        <Group />
-                        <HBox>
-                           <children>
-                              <ButtonBar>
-                                 <buttons>
-      
-                                    <!--<fx:define>-->
-                                       <!--<ToggleGroup fx:id="timingGroup"/>-->
-                                    <!--</fx:define>-->
-      
-                                    <RadioButton mnemonicParsing="false" text="Time 1">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="toggleGroup" />
-                                       </toggleGroup></RadioButton>
-                                    <RadioButton mnemonicParsing="false" text="Time 2" toggleGroup="$toggleGroup" />
-                                    <RadioButton mnemonicParsing="false" text="Time 3" toggleGroup="$toggleGroup" />
-                                    <RadioButton mnemonicParsing="false" text="Time 4" toggleGroup="$toggleGroup" />
-                                 </buttons>
-                              </ButtonBar>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints />
+        <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+        <RowConstraints />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    </rowConstraints>
+    <children>
+        <ImageView pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+            <image>
+                <Image url="@media/bigBanner.jpg" />
+            </image>
+        </ImageView>
+        <HBox alignment="CENTER" GridPane.rowIndex="5">
+            <children>
+                <Button alignment="CENTER" mnemonicParsing="false" onAction="#backToTicket" prefHeight="40.0" prefWidth="100.0" text="Back" textAlignment="CENTER" />
+            </children>
+        </HBox>
+        <Label alignment="CENTER" prefHeight="40.0" prefWidth="350.0" text="Black Panther" textAlignment="CENTER" underline="true" GridPane.rowIndex="2">
+            <font>
+                <Font name="System Bold" size="32.0" />
+            </font></Label>
+        <VBox maxWidth="-Infinity" prefHeight="522.0" prefWidth="524.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <children>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                            <children>
+                                <CheckBox mnemonicParsing="false" selected="true" text="Today">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </CheckBox>
+                                <DatePicker>
+                                    <VBox.margin>
+                                        <Insets top="30.0" />
+                                    </VBox.margin>
+                                </DatePicker>
+                            </children>
+                        </VBox>
+                        <Separator orientation="VERTICAL" prefHeight="200.0">
+                            <HBox.margin>
+                                <Insets left="10.0" right="10.0" />
+                            </HBox.margin>
+                        </Separator>
+                        <VBox>
+                            <children>
+                                <Group />
+                                <HBox>
+                                    <children>
+                                        <ButtonBar>
+                                            <buttons>
 
-                           </children>
-                           <padding>
-                              <Insets top="45.0" />
-                           </padding>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <Separator prefHeight="20.0" prefWidth="270.0" />
-            <GridPane>
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </Rectangle>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="16.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin></Rectangle>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="54.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="2" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="87.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="3" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.rowIndex="1" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="4" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="5" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="204.0" layoutY="43.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="6" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="7" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="7" GridPane.rowIndex="1" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.rowIndex="2" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="48.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.rowIndex="2" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="87.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.rowIndex="2" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="126.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.rowIndex="2" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="165.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.rowIndex="2" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="204.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.rowIndex="2" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="243.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.rowIndex="2" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="48.0" layoutY="73.0" onMouseClicked="#seatSelected" stroke="BLACK" strokeType="INSIDE" width="25.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="48.0" layoutY="73.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="1" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-               </children>
-            </GridPane>
-         </children>
-      </VBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
-         <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#proceedToPayment" prefHeight="45.0" prefWidth="110.0" style="-fx-background-color: green;" text="Proceed" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-         </children>
-      </HBox>
-   </children>
+                                                <!--<fx:define>-->
+                                                <!--<ToggleGroup fx:id="timingGroup"/>-->
+                                                <!--</fx:define>-->
+
+                                                <RadioButton mnemonicParsing="false" text="Time 1">
+                                                    <toggleGroup>
+                                                        <ToggleGroup fx:id="toggleGroup" />
+                                                    </toggleGroup></RadioButton>
+                                                <RadioButton mnemonicParsing="false" text="Time 2" toggleGroup="$toggleGroup" />
+                                                <RadioButton mnemonicParsing="false" text="Time 3" toggleGroup="$toggleGroup" />
+                                                <RadioButton mnemonicParsing="false" text="Time 4" toggleGroup="$toggleGroup" />
+                                            </buttons>
+                                        </ButtonBar>
+
+                                    </children>
+                                    <padding>
+                                        <Insets top="45.0" />
+                                    </padding>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <Separator prefHeight="20.0" prefWidth="270.0" />
+                <GridPane>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                        </Rectangle>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="16.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin></Rectangle>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="54.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="2" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="87.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="3" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.rowIndex="1" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="4" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="5" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="204.0" layoutY="43.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="6" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="7" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.rowIndex="2" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="48.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.rowIndex="2" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="87.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.rowIndex="2" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="126.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.rowIndex="2" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="165.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.rowIndex="2" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="204.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.rowIndex="2" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="243.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.rowIndex="2" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="48.0" layoutY="73.0" onMouseClicked="#seatSelected" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="48.0" layoutY="73.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="1" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="10.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="25.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                    </children>
+                </GridPane>
+            </children>
+        </VBox>
+        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <children>
+                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#proceedToPayment" prefHeight="45.0" prefWidth="110.0" style="-fx-background-color: green;" text="Proceed" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+            </children>
+        </HBox>
+    </children>
 </GridPane>
