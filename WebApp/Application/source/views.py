@@ -36,6 +36,7 @@ def loginPage(request):
 
 
 def checkoutPage(request):
+	print(request.POST)
 	movies = Movie.objects.all()
 	return render(request,'checkoutPage.html' )
 
@@ -101,21 +102,40 @@ def moviePage(request, MovieID):
 	return render(request,'movieBlurb.html',{'movie':movie, 'currentTime':currentTime, 'dates':dates, 'latestMovies':latestMovies, 'stars':stars} )
 
 
-def bookingPage(request, ScreeningID):
-	screening = Screening.objects.filter(id = ScreeningID).first()
-	temp = screening.screen_id.id
-	screen = Screen.objects.filter(id = temp).first()
-	totalSeats = screen.standardSeats
-	#emptySeats =
-	seats = Seat.objects.filter(screening_id = ScreeningID).all().count()
-	return render(request,'booking.html',{'nbar':'whatson','seats':seats, 'totalSeats':totalSeats} )
-
 def bookingChoose(request, screeningId):
 	# Passing first element of the query as query is a list with 1 object
+	form = BookingForm(request.POST or None)
+	if form.is_valid():
+		# Get all the data from form
+		normal = int(form.cleaned_data['normal'])
+		student = int(form.cleaned_data['student'])
+		senior = int(form.cleaned_data['senior'])
+		vip = int(form.cleaned_data['vip'])
+		child = int(form.cleaned_data['child'])
+		name = form.cleaned_data['name']
+		number = form.cleaned_data['number']
+		cvc = form.cleaned_data['cvc']
+		year = form.cleaned_data['year']
+		month = form.cleaned_data['month']
+		seats = form.cleaned_data['seats'].split(",")
+		# Total amount of tickets purchased
+		total_seats = normal+student+senior+child
+		# Details of booking
+		screening = Screening.objects.filter(id=screeningId)[0]
+		movie = screening.movie_id
+		for x in range(total_seats-1):
+			isVip = False
+			if (x - vip > 0):
+				isVip = True
+			seat = Seat(screening_id = screening,vipSeat = isVip,row=seats[x][0:1],column=seats[x][1:2])
+			seat.save()
+			ticket = Ticket(movie_id = movie,screening_id = screening, seat_id=seat,user_id=None)
+
+		return redirect("/confirmation")
 	screening = Screening.objects.filter(id=screeningId)[0]
 	movie = screening.movie_id
 	screen = screening.screen_id
-	return render(request,'bookingChoose.html',{'nbar':'whatson','movie':movie, 'screen':screen, 'screening':screening} )
+	return render(request,'bookingChoose.html',{'nbar':'whatson','movie':movie, 'screen':screen, 'screening':screening,'form':form} )
 
 
 
