@@ -148,14 +148,15 @@ class Command(BaseCommand):
 		for scr in screenings:
 			scr.save()
 
-		seats = []
-
-		for scr in screenings:
-			for seat in range(scr.screen_id.vipSeats):
-				seats.append(Seat(screening_id = scr.id, vipSeat = True, row = math.floor(seat/Command.rowWidth), column = seat%Command.rowWidth ))
-			vipRows = math.floor(scr.screen_id.vipSeats/Command.rowWidth)
-			for seat in range(scr.screen_id.standardSeats):
-				seats.append(Seat(screening_id = scr.id, vipSeat = False, row = math.floor(seat/Command.rowWidth)+ vipRows, column = seat%Command.rowWidth ))
-
-		for seat in seats:
-			seat.save()
+		# seats = []
+		# print("There are {} screenings".format(len(scr))
+		# for scr in screenings:
+		# 	for seat in range(scr.screen_id.vipSeats):
+		# 		seats.append(Seat(screening_id = scr, vipSeat = True, row = math.floor(seat/Command.rowWidth), column = seat%Command.rowWidth ))
+		# 	vipRows = math.floor(scr.screen_id.vipSeats/Command.rowWidth)
+		# 	for seat in range(scr.screen_id.standardSeats):
+		# 		seats.append(Seat(screening_id = scr, vipSeat = False, row = math.floor(seat/Command.rowWidth)+ vipRows, column = seat%Command.rowWidth ))
+		#
+		# print("There are {} seats".format(len(seats))
+		# for seat in seats:
+		# 	seat.save()

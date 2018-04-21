@@ -123,15 +123,16 @@ def bookingChoose(request, screeningId):
 		# Details of booking
 		screening = Screening.objects.filter(id=screeningId)[0]
 		movie = screening.movie_id
-		for x in range(total_seats-1):
+		for x in range(total_seats):
 			isVip = False
 			if (x - vip > 0):
 				isVip = True
 			seat = Seat(screening_id = screening,vipSeat = isVip,row=seats[x][0:1],column=seats[x][1:2])
 			seat.save()
 			ticket = Ticket(movie_id = movie,screening_id = screening, seat_id=seat,user_id=None)
-
+			ticket.save()
 		return redirect("/confirmation")
+
 	screening = Screening.objects.filter(id=screeningId)[0]
 	movie = screening.movie_id
 	screen = screening.screen_id

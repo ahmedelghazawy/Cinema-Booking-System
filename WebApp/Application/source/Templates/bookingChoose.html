@@ -2,6 +2,7 @@
 <script>
 	$(document).ready(function() {
 		// ###### Form updating #########
+		updateForm();
 		function updateForm() {
 			$(".table").find("input").each(function() {
 				var amount = $(this).val();
@@ -31,8 +32,7 @@
 		$("#next").click(function() {
 			$(".form1").fadeOut(200, function() {
 				$(".form2").fadeIn(200);
-				$(".table input").removeClass()
-				$(".table input").addClass("form-control-plaintext");
+				$(".table input").attr("readonly","");
 				$("#next").prop("disabled",true);
 				$("#previous").prop("disabled",false);
 			});
@@ -41,8 +41,7 @@
 			$(".form2").fadeOut(200, function() {
 				$(".form1").fadeIn(200);
 				// Disable inputs except the not-editable ones
-				$("input:not([name=normal]):not([name=vip])").removeClass()
-				$("input:not([name=normal]):not([name=vip])").addClass("form-control");
+				$("input:not([name=seats]):not([name=vip])").removeAttr("readonly")
 				$("#next").prop("disabled",false);
 				$("#previous").prop("disabled",true);
 			});
