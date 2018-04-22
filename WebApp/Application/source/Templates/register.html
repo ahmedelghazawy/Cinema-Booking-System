@@ -38,6 +38,9 @@
                   <div class="form-group">
                     <input type="text" name="dob" id="dob" tabindex="2" class="form-control" placeholder="Date of birth  (DD/MM/YYYY)">
                   </div>
+                  {% if request.GET.next %}
+                    <input type="hidden" name="next" value="{{ request.GET.next}}">
+                  {% endif %}
 
                   <div class="form-group">
                     <div class="row">
