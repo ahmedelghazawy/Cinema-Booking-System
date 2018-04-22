@@ -2,21 +2,30 @@
 <project name="toucan" basedir="." default="compile">
 
   <property name="src.dir" value="TillApp/src"/>
+  <property name="test.dir" value="TillApp/test"/>
   <property name="lib.dir" value="TillApp/lib"/>
   <property name="scripts.dir" value="scripts"/>
   <property name="build.dir" value="TillApp/bin"/>
 
   <path id="project.classpath">
     <pathelement location="${build.dir}"/>
+    <pathelement location="${lib.dir}/jackson-all-1.9.0.jar"/>
     <pathelement location="${lib.dir}/junit-4.12.jar"/>
     <pathelement location="${lib.dir}/hamcrest-core-1.3.jar"/>
+    <pathelement location="${lib.dir}/mockito-all-1.9.5.jar"/>
   </path>
 
   <target name="init">
     <mkdir dir="${build.dir}"/>
+    <exec executable="/bin/bash">
+      <arg value="WebApp/forAnt.sh"/>
+    </exec>
   </target>
 
   <target name="compile" depends="init" description="Compile source code">
+    <waitfor maxwait="3" maxwaitunit="minute" checkevery="500">
+      <http url="http://127.0.0.1:8000/api/whatsonapi?format=json"/>
+    </waitfor>
     <javac srcdir="${src.dir}" destdir="${build.dir}"
       includeantruntime="false">
       <classpath refid="project.classpath"/>
@@ -24,20 +33,26 @@
   </target>
 
   <target name="test" depends="compile" description="Run unit tests">
+    <delete file="${build.dir}/APIConnection"/>
+    <javac srcdir="${test.dir}" destdir="${build.dir}"
+      includeantruntime="false">
+      <classpath refid="project.classpath"/>
+    </javac>
     <junit fork="true">
       <classpath refid="project.classpath"/>
       <formatter type="brief" usefile="false"/>
-      <test name="TillApp/test/MovieTest"/>
-      <test name="TillApp/test/OrderTest"/>
-      <test name="TillApp/test/ScreeningTest"/>
-      <test name="TillApp/test/SeatTest"/>
-      <test name="TillApp/test/TicketTest"/>
+      <test name="TillApp/bin/MovieTest"/>
+      <test name="TillApp/bin/OrderTest"/>
+      <test name="TillApp/bin/ScreeningTest"/>
+      <test name="TillApp/bin/SeatTest"/>
+      <test name="TillApp/bin/TicketTest"/>
     </junit>
   </target>
 
   <target name="clean" description="Remove compiled code">
     <delete dir="${build.dir}"/>
     <delete dir="out"/>
+    <delete file="WebApp/Application/databse.db"/>
   </target>
 
 </project>

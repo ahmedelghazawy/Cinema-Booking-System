@@ -39,6 +39,37 @@ def loginPage(request):
 		return redirect("/")
 	return render(request,'login.html',{'title':title,'form':form} )
 
+
+def checkoutPage(request):
+	movies = Movie.objects.all()
+	return render(request,'checkoutPage.html' )
+
+def confirmation(request):
+	movies = Movie.objects.all()
+	#email data
+	subject = 'Your Toucan cinema ticket'
+	html_message = render_to_string('email.html', {'context': 'values'})
+	plain_message = strip_tags(html_message)
+	from_email = settings.EMAIL_HOST_USER
+	to_email = [settings.EMAIL_HOST_USER]
+	# mail.send_mail(subject, plain_message, from_email, to_email, html_message=html_message, fail_silently = False)
+
+	#email attributes
+	email = EmailMessage(
+    subject,
+    plain_message,
+    from_email,
+    to_email,
+    [],
+    reply_to=['toucan.se@gmail.com'],
+    headers={'Message-ID': 'Toucan Cinema'},
+)
+	#send email
+	email.attach_file('Static/img/logo.png')
+	email.send()
+
+	return render(request,'confirmation.html' )
+
 def registerPage(request):
 	title ="register"
 	form = UserRegisterForm(request.POST or None)
@@ -112,31 +143,38 @@ def bookingChoose(request, screeningId):
 	return render(request,'bookingChoose.html',{'nbar':'whatson','movie':movie, 'screen':screen, 'screening':screening} )
 
 class whatsonapi(APIView):
+	@csrf_exempt
 	def get(self, request):
 		movies = Movie.objects.all()
 		serializer = MovieSerializer(movies, many=True)
 		return Response(serializer.data)
 
 class movieTimingsapi(APIView):
+	@csrf_exempt
 	def get(self, request, MovieID, date):
 		movie = Movie.objects.filter(id = MovieID).first()
 		movie = movie.id
 		#dateString = year + "-" + month + "-" + day
-		date = datetime.strptime(date, "%Y-%m-%d").date()
+		date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
 		timing = Screening.objects.filter(movie_id = movie).filter(date = date).all()
 		serializer = ScreeningSerializer(timing, many=True)
 		return Response(serializer.data)
 
 
 class screenapi(APIView):
+	@csrf_exempt
 	def get(self, request, ScreeningID):
 		screening = Screening.objects.filter(id = ScreeningID).first()
 		screen = screening.screen_id
 		#screen = Screen.objects.filter(id = screen).first()
 		serializer = ScreenSerializer(screen, many=False)
+		return Response(serializer.data)
 
 class seatingapi(APIView):
+	@csrf_exempt
 	def get(self, request, screeningId):
 		seats = Seat.objects.filter(screening_id = screeningId).all()
 		serializer = SeatSerializer(seats , many = True)
 		return Response(serializer.data)
+	def put(self, request, *args, **kwargs):
+		return self.update(request, *args, **kwargs)
