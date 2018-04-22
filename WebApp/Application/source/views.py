@@ -15,6 +15,9 @@ from django.contrib.auth import get_user_model
 
 import datetime
 
+import pyqrcode
+import cairosvg
+
 # Create your views here.
 def index(request):
 	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
@@ -46,6 +49,14 @@ def checkoutPage(request):
 
 def confirmation(request):
 	movies = Movie.objects.all()
+	movie = Movie.objects.first()
+	string = str(movie.id)  + "\n" + str(movie.title)
+
+	url = pyqrcode.create(string, error='L', version=6, mode='binary')
+	url.svg('ticket.svg', scale=8)
+
+	cairosvg.svg2pdf(url='ticket.svg', write_to='image.pdf')
+
 	#email data
 	subject = 'Your Toucan cinema ticket'
 	html_message = render_to_string('email.html', {'context': 'values'})
@@ -65,7 +76,7 @@ def confirmation(request):
     headers={'Message-ID': 'Toucan Cinema'},
 )
 	#send email
-	email.attach_file('Static/img/logo.png')
+	email.attach_file('image.pdf')
 	email.send()
 
 	return render(request,'confirmation.html' )

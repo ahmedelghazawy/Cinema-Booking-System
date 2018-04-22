@@ -17,7 +17,9 @@ pip install djangorestframework
 
 pip install django-filter
 
-pip install pyfpdf
+pip install pyqrcode
+
+pip3 install cairosvg
 
 cd $DIR/Application/
 
