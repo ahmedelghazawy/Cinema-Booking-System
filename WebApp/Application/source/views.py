@@ -27,17 +27,22 @@ def whatson(request):
 def loginPage(request):
 	title="login"
 	form = UserLoginForm(request.POST or None)
+	next = request.GET.get('next')
 	if form.is_valid():
 		username = form.cleaned_data.get('username')
 		password = form.cleaned_data.get('password')
 		user = authenticate(username = username, password = password)
 		login(request, user)
+		if next:
+			return redirect(next)
+
 		return redirect("/")
 	return render(request,'login.html',{'title':title,'form':form} )
 
 def registerPage(request):
 	title ="register"
 	form = UserRegisterForm(request.POST or None)
+	next = request.GET.get('next')
 	if form.is_valid():
 		user = form.save(commit = False)
 		password = form.cleaned_data.get('password')
@@ -45,6 +50,8 @@ def registerPage(request):
 		user.save()
 		new_user = authenticate(username = user.username, password = password)
 		login(request, new_user)
+		if next:
+			return redirect(next)
 		return redirect("/")
 	return render(request,'register.html',{'title':title,'form':form} )
 
@@ -96,6 +103,7 @@ def bookingPage(request):
 	seats = Seat.objects.filter(screening_id = 1).all()
 	return render(request,'booking.html',{'nbar':'whatson','seats':seats} )
 
+@login_required(login_url='/login')
 def bookingChoose(request, screeningId):
 	# Passing first element of the query as query is a list with 1 object
 	screening = Screening.objects.filter(id=screeningId)[0]
