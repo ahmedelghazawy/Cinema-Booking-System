@@ -159,3 +159,17 @@ class Command(BaseCommand):
 
 		for seat in seats:
 			seat.save()
+
+
+		for scr in screenings:
+			vipSeats = scr.screen_id.vipSeats
+			maxRow = math.floor((vipSeats + scr.screen_id.standardSeats)/10)
+			maxColumn = 10
+			seatsAmount = random.sample(range(0,10),1)[0]
+			for seat in range(seatsAmount):
+				row = random.sample(range(0,maxRow-1),1)[0]
+				column = random.sample(range(0,maxColumn-1),1)[0]
+				vipSeat = False
+				if ( row+1 <= math.floor(vipSeats/10) ):
+					vipSeat = True
+				Seat(screening_id=scr,vipSeat = vipSeat, row = row, column = column).save()
