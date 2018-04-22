@@ -67,7 +67,7 @@ def confirmation(request):
 
 	#email data
 	subject = 'Your Toucan cinema ticket'
-	html_message = render_to_string('email.html', {'context': 'values'})
+	html_message = render_to_string('email.html', {'context': 'values', 'movie': movie})
 	plain_message = strip_tags(html_message)
 	from_email = settings.EMAIL_HOST_USER
 	to_email = [settings.EMAIL_HOST_USER]
