@@ -55,5 +55,12 @@ public class Order {
             System.out.println(screening.getTime());
           }
         }
+        ArrayList<Seat> bookedSeats = Seat.getBookedSeats(1);
+        for(Seat seat: seats){
+            System.out.println("Row " + seat.getRow());
+            System.out.println("Column " + seat.getColumn());
+            System.out.println("Screening ID " + seat.getScreening_id());
+            System.out.println("VIP status is " + seat.getVipSeat());
+        }
     }
 }
