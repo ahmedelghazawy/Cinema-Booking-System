@@ -47,4 +47,4 @@ class Ticket(models.Model):
 	movie_id = models.ForeignKey('Movie',on_delete=models.CASCADE,)
 	screening_id = models.ForeignKey('Screening',on_delete=models.CASCADE, default="")
 	seat_id = models.ForeignKey('Seat',on_delete=models.CASCADE,)
-	user_id = models.ForeignKey('User',on_delete=models.CASCADE,)
+	user_id = models.ForeignKey('User',on_delete=models.CASCADE,null=True)
