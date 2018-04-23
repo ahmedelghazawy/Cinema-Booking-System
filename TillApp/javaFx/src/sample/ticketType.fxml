@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" prefHeight="522.0" prefWidth="884.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane alignment="center" hgap="10" prefHeight="522.0" prefWidth="884.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
 
 
 
@@ -86,12 +86,17 @@
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <Label text="Adult">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Label>
-                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="45.0" text="-" textAlignment="CENTER">
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                              <Label text="Adult">
+                                  <font>
+                                      <Font size="18.0" />
+                                  </font>
+                              </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                        <Button fx:id="minusButton1" mnemonicParsing="false" onAction="#standardAdult" prefHeight="26.0" prefWidth="45.0" text="-" textAlignment="CENTER">
                             <HBox.margin>
                                 <Insets left="110.0" />
                             </HBox.margin>
@@ -99,13 +104,13 @@
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Button>
-                        <TextField prefHeight="26.0" prefWidth="38.0" />
-                        <Button layoutX="138.0" layoutY="46.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="45.0" text="+" textAlignment="CENTER">
+                        <TextField fx:id="textField1" alignment="CENTER" prefHeight="26.0" prefWidth="38.0" text="0" />
+                        <Button fx:id="plusButton1" layoutX="138.0" layoutY="46.0" mnemonicParsing="false" onAction="#standardAdult" prefHeight="26.0" prefWidth="45.0" text="+" textAlignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Button>
-                        <Button layoutX="168.0" layoutY="46.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="45.0" text="-" textAlignment="CENTER">
+                        <Button fx:id="minusButton2" layoutX="168.0" layoutY="46.0" mnemonicParsing="false" onAction="#vipAdult" prefHeight="26.0" prefWidth="45.0" text="-" textAlignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -113,8 +118,8 @@
                                 <Insets left="20.0" />
                             </HBox.margin>
                         </Button>
-                        <TextField layoutX="213.0" layoutY="47.0" prefHeight="26.0" prefWidth="38.0" />
-                        <Button layoutX="251.0" layoutY="46.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="45.0" text="+" textAlignment="CENTER">
+                        <TextField fx:id="textField2" alignment="CENTER" layoutX="213.0" layoutY="47.0" prefHeight="26.0" prefWidth="38.0" text="0" />
+                        <Button fx:id="plusButton2" layoutX="251.0" layoutY="46.0" mnemonicParsing="false" onAction="#vipAdult" prefHeight="26.0" prefWidth="45.0" text="+" textAlignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -128,7 +133,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="45.0" text="-" textAlignment="CENTER">
+                        <Button fx:id="minusButton3" mnemonicParsing="false" onAction="#standardStudent" prefHeight="26.0" prefWidth="45.0" text="-" textAlignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -136,13 +141,13 @@
                                 <Insets left="87.0" />
                             </HBox.margin>
                         </Button>
-                        <TextField prefHeight="26.0" prefWidth="38.0" />
-                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="45.0" text="+" textAlignment="CENTER">
+                        <TextField fx:id="textField3" alignment="CENTER" prefHeight="26.0" prefWidth="38.0" text="0" />
+                        <Button fx:id="plusButton3" mnemonicParsing="false" onAction="#standardStudent" prefHeight="26.0" prefWidth="45.0" text="+" textAlignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Button>
-                        <Button layoutX="168.0" layoutY="46.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="45.0" text="-" textAlignment="CENTER">
+                        <Button fx:id="minusButton4" layoutX="168.0" layoutY="46.0" mnemonicParsing="false" onAction="#vipStudent" prefHeight="26.0" prefWidth="45.0" text="-" textAlignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -150,8 +155,8 @@
                                 <Insets left="20.0" />
                             </HBox.margin>
                         </Button>
-                        <TextField layoutX="213.0" layoutY="47.0" prefHeight="26.0" prefWidth="38.0" />
-                        <Button layoutX="251.0" layoutY="46.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="45.0" text="+" textAlignment="CENTER">
+                        <TextField fx:id="textField4" alignment="CENTER" layoutX="213.0" layoutY="47.0" prefHeight="26.0" prefWidth="38.0" text="0" />
+                        <Button fx:id="plusButton4" layoutX="251.0" layoutY="46.0" mnemonicParsing="false" onAction="#vipStudent" prefHeight="26.0" prefWidth="45.0" text="+" textAlignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -165,7 +170,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="45.0" text="-" textAlignment="CENTER">
+                        <Button fx:id="minusButton5" mnemonicParsing="false" onAction="#standardChild" prefHeight="26.0" prefWidth="45.0" text="-" textAlignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -173,13 +178,13 @@
                                 <Insets left="86.0" />
                             </HBox.margin>
                         </Button>
-                        <TextField prefHeight="26.0" prefWidth="38.0" />
-                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="45.0" text="+" textAlignment="CENTER">
+                        <TextField fx:id="textField5" alignment="CENTER" prefHeight="26.0" prefWidth="38.0" text="0" />
+                        <Button fx:id="plusButton5" mnemonicParsing="false" onAction="#standardChild" prefHeight="26.0" prefWidth="45.0" text="+" textAlignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="45.0" text="-" textAlignment="CENTER">
+                        <Button fx:id="minusButton6" mnemonicParsing="false" onAction="#vipChild" prefHeight="26.0" prefWidth="45.0" text="-" textAlignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -187,8 +192,8 @@
                                 <Insets left="20.0" />
                             </HBox.margin>
                         </Button>
-                        <TextField prefHeight="26.0" prefWidth="38.0" />
-                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="45.0" text="+" textAlignment="CENTER">
+                        <TextField fx:id="textField6" alignment="CENTER" prefHeight="26.0" prefWidth="38.0" text="0" />
+                        <Button fx:id="plusButton6" mnemonicParsing="false" onAction="#vipChild" prefHeight="26.0" prefWidth="45.0" text="+" textAlignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -199,7 +204,7 @@
         </VBox>
         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
             <children>
-                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="110.0" style="-fx-background-color: green;" text="Proceed" textAlignment="CENTER" textFill="WHITE" onAction="#moveToSeating">
+                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#moveToSeating" prefHeight="45.0" prefWidth="110.0" style="-fx-background-color: green;" text="Proceed" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font size="14.0" />
                     </font>
