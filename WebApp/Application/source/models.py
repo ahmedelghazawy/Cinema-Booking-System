@@ -18,6 +18,7 @@ class Movie(models.Model):
 	director = models.CharField(max_length = 200)
 	certificate = models.CharField(max_length = 150)
 	releaseDate = models.DateField(auto_now_add=False)
+	cast = models.ManyToManyField(Actor)
 
 class Screen(models.Model):
 	standardSeats = models.IntegerField()

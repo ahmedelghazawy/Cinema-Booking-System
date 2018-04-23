@@ -56,11 +56,16 @@ public class Order {
           }
         }
         ArrayList<Seat> bookedSeats = Seat.getBookedSeats(1);
-        for(Seat seat: seats){
+        if(bookedSeats.isEmpty() == false){
+          for(Seat seat: bookedSeats){
             System.out.println("Row " + seat.getRow());
             System.out.println("Column " + seat.getColumn());
             System.out.println("Screening ID " + seat.getScreening_id());
             System.out.println("VIP status is " + seat.getVipSeat());
+          }
+        }
+        else{
+            System.out.println("AL empty");
         }
     }
 }
