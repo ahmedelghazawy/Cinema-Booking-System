@@ -148,15 +148,28 @@ class Command(BaseCommand):
 		for scr in screenings:
 			scr.save()
 
-		# seats = []
-		# print("There are {} screenings".format(len(scr))
-		# for scr in screenings:
-		# 	for seat in range(scr.screen_id.vipSeats):
-		# 		seats.append(Seat(screening_id = scr, vipSeat = True, row = math.floor(seat/Command.rowWidth), column = seat%Command.rowWidth ))
-		# 	vipRows = math.floor(scr.screen_id.vipSeats/Command.rowWidth)
-		# 	for seat in range(scr.screen_id.standardSeats):
-		# 		seats.append(Seat(screening_id = scr, vipSeat = False, row = math.floor(seat/Command.rowWidth)+ vipRows, column = seat%Command.rowWidth ))
-		#
-		# print("There are {} seats".format(len(seats))
-		# for seat in seats:
-		# 	seat.save()
+		seats = []
+
+		for scr in screenings:
+			for seat in range(scr.screen_id.vipSeats):
+				seats.append(Seat(screening_id = scr.id, vipSeat = True, row = math.floor(seat/Command.rowWidth), column = seat%Command.rowWidth ))
+			vipRows = math.floor(scr.screen_id.vipSeats/Command.rowWidth)
+			for seat in range(scr.screen_id.standardSeats):
+				seats.append(Seat(screening_id = scr.id, vipSeat = False, row = math.floor(seat/Command.rowWidth)+ vipRows, column = seat%Command.rowWidth ))
+
+		for seat in seats:
+			seat.save()
+
+
+		for scr in screenings:
+			vipSeats = scr.screen_id.vipSeats
+			maxRow = math.floor((vipSeats + scr.screen_id.standardSeats)/10)
+			maxColumn = 10
+			seatsAmount = random.sample(range(0,10),1)[0]
+			for seat in range(seatsAmount):
+				row = random.sample(range(0,maxRow-1),1)[0]
+				column = random.sample(range(0,maxColumn-1),1)[0]
+				vipSeat = False
+				if ( row+1 <= math.floor(vipSeats/10) ):
+					vipSeat = True
+				Seat(screening_id=scr,vipSeat = vipSeat, row = row, column = column).save()
