@@ -9,7 +9,7 @@ from source.forms import *
 from source.serializers import *
 from datetime import datetime, time
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login, get_user_model, logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_exempt
@@ -31,17 +31,22 @@ def whatson(request):
 def loginPage(request):
 	title="login"
 	form = UserLoginForm(request.POST or None)
+	error=''
 	next = request.GET.get('next')
 	if form.is_valid():
 		username = form.cleaned_data.get('username')
 		password = form.cleaned_data.get('password')
 		user = authenticate(username = username, password = password)
-		login(request, user)
+		if user is not None:
+			login(request, user)
 		if next:
 			return redirect(next)
 
 		return redirect("/")
-	return render(request,'login.html',{'title':title,'form':form} )
+	error = "incorrect login"
+	return render(request,'login.html', {'error':error})
+
+	return render(request,'login.html' )
 
 
 def checkoutPage(request):
@@ -87,12 +92,18 @@ def registerPage(request):
 	form = UserRegisterForm(request.POST or None)
 	next = request.GET.get('next')
 	if form.is_valid():
-		user = form.save(commit = False)
+		user = form.save(commit=False)
+		username = form.cleaned_data.get('username')
 		password = form.cleaned_data.get('password')
+		email = form.cleaned_data.get('email')
+		dob = form.cleaned_data.get('dob')
+		usert = User(username = username, dob = dob)
+		usert.save()
 		user.set_password(password)
 		user.save()
-		new_user = authenticate(username = user.username, password = password)
+		new_user = authenticate(username = username, password = password)
 		login(request, new_user)
+
 		if next:
 			return redirect(next)
 		return redirect("/")
@@ -102,10 +113,12 @@ def logoutPage(request):
 	logout(request)
 	return redirect("/")
 
+@login_required(login_url="/login")
 def profilePage(request):
-	if request.user.is_authenticated:
-		tickets = Ticket.objects.filter(id = request.user.id).all()
-	return render(request,'profile.html')
+	username = request.user.id
+	A = User.objects.filter(id = username).first()
+	tickets = Ticket.objects.filter(id = request.user.id).all()
+	return render(request,'profile.html', {'username':username, 'A':A})
 
 def moviePage(request, MovieID):
 	movie = Movie.objects.filter(id=MovieID).first()

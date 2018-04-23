@@ -2,9 +2,19 @@ from django.db import models
 import datetime
 
 class User(models.Model):
-	name = models.CharField(max_length = 200)
-	email = models.EmailField(unique=True)
-	password = models.CharField(max_length = 200)
+	username = models.CharField(max_length = 100, unique = True)
+	dob = models.CharField(max_length = 10)
+	cardNo = models.CharField(blank=True, null=True, max_length = 16)
+	nameOnCard = models.CharField(blank=True, null=True, max_length = 100)
+	expirationMonth = models.CharField(blank=True, null=True, max_length = 2)
+	expirationYear = models.CharField(blank=True, null=True, max_length = 2)
+
+
+class User2(models.Model):
+	username = models.CharField(max_length = 100)
+	email = models.EmailField(max_length = 50)
+	password = models.CharField(max_length = 100)
+	dob = models.CharField(max_length = 10)
 	cardNo = models.CharField(blank=True, null=True, max_length = 16)
 	nameOnCard = models.CharField(blank=True, null=True, max_length = 100)
 	expirationMonth = models.CharField(blank=True, null=True, max_length = 2)
@@ -40,8 +50,6 @@ class Seat(models.Model):
 	vipSeat = models.BooleanField(default=False)
 	row = models.IntegerField()
 	column = models.IntegerField()
-
-
 
 class Ticket(models.Model):
 	movie_id = models.ForeignKey('Movie',on_delete=models.CASCADE,)
