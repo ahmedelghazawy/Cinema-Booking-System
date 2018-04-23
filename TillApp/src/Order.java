@@ -10,18 +10,35 @@ public class Order {
     private float moneyPaid;
     private float change;
 
-    public Order(){
+    public Order()
+    {
         tickets = new ArrayList<>();
         totalPrice = 0;
         moneyPaid = 0;
         change = 0;
     }
 
-    public void add(Ticket ticket){}
+    public void add(Ticket ticket)
+    {
+        tickets.add(ticket);
+        totalPrice += ticket.getPrice();
+    }
 
     public void offer(){}
 
-    public void checkout(){}
+    public float checkout(float money)
+    {
+        if (money < totalPrice)
+        {
+            return -1;
+        }
+        else
+        {
+            this.moneyPaid = money;
+            change = moneyPaid - totalPrice;
+            return change;
+        }
+    }
 
     public void printTickets(){}
 

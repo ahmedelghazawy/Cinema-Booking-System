@@ -9,10 +9,14 @@ import java.io.*;
 public class Movie {
     private String title;
     private int id;
+    private String blurb;
     private String cover;
     private double rating;
     private String releaseDate;
     private String certificate;
+    private int duration;
+    private String director;
+    //private List<Integer> cast;
     private List<Screening> screenings;
 
     /**
@@ -70,6 +74,14 @@ public class Movie {
     public void setCertificate(String certificate) { this.certificate = certificate; }
 
     public void setReleaseDate(String releaseDate) { this.releaseDate = releaseDate; }
+
+    public void setBlurb(String blurb) { this.blurb = blurb;}
+
+    public void setDuration(int duration) {this.duration = duration;}
+
+    public void setDirector(String director) {this.director = director;}
+
+    //public void setCast (List<Integer> cast) {this.cast = cast;}
 
     public boolean equals(Object other){
       if(this == other){
