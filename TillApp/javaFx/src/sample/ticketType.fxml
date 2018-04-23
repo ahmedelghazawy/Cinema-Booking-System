@@ -86,16 +86,11 @@
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                     <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                              <Label text="Adult">
-                                  <font>
-                                      <Font size="18.0" />
-                                  </font>
-                              </Label>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                        <Label text="Adult">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
                         <Button fx:id="minusButton1" mnemonicParsing="false" onAction="#standardAdult" prefHeight="26.0" prefWidth="45.0" text="-" textAlignment="CENTER">
                             <HBox.margin>
                                 <Insets left="110.0" />
@@ -105,7 +100,7 @@
                             </font>
                         </Button>
                         <TextField fx:id="textField1" alignment="CENTER" prefHeight="26.0" prefWidth="38.0" text="0" />
-                        <Button fx:id="plusButton1" layoutX="138.0" layoutY="46.0" mnemonicParsing="false" onAction="#standardAdult" prefHeight="26.0" prefWidth="45.0" text="+" textAlignment="CENTER">
+                        <Button fx:id="plusButton1" mnemonicParsing="false" onAction="#standardAdult" prefHeight="26.0" prefWidth="45.0" text="+" textAlignment="CENTER">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
@@ -211,5 +206,24 @@
                 </Button>
             </children>
         </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <children>
+            <Label prefHeight="52.0" prefWidth="144.0" text="Total Cost: ">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="46.0" prefWidth="31.0" text="£">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="costField" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="66.0" text="0" textAlignment="CENTER">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
     </children>
 </GridPane>

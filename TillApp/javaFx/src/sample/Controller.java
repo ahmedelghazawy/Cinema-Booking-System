@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene; // what changes within the stage - backed by a scene graph - contains the UI nodes - scenes make it easier to use a container
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage; // top level UI container in JavaFX - the window frame itself
 import javafx.scene.control.Button;
@@ -24,9 +25,8 @@ public class Controller {
     int standardChildQuantity = 0;
     int vipChildQuantity = 0;
 
-    @FXML
-    private Parent second;
-    private Stage window;
+    int totalCost = 0;
+
 
     @FXML
     private Button plusButton1;
@@ -69,6 +69,9 @@ public class Controller {
     private TextField textField6;
     @FXML
     private Button minusButton6;
+
+    @FXML
+    private Label costField;
 
 
 
@@ -146,6 +149,12 @@ public class Controller {
 
         textField1.setText(String.valueOf(standardAdultQuantity));
 
+        totalCost = (standardAdultQuantity * 10) + (vipAdultQuantity * 12) +
+                (standardStudentQuantity * 7) + (vipStudentQuantity * 9) +
+                (standardChildQuantity * 5) + (vipChildQuantity * 7);
+
+        costField.setText(String.valueOf(totalCost));
+
     }
 
     @FXML
@@ -158,6 +167,12 @@ public class Controller {
         }
 
         textField2.setText(String.valueOf(vipAdultQuantity));
+
+        totalCost = (standardAdultQuantity * 10) + (vipAdultQuantity * 12) +
+                (standardStudentQuantity * 7) + (vipStudentQuantity * 9) +
+                (standardChildQuantity * 5) + (vipChildQuantity * 7);
+
+        costField.setText(String.valueOf(totalCost));
 
     }
 
@@ -173,6 +188,12 @@ public class Controller {
 
         textField3.setText(String.valueOf(standardStudentQuantity));
 
+        totalCost = (standardAdultQuantity * 10) + (vipAdultQuantity * 12) +
+                (standardStudentQuantity * 7) + (vipStudentQuantity * 9) +
+                (standardChildQuantity * 5) + (vipChildQuantity * 7);
+
+        costField.setText(String.valueOf(totalCost));
+
     }
 
     @FXML
@@ -185,6 +206,12 @@ public class Controller {
         }
 
         textField4.setText(String.valueOf(vipStudentQuantity));
+
+        totalCost = (standardAdultQuantity * 10) + (vipAdultQuantity * 12) +
+                (standardStudentQuantity * 7) + (vipStudentQuantity * 9) +
+                (standardChildQuantity * 5) + (vipChildQuantity * 7);
+
+        costField.setText(String.valueOf(totalCost));
 
     }
 
@@ -200,6 +227,12 @@ public class Controller {
 
         textField5.setText(String.valueOf(standardChildQuantity));
 
+        totalCost = (standardAdultQuantity * 10) + (vipAdultQuantity * 12) +
+                (standardStudentQuantity * 7) + (vipStudentQuantity * 9) +
+                (standardChildQuantity * 5) + (vipChildQuantity * 7);
+
+        costField.setText(String.valueOf(totalCost));
+
     }
 
 
@@ -214,7 +247,18 @@ public class Controller {
 
         textField6.setText(String.valueOf(vipChildQuantity));
 
+        totalCost = (standardAdultQuantity * 10) + (vipAdultQuantity * 12) +
+                (standardStudentQuantity * 7) + (vipStudentQuantity * 9) +
+                (standardChildQuantity * 5) + (vipChildQuantity * 7);
+
+        costField.setText(String.valueOf(totalCost));
+
     }
+
+//    @FXML
+//    public void daySelect(ActionEvent event) {
+//
+//    }
 
 
     
