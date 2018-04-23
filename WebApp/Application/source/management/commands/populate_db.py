@@ -22,6 +22,7 @@ class Command(BaseCommand):
 	def getReleaseDate(noOfDays):
 		return Command.today + datetime.timedelta(days=noOfDays)
 
+	# Returns the amount of screeningsPerWeek for a movie
 	def getScreenings(movie):
 		diff = (movie.releaseDate - Command.today).days
 		week = math.floor(diff/7)*(-1)
@@ -135,6 +136,7 @@ class Command(BaseCommand):
 
 ###################### Screenings ######################
 
+		# Create random screenings
 		screenings = []
 		for movie in movies:
 			amount = Command.getScreenings(movie)
@@ -150,17 +152,7 @@ class Command(BaseCommand):
 
 		seats = []
 
-		for scr in screenings:
-			for seat in range(scr.screen_id.vipSeats):
-				seats.append(Seat(screening_id = scr.id, vipSeat = True, row = math.floor(seat/Command.rowWidth), column = seat%Command.rowWidth ))
-			vipRows = math.floor(scr.screen_id.vipSeats/Command.rowWidth)
-			for seat in range(scr.screen_id.standardSeats):
-				seats.append(Seat(screening_id = scr.id, vipSeat = False, row = math.floor(seat/Command.rowWidth)+ vipRows, column = seat%Command.rowWidth ))
-
-		for seat in seats:
-			seat.save()
-
-
+		# Generates randomly reserved seats
 		for scr in screenings:
 			vipSeats = scr.screen_id.vipSeats
 			maxRow = math.floor((vipSeats + scr.screen_id.standardSeats)/10)

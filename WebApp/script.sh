@@ -3,6 +3,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo $DIR
 
+rm database.db -f
+
 module add python
 
 pip install virtualenv
@@ -11,7 +13,7 @@ virtualenv $DIR/env
 
 source $DIR/env/bin/activate
 
- pip install django
+pip install django
 
 pip install djangorestframework
 
@@ -31,7 +33,7 @@ python manage.py populate_db
 
 python manage.py migrate
 
-if [ $1 == "devel" ]
+if [[ $1 == "devel" ]]
 then
 	echo "Running DEVELOPMENT session"
 else

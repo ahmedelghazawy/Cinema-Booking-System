@@ -15,6 +15,7 @@ from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 from django.conf import settings
+from django.http import Http404
 
 #libaries for email
 from django.core import mail
@@ -23,9 +24,11 @@ from django.utils.html import strip_tags
 from django.core.mail import EmailMessage
 import pyqrcode
 import cairosvg
+import shutil
+import os
 
-
-
+def confirmation(request):
+	return render(request,'confirmation.html')
 # Create your views here.
 def index(request):
 	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
@@ -56,40 +59,6 @@ def checkoutPage(request):
 	movies = Movie.objects.all()
 	return render(request,'checkoutPage.html' )
 
-def confirmation(request):
-	movies = Movie.objects.all()
-	movie = Movie.objects.first()
-	string = str(movie.id)  + "\n" + str(movie.title)
-
-	url = pyqrcode.create(string, error='L', version=6, mode='binary')
-	url.svg('ticket.svg', scale=8)
-
-	cairosvg.svg2pdf(url='ticket.svg', write_to='image.pdf')
-
-	#email data
-	subject = 'Your Toucan cinema ticket'
-	html_message = render_to_string('email.html', {'context': 'values', 'movie': movie})
-	plain_message = strip_tags(html_message)
-	from_email = settings.EMAIL_HOST_USER
-	to_email = [settings.EMAIL_HOST_USER]
-	# mail.send_mail(subject, plain_message, from_email, to_email, html_message=html_message, fail_silently = False)
-
-	#email attributes
-	email = EmailMessage(
-    subject,
-    plain_message,
-    from_email,
-    to_email,
-    [],
-    reply_to=['toucan.se@gmail.com'],
-    headers={'Message-ID': 'Toucan Cinema'},
-)
-	#send email
-	email.attach_file('image.pdf')
-	email.send()
-
-	return render(request,'confirmation.html' )
-
 def registerPage(request):
 	title ="register"
 	form = UserRegisterForm(request.POST or None)
@@ -117,6 +86,8 @@ def profilePage(request):
 
 def moviePage(request, MovieID):
 	movie = Movie.objects.filter(id=MovieID).first()
+	if (movie == None):
+		raise Http404
 	currentDateTime = datetime.datetime.today()
 	currentTime = currentDateTime.time()
 	currentDate = currentDateTime.date()
@@ -147,6 +118,8 @@ def moviePage(request, MovieID):
 		dates.append([name, timings.filter(date=dayFromToday)])
 	# Get 4 latest movies
 	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
+	print(dates)
+	print(timings)
 	return render(request,'movieBlurb.html',{'movie':movie, 'currentTime':currentTime, 'dates':dates, 'latestMovies':latestMovies, 'stars':stars} )
 
 
@@ -176,14 +149,49 @@ def bookingChoose(request, screeningId):
 		# Details of booking
 		screening = Screening.objects.filter(id=screeningId)[0]
 		movie = screening.movie_id
+
+		#email data
+		subject = 'Your Toucan cinema booking'
+		html_message = render_to_string('email.html', {'context': 'values', 'movie': movie})
+		plain_message = strip_tags(html_message)
+		from_email = settings.EMAIL_HOST_USER
+		to_email = [settings.EMAIL_HOST_USER]
+
+		#email attributes
+		email = EmailMessage(subject,plain_message,	from_email,	to_email,[],
+			reply_to=['maikelos272@gmail.com'],
+			headers={'Message-ID': 'Toucan Cinema'},
+		)
+
 		for x in range(total_seats):
+			# Set VIP flag
 			isVip = False
 			if (x - vip > 0):
 				isVip = True
+
+			# Save the seat and ticket to database
 			seat = Seat(screening_id = screening,vipSeat = isVip,row=seats[x][0:1],column=seats[x][1:2])
 			seat.save()
 			ticket = Ticket(movie_id = movie,screening_id = screening, seat_id=seat,user_id=None)
 			ticket.save()
+			# Generate QR code
+			codeQR = pyqrcode.create(str(ticket.id), error='L', version=6, mode='binary')
+			codeQR.svg(str(ticket.id)+'.svg', scale=8)
+			os.rename(str(ticket.id)+'.svg',"tickets/"+str(ticket.id)+'.svg')
+			# Generate pdf QR code for email
+			cairosvg.svg2pdf(url=str(ticket.id)+'.svg', write_to=str(ticket.id)+".pdf")
+			#send email
+			email.attach_file(str(ticket.id)+'.pdf')
+
+		email.send()
+		root = os.listdir(os.getcwd())
+
+		# Remove pdf's which were used to send email
+		for item in root:
+			print(item)
+			if item.endswith(".pdf"):
+				os.remove( item)
+
 		return redirect("/confirmation")
 
 	screening = Screening.objects.filter(id=screeningId)[0]
