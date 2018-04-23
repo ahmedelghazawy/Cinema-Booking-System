@@ -7,16 +7,24 @@ from django.db import models
 from source.models import *
 from source.forms import *
 from source.serializers import *
-from datetime import datetime, time
+import datetime
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import send_mail
+from django.conf import settings
 
-import datetime
-
+#libaries for email
+from django.core import mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.core.mail import EmailMessage
 import pyqrcode
 import cairosvg
+
+
 
 # Create your views here.
 def index(request):
@@ -59,7 +67,7 @@ def confirmation(request):
 
 	#email data
 	subject = 'Your Toucan cinema ticket'
-	html_message = render_to_string('email.html', {'context': 'values'})
+	html_message = render_to_string('email.html', {'context': 'values', 'movie': movie})
 	plain_message = strip_tags(html_message)
 	from_email = settings.EMAIL_HOST_USER
 	to_email = [settings.EMAIL_HOST_USER]
