@@ -70,7 +70,7 @@ public class Movie {
 
     public void setCertificate(String certificate) { this.certificate = certificate; }
 
-
+    @Override
     public boolean equals(Object other){
       if(this == other){
         return true;
