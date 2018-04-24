@@ -29,6 +29,8 @@ python manage.py migrate
 
 python manage.py populate_db
 
+python manage.py makemigrations
+
 python manage.py migrate
 
 if [ $1 == "devel" ]
