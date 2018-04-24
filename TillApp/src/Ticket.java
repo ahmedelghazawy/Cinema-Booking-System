@@ -8,22 +8,25 @@ public class Ticket {
     private float price;
     private String type;
 
-    public Ticket(Screening screening, Seat seat, String type){}
-
-    public void setPrice(float price) {
+    public Ticket(Screening screening, Seat seat, String type){
+        this.screening = screening;
+        this.seat = seat;
+        this.type = type;
     }
 
-    public void setScreening(Screening screening) {this.screening = screening;}
+    public void setPrice(float price) { this.price = price; }
 
-    public void setSeat(Seat seat) {this.seat = seat;}
+    public void setScreening(Screening screening) { this.screening = screening; }
 
-    public void setType(String type) {this.type = type;}
+    public void setSeat(Seat seat) { this.seat = seat; }
 
-    public float getPrice() {return price;}
+    public void setType(String type) { this.type = type; }
 
-    public Screening getScreening() {return screening;}
+    public float getPrice() { return price; }
 
-    public Seat getSeat() {return seat;}
+    public Screening getScreening() { return screening; }
 
-    public String getType() {return type;}
+    public Seat getSeat() { return seat; }
+
+    public String getType() { return type; }
 }

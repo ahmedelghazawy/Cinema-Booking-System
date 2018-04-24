@@ -1,0 +1,32 @@
+{% load staticfiles %}
+{% include 'navbar.html' %}
+		<!--Whats On-->
+		<div class="container-fluid" >
+			<div class="col-lg-12">
+				{% if movies.count > 0 %}
+				<h1 style="margin:30px 0 50px 0">{{movies.count}} results found for "{{request.GET.search}}"</h1>
+				{% else %}
+				<h1 style="margin:30px 0 700px 0">Sorry, no results found for "{{request.GET.search}}"</h1>
+				{% endif %}
+			</div>
+			<div class= "row">
+				{% for movie in movies %}
+				<div class="col-lg-3 col-sm-6 col-xs-12 movie-tile-no-time">
+					<a href="#">
+						<div class=" movie-tile-no-time" style="text-align:center;">
+							<div class="image-wrapper">
+								<a href="/moviePage/{{movie.id}}">
+									<img src="{% static movie.cover %}" style="width:75%;">
+									<div class="book-now">Book Now</div>
+								</a>
+							</div>
+							<div class="movie-tile-no-time-inner">
+								<h3 style="margin-bottom:75px;">{{ movie.title }}</h3>
+							</div>
+						</div>
+					</a>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+{% include 'footer.html' %}
