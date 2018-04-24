@@ -7,24 +7,23 @@ import java.io.*;
  * Created by sc16tdad on 09/02/18.
  */
 public class Movie {
-    private String title;
     private int id;
-    private String cover;
+    private String title;
+    private String blurb;
     private double rating;
-    private String releaseDate;
+    private int duration;
     private String certificate;
-    private List<Screening> screenings;
 
     /**
      * Empty constructor for creating a movie with default values
      */
     public Movie()
     {
-        title = "";
         id = 0;
-        cover = "";
+        title = "";
+        blurb = "";
         rating = 0.0;
-        releaseDate = "";
+        duration = 0;
         certificate= "";
     }
 
@@ -32,44 +31,45 @@ public class Movie {
      * Constructor for creating a specific movie
      * @param id Movie ID on the database/api
      * @param title Movie title to be shown
-     * @param cover Path for cover images
+     * @param blurb Movie story
      * @param rating Movie rating from viewers
-     * @param certificate Certificate for viewing criteria
-     * @param releaseDate Movie release date
+     * @param duration Duration of the movie in minutes
+     * @param certificate Movie viewing certificate
      */
-    public Movie(int id, String title, String cover, double rating, String certificate, String releaseDate)
+    public Movie(int id, String title, String blurb, double rating, int duration, String certificate)
     {
         this.id = id;
         this.title = title;
-        this.cover = cover;
+        this.blurb = blurb;
         this.rating = rating;
+        this.duration = duration;
         this.certificate = certificate;
-        this.releaseDate = releaseDate;
     }
 
     public int getID() { return id;}
 
     public String getTitle() { return title; }
 
-    public String getCover() { return cover; }
+    public String getBlurb() { return blurb; }
 
     public double getRating() { return rating; }
 
-    public String getCertificate() { return certificate; }
+    public int getDuration() { return duration; }
 
-    public String getReleaseDate() { return releaseDate; }
+    public String getCertificate() { return certificate; }
 
     public void setID(int id) { this.id = id; }
 
     public void setTitle(String title) { this.title = title; }
 
-    public void setCover(String cover) { this.cover = cover; }
+    public void setBlurb(String blurb) { this.blurb = blurb; }
 
     public void setRating(double rating) { this.rating = rating; }
 
+    public void setDuration(int duration) { this.duration = duration; }
+
     public void setCertificate(String certificate) { this.certificate = certificate; }
 
-    public void setReleaseDate(String releaseDate) { this.releaseDate = releaseDate; }
 
     public boolean equals(Object other){
       if(this == other){
@@ -82,10 +82,10 @@ public class Movie {
         Movie otherMovie = (Movie) other;
         return this.id == otherMovie.getID()
                 && this.title == otherMovie.getTitle()
-                && this.cover == otherMovie.getCover()
+                && this.blurb == otherMovie.getBlurb()
                 && this.rating == otherMovie.getRating()
-                && this.certificate == otherMovie.getCertificate()
-                && this.releaseDate == otherMovie.getReleaseDate();
+                && this.duration == otherMovie.getDuration()
+                && this.certificate == otherMovie.getCertificate();
       }
 
     }
