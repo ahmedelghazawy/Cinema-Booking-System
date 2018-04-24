@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^confirmation$', views.confirmation, name = 'confirmation'),
     url(r'^api/whatsonapi$', views.whatsonapi.as_view()),
     url(r'^api/movieTimingsapi/(?P<MovieID>\d+)/(?P<date>[\w\-]+)/$', views.movieTimingsapi.as_view()),
-    url(r'^api/seatingapi/(?P<screeningId>\d+)/$', views.seatingapi.as_view()),
+    url(r'^api/seatingapi/(?P<screeningID>\d+)/$', views.seatingapi.as_view()),
     #url(r'^test2$', views.test2.as_view()),
     url(r'^api/screenapi/(?P<screeningId>\d+)/$', views.screenapi.as_view()),
     url(r'^moviePage/(?P<MovieID>\d+)/$', views.moviePage, name = 'moviePage'),

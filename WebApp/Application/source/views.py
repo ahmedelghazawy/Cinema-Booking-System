@@ -141,20 +141,20 @@ class movieTimingsapi(APIView):
 
 class screenapi(APIView):
 	@csrf_exempt
-	def get(self, request, ScreeningID):
-		screening = Screening.objects.filter(id = ScreeningID).first()
+	def get(self, request, screeningId):
+		screening = Screening.objects.filter(id = screeningId).first()
 		screen = screening.screen_id
 		serializer = ScreenSerializer(screen, many=False)
 		return Response(serializer.data)
 
 class seatingapi(APIView):
 	@csrf_exempt
-	def get(self, request, screeningId):
+	def get(self, request, screeningID):
 		seats = Seat.objects.filter(screening_id = screeningId).all()
 		serializer = SeatSerializer(seats , many = True)
 		return Response(serializer.data)
 
-	def post(self, request,screeningId, format = None):
+	def post(self, request,screeningID, format = None):
 		serializer = SeatSerializer(data=request.data)
 		if serializer.is_valid():
 			instance = serializer.save()
