@@ -31,6 +31,9 @@ public class Controller {
 
 
     @FXML
+    private Button blackPanther;
+
+    @FXML
     private Button plusButton1;
     @FXML
     private TextField textField1;

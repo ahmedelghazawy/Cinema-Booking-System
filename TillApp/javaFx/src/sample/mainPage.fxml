@@ -23,7 +23,7 @@
     <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="0" GridPane.rowIndex="0">
         <graphic>
             <ImageView fitHeight="240.0" fitWidth="170.0">
-                <Image url="@/sample/media/banner1.jpg"/>
+                <Image url="@/sample/media/banner1.jpg" />
             </ImageView>
         </graphic>
     </Button>
@@ -46,7 +46,7 @@
         </font>
     </Label>
 
-    <Button maxHeight="261" maxWidth="175" onAction="#moveToTicket" GridPane.columnIndex="2" GridPane.rowIndex="0">
+    <Button fx:id="blackPanther" maxHeight="261" maxWidth="175" onAction="#moveToTicket" GridPane.columnIndex="2" GridPane.rowIndex="0">
         <graphic>
             <ImageView>
                 <Image url="@/sample/media/banner3.jpg" />
