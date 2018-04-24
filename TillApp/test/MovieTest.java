@@ -18,11 +18,11 @@ public class MovieTest {
   @Before
   public void setup(){
     movies = Movie.getMovies();
-    first = new Movie(1, "spoderman", "cover/path/", 10.0, "12", "2018-04-15");
-    second = new Movie(2, "Dr. who", "cover/path/again/", 8.0, "e", "0000-01-01");
-    third = new Movie(1, "spoderman", "cover/path/", 10.0, "12", "2018-04-15");
+    first = new Movie(1, "spoderman", "blurb", 10.0,165, "2018-04-15");
+    second = new Movie(2, "Dr. who", "blurb again/", 8.0, 150, "0000-01-01");
+    third = new Movie(1, "spoderman", "cover/path/", 10.0, 165, "2018-04-15");
     fourth = movies.get(0);
-    fifth = new Movie(1,"hello", "", 0.0, "", "");
+    fifth = new Movie(1,"hello", "", 0.0, 110, "");
 
   }
 
@@ -45,8 +45,8 @@ public class MovieTest {
             System.out.println(acquiredMovie.getTitle() + " acquired");
             System.out.println(actualMovie.getTitle() + " actual");
           }
-          if(actualMovie.getCover() != acquiredMovie.getCover()){
-            System.out.println("cover not equal");
+          if(actualMovie.getBlurb() != acquiredMovie.getBlurb()){
+            System.out.println("blurb not equal");
           }
           if(actualMovie.getRating() != acquiredMovie.getRating()){
             System.out.println("rating not equal");
@@ -54,8 +54,8 @@ public class MovieTest {
           if(actualMovie.getCertificate() != acquiredMovie.getCertificate()){
             System.out.println("Certificate not equal");
           }
-          if(actualMovie.getReleaseDate() != acquiredMovie.getReleaseDate()){
-            System.out.println("release date not equal");
+          if(actualMovie.getDuration() != acquiredMovie.getDuration()){
+            System.out.println("duration date not equal");
           }
           return false;
         }
@@ -68,7 +68,7 @@ public class MovieTest {
   @Test
   public void getMoviesTest(){
     ArrayList<Movie> trialMovies= new ArrayList<>();
-    Movie movie = new Movie(1,"hello", "", 0.0, "", "");
+    Movie movie = new Movie(1,"hello", "", 0.0, 110, "");
     trialMovies.add(movie);
     assertThat(compareLists(movies,trialMovies), is(false));
   }
