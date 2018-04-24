@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene; // what changes within the stage - backed by a scene graph - contains the UI nodes - scenes make it easier to use a container
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage; // top level UI container in JavaFX - the window frame itself
 import javafx.scene.Node;
 import java.io.*;
@@ -77,6 +79,9 @@ public class Controller {
     @FXML
     private CheckBox checkBox;
 
+    @FXML
+    private GridPane seatingGrid;
+
 
 
 
@@ -104,6 +109,8 @@ public class Controller {
         Scene seatingScene = new Scene(seat, 1165, 700);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(seatingScene);
+        TextField newField = new TextField();
+//        seatingGrid.getChildren().add(newField);
     }
 
 
@@ -265,8 +272,12 @@ public class Controller {
             checkBox.setSelected(false);
         } else if(event.getSource().equals(checkBox)){
             datePicker.setValue(null);
+            checkBox.setSelected(true);
         }
     }
+
+
+
 
 
     
