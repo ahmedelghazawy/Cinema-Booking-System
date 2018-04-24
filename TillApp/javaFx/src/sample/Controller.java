@@ -6,10 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene; // what changes within the stage - backed by a scene graph - contains the UI nodes - scenes make it easier to use a container
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage; // top level UI container in JavaFX - the window frame itself
-import javafx.scene.control.Button;
 import javafx.scene.Node;
 import java.io.*;
 
@@ -72,6 +70,12 @@ public class Controller {
 
     @FXML
     private Label costField;
+
+
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private CheckBox checkBox;
 
 
 
@@ -255,10 +259,12 @@ public class Controller {
 
     }
 
-//    @FXML
-//    public void daySelect(ActionEvent event) {
-//
-//    }
+    @FXML
+    public void daySelect(ActionEvent event) {
+        if(event.getSource().equals(datePicker)){
+            checkBox.setSelected(false);
+        }
+    }
 
 
     
