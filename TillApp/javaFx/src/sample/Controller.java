@@ -1,6 +1,7 @@
 package sample;
 
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -13,11 +14,12 @@ import javafx.stage.Stage; // top level UI container in JavaFX - the window fram
 import javafx.scene.Node;
 import java.io.*;
 
+import static java.lang.Integer.parseInt;
 
 
 public class Controller {
 
-
+//    TillApp.src.Order order = new TillApp.src.Order();
     int standardAdultQuantity = 0;
     int vipAdultQuantity = 0;
     int standardStudentQuantity = 0;
@@ -25,7 +27,7 @@ public class Controller {
     int standardChildQuantity = 0;
     int vipChildQuantity = 0;
 
-    int totalCost = 0;
+    private int totalCost = 0;
 
 
     @FXML
@@ -83,10 +85,26 @@ public class Controller {
     private GridPane seatingGrid;
 
 
+    @FXML
+    private Label amountDue;
+    @FXML
+    private Label changeDue;
+    @FXML
+    private TextField amountGivenField;
+
+
+    int amountGiven = 0;
+    int change = 0;
+
+    private int finalPrice = 0;
+
 
 
     @FXML
     public void moveToTicket(ActionEvent event) throws IOException {
+
+        finalPrice = totalCost;
+
         Parent ticket = FXMLLoader.load(getClass().getResource("ticketType.fxml"));
         Scene ticketScene = new Scene(ticket, 1165, 700);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -96,6 +114,9 @@ public class Controller {
 
     @FXML
     public void backToMain(ActionEvent event) throws IOException {
+
+        finalPrice = totalCost;
+
         Parent main = FXMLLoader.load(getClass().getResource("mainPage.fxml"));
         Scene mainScene = new Scene(main, 1165, 700);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -105,17 +126,24 @@ public class Controller {
 
     @FXML
     public void moveToSeating(ActionEvent event) throws IOException {
+
+        finalPrice = totalCost;
+
         Parent seat = FXMLLoader.load(getClass().getResource("seatSelection.fxml"));
         Scene seatingScene = new Scene(seat, 1165, 700);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(seatingScene);
-        TextField newField = new TextField();
+
+//        TextField newField = new TextField();
 //        seatingGrid.getChildren().add(newField);
     }
 
 
     @FXML
     public void backToTicket(ActionEvent event) throws IOException {
+
+        finalPrice = totalCost;
+
         Parent ticket = FXMLLoader.load(getClass().getResource("ticketType.fxml"));
         Scene ticketScene = new Scene(ticket, 1165, 700);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -125,14 +153,23 @@ public class Controller {
 
     @FXML
     public void proceedToPayment(ActionEvent event) throws IOException {
+
+        finalPrice = 100;
+
         Parent payment = FXMLLoader.load(getClass().getResource("payment.fxml"));
         Scene paymentScene = new Scene(payment, 1165, 700);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(paymentScene);
+
+
+//        amountDue.setText(String.valueOf(finalPrice));
     }
 
     @FXML
     public void backToSeatSelection(ActionEvent event) throws IOException {
+
+        finalPrice = totalCost;
+
         Parent seat = FXMLLoader.load(getClass().getResource("seatSelection.fxml"));
         Scene seatingScene = new Scene(seat, 1165, 700);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -161,11 +198,10 @@ public class Controller {
         textField1.setText(String.valueOf(standardAdultQuantity));
 
         totalCost = (standardAdultQuantity * 10) + (vipAdultQuantity * 12) +
-                (standardStudentQuantity * 7) + (vipStudentQuantity * 9) +
-                (standardChildQuantity * 5) + (vipChildQuantity * 7);
+                    (standardStudentQuantity * 7) + (vipStudentQuantity * 9) +
+                    (standardChildQuantity * 5) + (vipChildQuantity * 7);
 
         costField.setText(String.valueOf(totalCost));
-
     }
 
     @FXML
@@ -261,10 +297,11 @@ public class Controller {
         totalCost = (standardAdultQuantity * 10) + (vipAdultQuantity * 12) +
                 (standardStudentQuantity * 7) + (vipStudentQuantity * 9) +
                 (standardChildQuantity * 5) + (vipChildQuantity * 7);
-
+        
         costField.setText(String.valueOf(totalCost));
 
     }
+
 
     @FXML
     public void daySelect(ActionEvent event) {
@@ -278,6 +315,26 @@ public class Controller {
 
 
 
+
+
+
+    @FXML
+    public void changeDue(ActionEvent event) {
+//        if(event.getSource())
+
+        amountDue.setText(String.valueOf(finalPrice));
+
+
+        amountGiven = parseInt(amountGivenField.getText());
+
+
+        change = amountGiven - finalPrice;
+
+        System.out.println(change);
+
+
+        changeDue.setText(String.valueOf(change));
+    }
 
 
     
