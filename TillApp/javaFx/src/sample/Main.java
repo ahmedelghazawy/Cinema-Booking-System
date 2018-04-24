@@ -21,13 +21,13 @@ public class Main extends Application {
 
         window = primaryStage;
 
-        Parent root = FXMLLoader.load(getClass().getResource("mainPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/sample/mainPage.fxml"));
 
-        Parent ticket = FXMLLoader.load(getClass().getResource("ticketType.fxml"));
+        Parent ticket = FXMLLoader.load(getClass().getResource("/sample/ticketType.fxml"));
 
-        Parent seat = FXMLLoader.load(getClass().getResource("seatSelection.fxml"));
+        Parent seat = FXMLLoader.load(getClass().getResource("/sample/seatSelection.fxml"));
 
-        Parent payment = FXMLLoader.load(getClass().getResource("payment.fxml"));
+        Parent payment = FXMLLoader.load(getClass().getResource("/sample/payment.fxml"));
 
         window.setTitle("Cine-Toucan");
         window.setScene(new Scene(root, 1165, 700));
@@ -39,3 +39,5 @@ public class Main extends Application {
         launch(args);
     }
 }
+
+

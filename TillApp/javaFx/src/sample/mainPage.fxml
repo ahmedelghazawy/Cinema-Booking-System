@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" gridLinesVisible="false" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="sample.Controller">
+<GridPane alignment="center" gridLinesVisible="false" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
 
     <!--<columnConstraints>-->
     <!--<ColumnConstraints percentWidth="20.0"/>-->
@@ -22,8 +22,8 @@
 
     <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="0" GridPane.rowIndex="0">
         <graphic>
-            <ImageView>
-                <Image url="@/sample/media/banner1.jpg" />
+            <ImageView fitHeight="240.0" fitWidth="170.0">
+                <Image url="@/sample/media/banner1.jpg"/>
             </ImageView>
         </graphic>
     </Button>
@@ -155,21 +155,21 @@
             <Font size="15" />
         </font>
     </Label>
-   <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
 
 
 
