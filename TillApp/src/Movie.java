@@ -70,7 +70,7 @@ public class Movie {
 
     public void setCertificate(String certificate) { this.certificate = certificate; }
 
-    
+
     public boolean equals(Object other){
       if(this == other){
         return true;
@@ -82,10 +82,10 @@ public class Movie {
         Movie otherMovie = (Movie) other;
         return this.id == otherMovie.getID()
                 && this.title == otherMovie.getTitle()
-                && this.cover == otherMovie.getCover()
+                && this.blurb == otherMovie.getBlurb()
                 && this.rating == otherMovie.getRating()
-                && this.certificate == otherMovie.getCertificate()
-                && this.releaseDate == otherMovie.getReleaseDate();
+                && this.duration == otherMovie.getDuration()
+                && this.certificate == otherMovie.getCertificate();
       }
 
     }

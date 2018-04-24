@@ -48,6 +48,8 @@ public class Order {
           ArrayList<Screening> screenings = Screening.getScreenings(movie, 1);
           for(Screening screening: screenings){
             System.out.println(screening.getTime());
+            System.out.println("Standard Seats = " + screening.numberOfStandardSeats());
+            System.out.println("VIP Seats = " + screening.numberOfVipSeats());
           }
         }
         ArrayList<Seat> bookedSeats = Seat.getBookedSeats(1);

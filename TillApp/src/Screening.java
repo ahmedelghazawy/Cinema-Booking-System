@@ -64,6 +64,16 @@ public class Screening {
 
     public void setScreen_id() { this.screen_id = screen_id; }
 
+    public int numberOfStandardSeats() {
+        Screen screen = Screen.getScreen(this.id);
+        return screen.getStandardSeats();
+    }
+
+    public int numberOfVipSeats() {
+        Screen screen = Screen.getScreen(this.id);
+        return screen.getVipSeats();
+    }
+
     /**
      * Creates a get request to get the list of screenings for a specific movie for a specific day
      * @param movie Movie which it's screenings are required
