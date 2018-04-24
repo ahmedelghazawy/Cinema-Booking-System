@@ -64,7 +64,7 @@
                                         <Font size="18.0" />
                                     </font>
                                 </CheckBox>
-                                <DatePicker fx:id="datePicker" onAction="#daySelect" prefHeight="26.0" prefWidth="135.0">
+                                <DatePicker fx:id="datePicker" onAction="#daySelect" prefHeight="26.0" prefWidth="135.0" promptText="Chose Date" showWeekNumbers="false">
                                     <VBox.margin>
                                         <Insets top="30.0" />
                                     </VBox.margin>

@@ -263,6 +263,8 @@ public class Controller {
     public void daySelect(ActionEvent event) {
         if(event.getSource().equals(datePicker)){
             checkBox.setSelected(false);
+        } else if(event.getSource().equals(checkBox)){
+            datePicker.setValue(null);
         }
     }
 
