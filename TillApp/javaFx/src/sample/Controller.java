@@ -297,7 +297,7 @@ public class Controller {
         totalCost = (standardAdultQuantity * 10) + (vipAdultQuantity * 12) +
                 (standardStudentQuantity * 7) + (vipStudentQuantity * 9) +
                 (standardChildQuantity * 5) + (vipChildQuantity * 7);
-        
+
         costField.setText(String.valueOf(totalCost));
 
     }
