@@ -13,28 +13,21 @@
 
 <div class="container">
 	<h3>Purchase History</h3>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Ticket ID</th>
-				<th>Movie</th>
-				<th>Screen</th>
-				<th>Date</th>
-				<th>Time</th>
-			</tr>
-		</thead>
-		<tbody>
-		{% for ticket in tickets%}
-		<tr>
-			<td>{{ticket.id}}</td>
-			<td>{{ticket.movie_id.title}}</td>
-			<td>{{ticket.screening_id.screen_id.id}}</td>
-			<td>{{ticket.screening_id.date}}</td>
-			<td>{{ticket.screening_id.time}}</td>
-		</tr>
+	{% for movie, tickets in movieTickets.items %}
+	<div class="panel panel-default collapsed" data-toggle="collapse" data-target="#{{movie.id}}" aria-expanded="false">
+		<div class="panel-body"><b>{{movie.movie_id.title}}</b> <span style="float:right">Time: <b>{{movie.time}}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date: <b>{{movie.date}}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Screen: <b>{{movie.screen_id.id}}</b> &nbsp;&nbsp; <span class="glyphicon glyphicon-chevron-down"></span></div>
+	</div>
+	<div id="{{movie.id}}" class="collapse" aria-expanded="false" style="height: 0px;">
+		{% for ticket in tickets %}
+			<div class="profileTickets" style="display:inline-block;text-align:center;width:100px">
+				<img style="height:100px" src="../../Static/tickets/{{ticket.id}}.svg"></img>
+				<div class="well">
+					 <b>{{ticket.ticket_type}}</b>
+					 Seat: <b>{{ticket.seat_id.row}}{{ticket.seat_id.column}}</b>
+				</div>
+			</div>
 		{% endfor %}
-
-		</tbody>
-	</table>
+	</div>
+	{% endfor %}
 </div>
 {% include 'footer.html' %}

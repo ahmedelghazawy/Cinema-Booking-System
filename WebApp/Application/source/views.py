@@ -24,7 +24,6 @@ from django.utils.html import strip_tags
 from django.core.mail import EmailMessage
 import pyqrcode
 import cairosvg
-import shutil
 import os
 
 def confirmation(request):
@@ -82,7 +81,13 @@ def logoutPage(request):
 def profilePage(request):
 	if request.user.is_authenticated:
 		tickets = Ticket.objects.filter(user_id = request.user.id).all()
-		return render(request,'profilePage.html',{'tickets':tickets})
+		allTickets = {}
+		for ticket in tickets:
+			if (ticket.screening_id in allTickets.keys()):
+				allTickets[ticket.screening_id].append(ticket)
+			else:
+				allTickets[ticket.screening_id] = [ticket]
+		return render(request,'profilePage.html',{'movieTickets':allTickets})
 	else:
 		return redirect("/")
 
@@ -140,6 +145,7 @@ def bookingChoose(request, screeningId):
 		senior = int(form.cleaned_data['senior'])
 		vip = int(form.cleaned_data['vip'])
 		child = int(form.cleaned_data['child'])
+		tickets = {'normal':normal,'student':student,'senior':senior,'child':child}
 		name = form.cleaned_data['name']
 		number = form.cleaned_data['number']
 		cvc = form.cleaned_data['cvc']
@@ -157,11 +163,9 @@ def bookingChoose(request, screeningId):
 		html_message = render_to_string('email.html', {'context': 'values', 'movie': movie})
 		plain_message = strip_tags(html_message)
 		from_email = settings.EMAIL_HOST_USER
-		to_email = [settings.EMAIL_HOST_USER]
-
+		to_email = ""
 		#email attributes
 		email = EmailMessage(subject,plain_message,	from_email,	to_email,[],
-			reply_to=['maikelos272@gmail.com'],
 			headers={'Message-ID': 'Toucan Cinema'},
 		)
 
@@ -170,13 +174,16 @@ def bookingChoose(request, screeningId):
 			isVip = False
 			if (x - vip > 0):
 				isVip = True
-
+			# Set ticket type
+			ticket_type = ""
+			for key, value in tickets.items():
+				if (value > 0):
+					ticket_type = key
+					tickets[key] -= 1
 			# Save the seat and ticket to database
-			s = User.objects.filter(id=request.user.id)
-			print(" sdfsdfdfsdsfd {}asdasd{}".format(request,request.user))
 			seat = Seat(screening_id = screening,vipSeat = isVip,row=seats[x][0:1],column=seats[x][1:2])
 			seat.save()
-			ticket = Ticket(movie_id = movie,screening_id = screening, seat_id=seat)
+			ticket = Ticket(movie_id = movie,screening_id = screening, seat_id=seat,ticket_type=ticket_type )
 			ticket.save()
 			# Generate QR code
 			codeQR = pyqrcode.create(str(ticket.id), error='L', version=6, mode='binary')
@@ -184,7 +191,7 @@ def bookingChoose(request, screeningId):
 
 			# Generate pdf QR code for email
 			cairosvg.svg2pdf(url=str(ticket.id)+'.svg', write_to=str(ticket.id)+".pdf")
-			os.rename(str(ticket.id)+'.svg',"tickets/"+str(ticket.id)+'.svg')
+			os.rename(str(ticket.id)+'.svg',"Static/tickets/"+str(ticket.id)+'.svg')
 			#send email
 			email.attach_file(str(ticket.id)+'.pdf')
 

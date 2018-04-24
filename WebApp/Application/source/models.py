@@ -49,3 +49,4 @@ class Ticket(models.Model):
 	seat_id = models.ForeignKey('Seat',on_delete=models.CASCADE)
 	user_id = models.ForeignKey(settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE, default=1)
+	ticket_type = models.CharField(max_length=10, null=True)
