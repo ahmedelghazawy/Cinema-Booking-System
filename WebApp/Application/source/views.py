@@ -149,12 +149,12 @@ class screenapi(APIView):
 
 class seatingapi(APIView):
 	@csrf_exempt
-	def get(self, request, screeningID):
+	def get(self, request, screeningId):
 		seats = Seat.objects.filter(screening_id = screeningId).all()
 		serializer = SeatSerializer(seats , many = True)
 		return Response(serializer.data)
 
-	def post(self, request,screeningID, format = None):
+	def post(self, request,screeningId, format = None):
 		serializer = SeatSerializer(data=request.data)
 		if serializer.is_valid():
 			instance = serializer.save()
