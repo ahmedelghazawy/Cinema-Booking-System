@@ -1,5 +1,6 @@
 from django.db import models
 import datetime
+from django.conf import settings
 
 class User(models.Model):
 	name = models.CharField(max_length = 200)
@@ -9,7 +10,6 @@ class User(models.Model):
 	nameOnCard = models.CharField(blank=True, null=True, max_length = 100)
 	expirationMonth = models.CharField(blank=True, null=True, max_length = 2)
 	expirationYear = models.CharField(blank=True, null=True, max_length = 2)
-
 
 class Actor(models.Model):
 	name = models.CharField(max_length = 200)
@@ -46,5 +46,6 @@ class Seat(models.Model):
 class Ticket(models.Model):
 	movie_id = models.ForeignKey('Movie',on_delete=models.CASCADE,)
 	screening_id = models.ForeignKey('Screening',on_delete=models.CASCADE, default="")
-	seat_id = models.ForeignKey('Seat',on_delete=models.CASCADE,)
-	user_id = models.ForeignKey('User',on_delete=models.CASCADE,null=True)
+	seat_id = models.ForeignKey('Seat',on_delete=models.CASCADE)
+	user_id = models.ForeignKey(settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE, default=1)

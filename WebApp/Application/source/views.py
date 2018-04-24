@@ -81,8 +81,10 @@ def logoutPage(request):
 
 def profilePage(request):
 	if request.user.is_authenticated:
-		tickets = Ticket.objects.filter(id = request.user.id).all()
-	return render(request,'profile.html')
+		tickets = Ticket.objects.filter(user_id = request.user.id).all()
+		return render(request,'profilePage.html',{'tickets':tickets})
+	else:
+		return redirect("/")
 
 def moviePage(request, MovieID):
 	movie = Movie.objects.filter(id=MovieID).first()
@@ -170,16 +172,19 @@ def bookingChoose(request, screeningId):
 				isVip = True
 
 			# Save the seat and ticket to database
+			s = User.objects.filter(id=request.user.id)
+			print(" sdfsdfdfsdsfd {}asdasd{}".format(request,request.user))
 			seat = Seat(screening_id = screening,vipSeat = isVip,row=seats[x][0:1],column=seats[x][1:2])
 			seat.save()
-			ticket = Ticket(movie_id = movie,screening_id = screening, seat_id=seat,user_id=None)
+			ticket = Ticket(movie_id = movie,screening_id = screening, seat_id=seat)
 			ticket.save()
 			# Generate QR code
 			codeQR = pyqrcode.create(str(ticket.id), error='L', version=6, mode='binary')
 			codeQR.svg(str(ticket.id)+'.svg', scale=8)
-			os.rename(str(ticket.id)+'.svg',"tickets/"+str(ticket.id)+'.svg')
+
 			# Generate pdf QR code for email
 			cairosvg.svg2pdf(url=str(ticket.id)+'.svg', write_to=str(ticket.id)+".pdf")
+			os.rename(str(ticket.id)+'.svg',"tickets/"+str(ticket.id)+'.svg')
 			#send email
 			email.attach_file(str(ticket.id)+'.pdf')
 
@@ -188,7 +193,6 @@ def bookingChoose(request, screeningId):
 
 		# Remove pdf's which were used to send email
 		for item in root:
-			print(item)
 			if item.endswith(".pdf"):
 				os.remove( item)
 
