@@ -1,210 +1,352 @@
-{% load staticfiles %}
-{% include 'navbar.html' %}
+{% load staticfiles %} {% include 'navbar.html' %}
 <script>
-$(document).ready(function(){
-	vipSeats = {{screen.vipSeats}}
-	standardSeats = {{ screen.standardSeats}}
-	clickedSeats = 0;
-	seatSelected = []
-	seatReserved = []
-	getLiveSeats();
+	$(document).ready(function() {
+		// ###### Form updating #########
+		updateForm();
+		function updateForm() {
+			$(".table").find("input").each(function() {
+				var amount = $(this).val();
+				var name = $(this).attr("name");
+				var price = $(".price." + name).text().slice(1, 4);
+				var total = (amount * price).toFixed(2);
+				$(".total." + name).text("£"+total);
 
-	// Initialize the seatSelected
-	// seatSelected = new Array((vipSeats + standardSeats)/10);
-	// for (i=0;i < (vipSeats + standardSeats)/10; i++){
-	// 	seatSelected[i] =[0,0,0,0,0,0,0,0,0,0];
-	// }
-	// ## Generate the graphical seats
-	for ( i = 0; i < vipSeats; i++){
-		row = Math.floor(i/10);
-		column = i%10;
-		$(".theatre").append("<div class='seat freevip' data-column="+column+" data-row="+row+" ></div><!--");
-	}
-	for ( i = 0; i < standardSeats; i++){
-		row = Math.floor(i/10) + Math.floor(vipSeats/10);
-		column = i%10;
-		$(".theatre").append("<div class='seat free' data-column="+column+" data-row="+row+"></div><!--");
-	}
-	// ## On form/input change, check the number of seats
-	$(".form-control").on("change paste keyup", function() {
-		totalSeats = getTotalSeats();
-		if (seatSelected.length > totalSeats){
-			seatRemoveFIFO(seatSelected.length - totalSeats);
+			});
+			var totalPounds = 0.0;
+			$(".table").find(".total").each(function() {
+				totalPounds += parseFloat($(this).text().substring(1));
+			});
+			$("#total h2 b").text("£"+totalPounds.toFixed(2));
+		};
+
+		// Function to update VIP seats amount called from Seat selection code
+		function updateVipAmount() {
+			var amount = $(".theatre").find(".chosen").filter(".vip").length;
+			$('input[name="vip"]').val(amount);
+			// var price = $(".price.vip").text().substring(1);
+			// $(".total.vip").text("£"+(price*amount).toFixed(2));
+			updateForm();
 		}
-	});
-	// ## When a seat is clicked
-	$(".seat").click(function(){
-		row = $(this).data("row");
-		column = $(this).data("column");
-		seatPos = String(row)+String(column);
-		totalSeats = getTotalSeats();
-		if (totalSeats > 0){
-			// If the seat is not already reserved
-			if (seatReserved.indexOf(seatPos)<0){
-				// #1 If the seat is not already clicked
-				if (seatSelected.indexOf(seatPos)<0){
-					// #1.1 If the seat limit is reached, remove one seat
-					if (seatSelected.length >= totalSeats){
-						seatRemoveFIFO(1);
-					}
-					// change the clicked seat and add it to the list
-					seatRedraw(seatPos,"black");
-					seatSelected.push(seatPos);
-				}
-				// #2 If the seat is already clicked -> remove the seat
-				else{
-					seatRemovePos(seatPos);
-					seatRedraw(seatPos,"white");
-				}
-				displaySeats();
+		// ###### Sliding of the form #######
+
+		$("#next").click(function() {
+			$(".form1").fadeOut(200, function() {
+				$(".form2").fadeIn(200);
+				$(".table input").attr("readonly","");
+				$("#next").prop("disabled",true);
+				$("#previous").prop("disabled",false);
+			});
+		});
+		$("#previous").click(function() {
+			$(".form2").fadeOut(200, function() {
+				$(".form1").fadeIn(200);
+				// Disable inputs except the not-editable ones
+				$("input:not([name=seats]):not([name=vip])").removeAttr("readonly")
+				$("#next").prop("disabled",false);
+				$("#previous").prop("disabled",true);
+			});
+		});
+
+
+		// ###### SEAT SELECTION CODE ##########
+		vipSeats = {{screen.vipSeats}};
+		standardSeats = {{screen.standardSeats}};
+		clickedSeats = 0;
+		seatSelected = [];
+		seatReserved = [];
+		getLiveSeats();
+
+		// ## Generate the graphical seats
+		for (i = 0; i < vipSeats; i++) {
+			row = Math.floor(i / 10);
+			column = i % 10;
+			$(".theatre").append("<div class='seat free vip' data-column=" + column + " data-row=" + row + " ></div><!--");
+		}
+		for (i = 0; i < standardSeats; i++) {
+			row = Math.floor(i / 10) + Math.floor(vipSeats / 10);
+			column = i % 10;
+			$(".theatre").append("<div class='seat free' data-column=" + column + " data-row=" + row + "></div><!--");
+		}
+		// ## On form/input change, check the number of seats
+		$(".form-control").on("change paste keyup", function() {
+			updateForm();
+			totalSeats = getTotalSeats();
+			if (seatSelected.length > totalSeats) {
+				seatRemoveFIFO(seatSelected.length - totalSeats);
 			}
-		}
-		// If no seats were chosen but a seat was clicked
-		else{
-			alert("Please choose the amount of seats required");
-		}
-	})
-	// Returns a number of seats selected in the Form
-	function getTotalSeats() {
-    	total = 0;
-		$(".form-control").each(function(){
-			if (parseInt($(this).val())>0){
-				total += parseInt($(this).val());
+			updateVipAmount();
+		});
+		// ## When a seat is clicked
+		$(".seat").click(function() {
+			row = $(this).data("row");
+			column = $(this).data("column");
+			seatPos = String(row) + String(column);
+			totalSeats = getTotalSeats();
+			if (totalSeats > 0) {
+				// If the seat is not already reserved (by somebody else)
+				if (seatReserved.indexOf(seatPos) < 0) {
+					// #1 If the seat is not already selected
+					if (seatSelected.indexOf(seatPos) < 0) {
+						// #1.1 If the seat limit is reached, remove one seat
+						if (seatSelected.length >= totalSeats) {
+							seatRemoveFIFO(1);
+						}
+						// change the clicked seat and add it to the list
+						seatRedraw(seatPos, "chosen");
+						seatSelected.push(seatPos);
+						updateVipAmount();
+					}
+					// #2 If the seat is already clicked -> remove the seat
+					else {
+						seatRemovePos(seatPos);
+						seatRedraw(seatPos, "free");
+						updateVipAmount();
+					}
+					displaySeats();
+				}
+			}
+			// If no seats were chosen but a seat was clicked
+			else {
+				alert("Please choose the amount of seats required");
 			}
 		})
-		return total;
-	}
-	// Updates the seats numbers displayed for user
-	function displaySeats(){
-		adjustButton();
-		$(".seats").empty();
-		for (i=seatSelected.length-1 ; i>=0;i--){
-			seat = ""
-			if (seatSelected[i].slice(0,1)== "0"){
-				seat = seatSelected[i].slice(1,2);
-			}else{
-				seat = seatSelected[i];
-			}
-			seat = String(parseInt(seat)+1);
-			$(".seats").append("<span style='font-size:20px;'>"+seat+",</span> ");
-		}
-	}
-	// Change the 
-	// First In First Out seat removal function
-	function seatRemoveFIFO(amount){
-		// get first seat, FIFO
-		for (i=0;i<amount;i++){
-			removeMe = seatSelected.shift();
-			seatRedraw(removeMe,"white");
-		}
-	}
-	function seatRemovePos(position){
-		var index = seatSelected.indexOf(position);
-		if (index >= 0) {
-			seatSelected.splice( index, 1 );
-		}
-	}
-
-	window.setInterval(function(){
-		getLiveSeats();
-	}, 5000);
-
-	function getLiveSeats(){
-		$.getJSON( "/api/seatingapi/{{screening.id}}/", function( data ) {
-			// Print live data
-			console.log("\n###### Fresh from API ##### \n");
-			string = "Seats reserved: ";
-			$.each( data, function( key, val ) {
-				string += val.row + ":" + val.column + ", ";
-			});
-			console.log(string);
-			// Clear reserved seats
-			for (i=0;i<seatReserved.length;i++){
-				seatRedraw(seatReserved[i],"white");
-			}
-			seatReserved = [];
-			// Parse new data
-			$.each( data, function( key, val) {
-				seatReserved.push(String(val.row)+String(val.column));
-			});
-			// Reverse clicked overlapping seats
-			removedString = "";
-			for (i=0;i<seatReserved.length;i++){
-				if (seatSelected.indexOf(seatReserved[i]) >= 0){
-					seatRemovePos(seatReserved[i]);
-					removedString+= seatReserved[i]+", ";
+		// Returns a number of seats selected in the Form
+		function getTotalSeats() {
+			total = 0;
+			$(":input[type=number]:not(input[name=vip])").each(function() {
+				amount = parseInt($(this).val());
+				if ( amount > 0) {
+					if($(this).attr("name")!="vip"){
+						total += amount;
+					}
 				}
+			})
+			console.log(total);
+			return total;
+		}
+		// Updates the seats numbers displayed for user
+		function displaySeats() {
+			$("input[name=seats]").val( seatSelected);
+		}
+		// First In First Out seat removal function
+		function seatRemoveFIFO(amount) {
+			// get first seat, FIFO
+			for (i = 0; i < amount; i++) {
+				removeMe = seatSelected.shift();
+				seatRedraw(removeMe, "free");
 			}
-			if (removedString.length>1){
-				$("#seatAlertNum").append(removedString);
-				$("#seatAlert").fadeIn("slow");
-				window.setTimeout(function(){
-					$("#seatAlert").fadeOut("fast");
-				}, 6000);
-			}
-			// Updates the clicked seats
-			displaySeats();
-			// Draw all seats
-			for (i=0;i<seatReserved.length;i++){
-				seatRedraw(seatReserved[i],"orange");
-			}
-		});
-	}
+		}
 
-	// Updates a seat on the screen
-	function seatRedraw(position,color){
-		row = position.slice(0,1);
-		column = position.slice(1,3);
-		$(".seat[data-row="+row+"][data-column="+column+"]").css("background-color",color);
-	}
+		function seatRemovePos(position) {
+			var index = seatSelected.indexOf(position);
+			if (index >= 0) {
+				seatSelected.splice(index, 1);
+			}
+		}
 
-});
+		window.setInterval(function() {
+			getLiveSeats();
+		}, 50000);
+
+		function getLiveSeats() {
+			$.getJSON("/api/seatingapi/{{screening.id}}/", function(data) {
+				// Print live data
+				console.log("\n###### Fresh from API ##### \n");
+				string = "Seats reserved: ";
+				$.each(data, function(key, val) {
+					string += val.row + ":" + val.column + ", ";
+				});
+				console.log(string);
+				// Clear reserved seats
+				for (i = 0; i < seatReserved.length; i++) {
+					seatRedraw(seatReserved[i], "free");
+				}
+				seatReserved = [];
+				// Parse new data
+				$.each(data, function(key, val) {
+					seatReserved.push(String(val.row) + String(val.column));
+				});
+				// Reverse clicked overlapping seats
+				removedString = "";
+				for (i = 0; i < seatReserved.length; i++) {
+					if (seatSelected.indexOf(seatReserved[i]) >= 0) {
+						seatRemovePos(seatReserved[i]);
+						removedString += seatReserved[i] + ", ";
+					}
+				}
+				if (removedString.length > 1) {
+					$("#seatAlertNum").append(removedString);
+					$("#seatAlert").fadeIn("slow");
+					window.setTimeout(function() {
+						$("#seatAlert").fadeOut("fast");
+					}, 6000);
+				}
+				// Updates the clicked seats
+				displaySeats();
+				// Draw all seats
+				for (i = 0; i < seatReserved.length; i++) {
+					seatRedraw(seatReserved[i], "reserved");
+				}
+			});
+		}
+
+		// Updates a seat on the screen
+		function seatRedraw(position,cls) {
+			row = position.slice(0, 1);
+			column = position.slice(1, 3);
+			var seat =	$(".seat[data-row=" + row + "][data-column=" + column + "]");
+			var vip = "";
+			if (seat.hasClass("vip")){
+				vip = "vip"
+			}
+			seat.removeClass();
+			seat.addClass("seat " + cls +" "+ vip);
+		}
+	});
 </script>
 <link rel="stylesheet" href="{% static 'css/booking.css' %}">
 <div class="alert alert-danger" id="seatAlert">
 	We are sorry but it seems that the seat <strong id="seatAlertNum"></strong> has just been booked.
 </div>
 <div class="container">
-	<div class = "row">
-		<div class="col-lg-3" style="text-align:center;">
-			<img src="{% static movie.cover %}" style="width:100%"/>
-		</div>
-		<div class="col-lg-9">
-			<h1>{{movie.title}}</h1>
-			<hr style="simpleHR">
-			<div class="form-group">
-				<label for="normal">Normal:</label>
-				<input class="form-control" type="number" name="Normal" min="0" max="99" value="0" id="normal">
-				<label for="student">Student:</label>
-				<input class="form-control" type="number" name="Student" min="0" max="99" value="0" id="student">
-				<label for="senior">Senior:</label>
-				<input class="form-control" type="number" name="Senior" min="0" max="99" value="0" id="senior">
-				<label for="child">Child:</label>
-				<input class="form-control" type="number" name="Child" min="0" max="99" value="0" id="child">
-			</div>
-			Total:
-		</div>
-	</div>
-	<div class="row" style="padding: 30px 0px 30px 0px;text-align:center">
-		<div class="col-lg-6 col-lg-offset-1 col-md-6 col-md-offset-1 ">
-			<h1> Theatre {{ screen.id }}</h1>
-			<div class="theatre"></div>
-		</div>
-		<div class="col-lg-4 col-md-4">
-			<h1>Legend</h1>
-			<hr>
-			<br>
-			<div class="seat free legend"></div> Standard Avaiable
-			<br>
-			<div class="seat freevip legend"></div> VIP Avaiable
-			<br>
-			<div class="seat reserved legend"></div> Reserved
-			<h2> Seats Selected</h2>
-			<p class="seats"></p>
-			<br><br>
-			<a  href="/checkout/"><button type="button" class="btn btn-warning">Continue</button></a>
-		</div>
-	</div>
+	<form method="POST" action="">{% csrf_token %}
+	<div class="col-lg-12 col-xs-12">
 
+		<div class="row">
+			<div class="col-lg-4" style="text-align:center;">
+				<img src="{% static movie.cover %}" style="width:100%" />
+			</div>
+			<div class="col-lg-8">
+				<h1>{{movie.title}}</h1>
+				<hr style="simpleHR">
+				<table class="table" style="text-align:center">
+					<thead>
+						<tr>
+							<th scope="col">Type</th>
+							<th scope="col" style="text-align:center">Amount</th>
+							<th scope="col" style="text-align:center">Price</th>
+							<th scope="col" style="text-align:center">Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">Normal</th>
+							<td>{{form.normal}}</td>
+							<!-- <input class="form-control" type="number" name="normal" min="0" max="99" value="0" id="normal"> -->
+							<td class="price normal">£5.60</td>
+							<td class="total normal">£0.00</td>
+						</tr>
+						<tr>
+							<th scope="row">Student</th>
+							<td>{{form.student}}</td>
+							<td class="price student">£4.00</td>
+							<td class="total student">£0.00</td>
+						</tr>
+						<tr>
+							<th scope="row">Senior</th>
+							<td>{{form.senior}}</td>
+							<td class="price senior">£3.00</td>
+							<td class="total senior">£0.00</td>
+						</tr>
+						<tr>
+							<th scope="row">Child</th>
+							<td>{{form.child}}</td>
+							<td class="price child">£3.40</td>
+							<td class="total child">£0.00</td>
+						</tr>
+						<tr>
+							<th scope="row">VIP </th>
+							<td>{{form.vip}}</td>
+							<td class="price vip">£2.00</td>
+							<td class="total vip">£0.00</td>
+						</tr>
+						<tr>
+							<th scope="row"><h2><b>Total</b></h2></th>
+							<td></td>
+							<td ></td>
+							<td id="total"><h2><b>£0.00</b></h2></td>
+						</h2>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{% if form.errors %}
+		<div class="row" style="padding-top:30px;">
+			<div class="col-lg-6 col-lg-offset-3">
+				<div class="alert alert-danger" role="alert">
+					{% for field in form %}
+						{{ field.errors}}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		<div class="row form1" style="padding:0px 0px 30px 0px;text-align:center">
+			<div class="col-lg-6 col-lg-offset-1 col-md-6 col-md-offset-1 ">
+				<h1> Theatre {{ screen.id }}</h1>
+				<div class="theatre"></div>
+			</div>
+			<div class="col-lg-4 col-md-4">
+				<h1>Legend</h1>
+				<hr>
+				<br>
+				<div class="seat free legend"></div> Standard Avaiable
+				<br>
+				<div class="seat free vip legend"></div> VIP Avaiable
+				<br>
+				<div class="seat reserved legend"></div> Reserved
+				<br>
+				<div class="seat chosen legend"></div> Reserved
+				<h2> Seats Selected</h2>
+				<h3>{{ form.seats }}</h3>
+				<br><br>
+
+			</div>
+		</div>
+		<div class="row form2" style="display:none">
+			<div class="col-sm-8 col-sm-offset-2">
+				<br>
+				<div class='form-row'>
+					<div class='form-group required'>
+						<div class='error form-group hide'>
+							<div class='alert-danger alert'>
+							</div>
+						</div>
+						{{form.name.label_tag}}
+						{{form.name}}
+					</div>
+					<div class='form-group card required'>
+						{{form.number.label_tag}}
+						{{form.number}}
+					</div>
+					<div class='form-group cvc required'>
+						{{form.cvc.label_tag}}
+						{{form.cvc}}
+					</div>
+					<div class="form-inline date required">
+						{{form.year.label_tag}}
+						{{form.year}}
+						{{form.month.label_tag}}
+						{{form.month}}
+					</div>
+				</div>
+				<div class='form-row'>
+						<div class='form-group'>
+							<label class='control-label'></label>
+							<button class='form-control btn btn-primary' type='submit' > Continue </button>
+						</div>
+					</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="row" style="padding:20px">
+		<div class="col-lg-12">
+			<button id="next" type="button" style="float:right" class="btn btn-warning">Continue</button>
+			<button id="previous" type="button" style="float:left" class="btn btn-warning" disabled="">Go back</button>
+		</div>
+	</div>
+	</form>
 </div>
 {% include 'footer.html' %}

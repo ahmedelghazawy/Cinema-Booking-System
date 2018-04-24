@@ -17,7 +17,9 @@ pip install djangorestframework
 
 pip install django-filter
 
-pip install pyfpdf
+pip install pyqrcode
+
+pip3 install cairosvg
 
 cd $DIR/Application/
 
@@ -26,6 +28,8 @@ python manage.py makemigrations
 python manage.py migrate
 
 python manage.py populate_db
+
+python manage.py makemigrations
 
 python manage.py migrate
 

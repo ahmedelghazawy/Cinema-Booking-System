@@ -2,9 +2,24 @@ from django.db import models
 import datetime
 
 class User(models.Model):
-	name = models.CharField(max_length = 200)
-	email = models.EmailField(unique=True)
-	password = models.CharField(max_length = 200)
+	username = models.CharField(max_length = 100, unique = True)
+	dob = models.CharField(max_length = 10)
+	cardNo = models.CharField(blank=True, null=True, max_length = 16)
+	nameOnCard = models.CharField(blank=True, null=True, max_length = 100)
+	expirationMonth = models.CharField(blank=True, null=True, max_length = 2)
+	expirationYear = models.CharField(blank=True, null=True, max_length = 2)
+
+
+class User2(models.Model):
+	username = models.CharField(max_length = 100)
+	email = models.EmailField(max_length = 50)
+	password = models.CharField(max_length = 100)
+	dob = models.CharField(max_length = 10)
+	cardNo = models.CharField(blank=True, null=True, max_length = 16)
+	nameOnCard = models.CharField(blank=True, null=True, max_length = 100)
+	expirationMonth = models.CharField(blank=True, null=True, max_length = 2)
+	expirationYear = models.CharField(blank=True, null=True, max_length = 2)
+
 
 class Actor(models.Model):
 	name = models.CharField(max_length = 200)
@@ -31,14 +46,13 @@ class Screening(models.Model):
 	time = models.TimeField(auto_now_add=False, null=True)
 
 class Seat(models.Model):
-    screening_id = models.ForeignKey('Screening',on_delete=models.CASCADE,)
-    vipSeat = models.BooleanField(default=False)
-    row = models.IntegerField()
-    column = models.IntegerField()
-
+	screening_id = models.ForeignKey('Screening',on_delete=models.CASCADE, default="")
+	vipSeat = models.BooleanField(default=False)
+	row = models.IntegerField()
+	column = models.IntegerField()
 
 class Ticket(models.Model):
 	movie_id = models.ForeignKey('Movie',on_delete=models.CASCADE,)
 	screening_id = models.ForeignKey('Screening',on_delete=models.CASCADE, default="")
 	seat_id = models.ForeignKey('Seat',on_delete=models.CASCADE,)
-	user_id = models.ForeignKey('User',on_delete=models.CASCADE,)
+	user_id = models.ForeignKey('User',on_delete=models.CASCADE,null=True)

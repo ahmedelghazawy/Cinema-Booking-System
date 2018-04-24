@@ -9,10 +9,23 @@ from source.forms import *
 from source.serializers import *
 import datetime
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login, get_user_model, logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import send_mail
+from django.conf import settings
+
+#libaries for email
+from django.core import mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.core.mail import EmailMessage
+import pyqrcode
+import cairosvg
+
+
+
 # Create your views here.
 def index(request):
 	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
@@ -25,46 +38,95 @@ def whatson(request):
 def loginPage(request):
 	title="login"
 	form = UserLoginForm(request.POST or None)
+	error=''
+	next = request.GET.get('next')
 	if form.is_valid():
 		username = form.cleaned_data.get('username')
 		password = form.cleaned_data.get('password')
 		user = authenticate(username = username, password = password)
-		login(request, user)
-		return redirect("/")
+		if user is not None:
+			login(request, user)
+		if next:
+			return redirect(next)
 
-	return render(request,'login.html',{'title':title,'form':form} )
+		return redirect("/")
+	error = "incorrect login"
+	return render(request,'login.html', {'error':error})
+
+	return render(request,'login.html' )
 
 
 def checkoutPage(request):
+	print(request.POST)
 	movies = Movie.objects.all()
 	return render(request,'checkoutPage.html' )
 
 def confirmation(request):
 	movies = Movie.objects.all()
+	movie = Movie.objects.first()
+	string = str(movie.id)  + "\n" + str(movie.title)
+
+	url = pyqrcode.create(string, error='L', version=6, mode='binary')
+	url.svg('ticket.svg', scale=8)
+
+	cairosvg.svg2pdf(url='ticket.svg', write_to='image.pdf')
+
+	#email data
+	subject = 'Your Toucan cinema ticket'
+	html_message = render_to_string('email.html', {'context': 'values', 'movie': movie})
+	plain_message = strip_tags(html_message)
+	from_email = settings.EMAIL_HOST_USER
+	to_email = [settings.EMAIL_HOST_USER]
+	# mail.send_mail(subject, plain_message, from_email, to_email, html_message=html_message, fail_silently = False)
+
+	#email attributes
+	email = EmailMessage(
+    subject,
+    plain_message,
+    from_email,
+    to_email,
+    [],
+    reply_to=['toucan.se@gmail.com'],
+    headers={'Message-ID': 'Toucan Cinema'},
+)
+	#send email
+	email.attach_file('image.pdf')
+	email.send()
+
 	return render(request,'confirmation.html' )
 
 def registerPage(request):
 	title ="register"
 	form = UserRegisterForm(request.POST or None)
+	next = request.GET.get('next')
 	if form.is_valid():
-		user = form.save(commit = False)
+		user = form.save(commit=False)
+		username = form.cleaned_data.get('username')
 		password = form.cleaned_data.get('password')
+		email = form.cleaned_data.get('email')
+		dob = form.cleaned_data.get('dob')
+		usert = User(username = username, dob = dob)
+		usert.save()
 		user.set_password(password)
 		user.save()
-		new_user = authenticate(username = user.username, password = password)
+		new_user = authenticate(username = username, password = password)
 		login(request, new_user)
+
+		if next:
+			return redirect(next)
 		return redirect("/")
+	return render(request,'register.html',{'title':title,'form':form} )
 
-
-	return render(request,'login.html',{'title':title,'form':form} )
 def logoutPage(request):
 	logout(request)
 	return redirect("/")
 
+@login_required(login_url="/login")
 def profilePage(request):
-	if request.user.is_authenticated:
-		tickets = Ticket.objects.filter(id = request.user.id).all()
-	return render(request,'profile.html')
+	username = request.user.id
+	A = User.objects.filter(id = username).first()
+	tickets = Ticket.objects.filter(id = request.user.id).all()
+	return render(request,'profile.html', {'username':username, 'A':A})
 
 def moviePage(request, MovieID):
 	movie = Movie.objects.filter(id=MovieID).first()
@@ -101,24 +163,46 @@ def moviePage(request, MovieID):
 	return render(request,'movieBlurb.html',{'movie':movie, 'currentTime':currentTime, 'dates':dates, 'latestMovies':latestMovies, 'stars':stars} )
 
 
-def bookingPage(request, ScreeningID):
-	screening = Screening.objects.filter(id = ScreeningID).first()
-	temp = screening.screen_id.id
-	screen = Screen.objects.filter(id = temp).first()
-	totalSeats = screen.standardSeats
-	#emptySeats =
-	seats = Seat.objects.filter(screening_id = ScreeningID).all().count()
-	return render(request,'booking.html',{'nbar':'whatson','seats':seats, 'totalSeats':totalSeats} )
+def bookingPage(request):
+	seats = Seat.objects.filter(screening_id = 1).all()
+	return render(request,'booking.html',{'nbar':'whatson','seats':seats} )
 
+@login_required(login_url='/login')
 def bookingChoose(request, screeningId):
 	# Passing first element of the query as query is a list with 1 object
+	form = BookingForm(request.POST or None)
+	if form.is_valid():
+		# Get all the data from form
+		normal = int(form.cleaned_data['normal'])
+		student = int(form.cleaned_data['student'])
+		senior = int(form.cleaned_data['senior'])
+		vip = int(form.cleaned_data['vip'])
+		child = int(form.cleaned_data['child'])
+		name = form.cleaned_data['name']
+		number = form.cleaned_data['number']
+		cvc = form.cleaned_data['cvc']
+		year = form.cleaned_data['year']
+		month = form.cleaned_data['month']
+		seats = form.cleaned_data['seats'].split(",")
+		# Total amount of tickets purchased
+		total_seats = normal+student+senior+child
+		# Details of booking
+		screening = Screening.objects.filter(id=screeningId)[0]
+		movie = screening.movie_id
+		for x in range(total_seats):
+			isVip = False
+			if (x - vip > 0):
+				isVip = True
+			seat = Seat(screening_id = screening,vipSeat = isVip,row=seats[x][0:1],column=seats[x][1:2])
+			seat.save()
+			ticket = Ticket(movie_id = movie,screening_id = screening, seat_id=seat,user_id=None)
+			ticket.save()
+		return redirect("/confirmation")
+
 	screening = Screening.objects.filter(id=screeningId)[0]
 	movie = screening.movie_id
 	screen = screening.screen_id
-	return render(request,'bookingChoose.html',{'nbar':'whatson','movie':movie, 'screen':screen, 'screening':screening} )
-
-
-
+	return render(request,'bookingChoose.html',{'nbar':'whatson','movie':movie, 'screen':screen, 'screening':screening,'form':form} )
 
 class whatsonapi(APIView):
 	@csrf_exempt
@@ -141,9 +225,10 @@ class movieTimingsapi(APIView):
 
 class screenapi(APIView):
 	@csrf_exempt
-	def get(self, request, ScreeningID):
-		screening = Screening.objects.filter(id = ScreeningID).first()
+	def get(self, request, screeningId):
+		screening = Screening.objects.filter(id = screeningId).first()
 		screen = screening.screen_id
+		#screen = Screen.objects.filter(id = screen).first()
 		serializer = ScreenSerializer(screen, many=False)
 		return Response(serializer.data)
 
@@ -153,5 +238,11 @@ class seatingapi(APIView):
 		seats = Seat.objects.filter(screening_id = screeningId).all()
 		serializer = SeatSerializer(seats , many = True)
 		return Response(serializer.data)
-	def put(self, request, *args, **kwargs):
-		return self.update(request, *args, **kwargs)
+
+	def post(self, request,screeningId, format = None):
+		serializer = SeatSerializer(data=request.data)
+		if serializer.is_valid():
+			instance = serializer.save()
+			return Response(serializer.data, status=status.HTTP_201_CREATED)
+		else:
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -15,17 +15,19 @@
 	padding-top: calc(7.5% - 10px);
 	margin:5px;
 	box-sizing: border-box;
+	border: 2px solid #999;
 }
 .seat.free{
-	background-color: white;
-	border: 2px solid #999;
+	background-color:white;
+}
+.seat.chosen{
+	background-color:black;
 }
 .seat.reserved{
 	background-color:orange;
 }
-.seat.freevip{
-	background-color: white;
-	border: 2px solid orange;
+.seat.vip{
+	border: 2px solid orange !important;
 	box-shadow: inset 0px 0px 3px orange;
 }
 .seat.legend{
@@ -39,4 +41,10 @@
 	right:20px;
 	display:none;
 	z-index: 30;
+}
+.noedit{
+	background-color: white !important;
+	border-radius: 5px;
+	border: none;
+	color:inherit;
 }

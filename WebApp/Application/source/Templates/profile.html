@@ -2,8 +2,10 @@
 {% include 'navbar.html' %}
 
 <div class="col-lg-6">
-  <h1>{{user}}</h1>
-  <h1>{{user.email}}</h1>
+  <h1>{{user.id}} </h1>
+  <h1>{{user.name}} </h1>
+  <h1>{{user.password}} </h1>
+  <h1>{{user.email}} </h1>
   <h1>tickets:</h1>
   {% for ticket in tickets %}
 
