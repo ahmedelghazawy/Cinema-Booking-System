@@ -16,6 +16,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import Http404
+from django.db.models import Q
 
 #libaries for email
 from django.core import mail
