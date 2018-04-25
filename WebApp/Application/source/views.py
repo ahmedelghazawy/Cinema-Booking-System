@@ -26,6 +26,7 @@ import pyqrcode
 import cairosvg
 import os
 import re
+import json
 
 def download(request,ticketID):
 	if request.user.is_authenticated:
@@ -282,15 +283,25 @@ class screenapi(APIView):
 
 class seatingapi(APIView):
 	@csrf_exempt
-	def get(self, request, screeningId):
+	def get(self, request, screeningId,amountOfSeats=''):
+		if (amountOfSeats != ''):
+			amountOfSeats = int(float(amountOfSeats))
+			seats = []
+			for amount in range(amountOfSeats):
+				seat = Seat(screening_id=Screening.objects.filter(id=screeningId)[0],vipSeat = False, row = None, column = None, confirmed = False)
+				seat.save()
+				seats.append(seat.id)
+			return Response(seats)
 		seats = Seat.objects.filter(screening_id = screeningId).all()
 		serializer = SeatSerializer(seats , many = True)
 		return Response(serializer.data)
 
-	def post(self, request,screeningId, format = None):
-		serializer = SeatSerializer(data=request.data)
-		if serializer.is_valid():
-			instance = serializer.save()
-			return Response(serializer.data, status=status.HTTP_201_CREATED)
-		else:
-			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+	def post(self, request,screeningId="", amountOfSeats="", format = None):
+		for seat in request.data:
+			print(seat)
+			serializer = SeatSerializer(data=seat)
+			if serializer.is_valid():
+				instance = serializer.save()
+			else:
+				return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+		return Response(serializer.data, status=status.HTTP_201_CREATED)

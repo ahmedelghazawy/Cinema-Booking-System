@@ -1,6 +1,32 @@
 {% load staticfiles %} {% include 'navbar.html' %}
 <script>
 	$(document).ready(function() {
+
+		$.ajaxSetup({
+			beforeSend: function(xhr, settings) {
+				function getCookie(name) {
+					var cookieValue = null;
+					if (document.cookie && document.cookie != '') {
+						var cookies = document.cookie.split(';');
+						for (var i = 0; i < cookies.length; i++) {
+							var cookie = jQuery.trim(cookies[i]);
+							// Does this cookie string begin with the name we want?
+							if (cookie.substring(0, name.length + 1) == (name + '=')) {
+								cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+								break;
+							}
+						}
+					}
+					return cookieValue;
+				}
+				if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+					// Only send the token to relative URLs i.e. locally.
+					xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+				}
+			}
+		});
+		// Makes sure that form controlling buttons are displayed correctly
+		correctButtons();
 		// ###### Form updating #########
 		updateForm();
 		function updateForm() {
@@ -27,8 +53,12 @@
 			// $(".total.vip").text("£"+(price*amount).toFixed(2));
 			updateForm();
 		}
+		// Corrects the buttons when the page is refreshed
+		function correctButtons(){
+			$("#next").prop("disabled",false);
+			$("#previous").prop("disabled",true);
+		}
 		// ###### Sliding of the form #######
-
 		$("#next").click(function() {
 			$(".form1").fadeOut(200, function() {
 				$(".form2").fadeIn(200);
@@ -36,6 +66,40 @@
 				$("#next").prop("disabled",true);
 				$("#previous").prop("disabled",false);
 			});
+			// get the seat
+			if (seatSelected.length > 0){
+				var data = [];
+				for (var i = 0; i < seatSelected.length;i++){
+					row = seatSelected[i].slice(0, 1);
+					column = seatSelected[i].slice(1, 2);
+					var seat = {"screening_id":{{screening.id}}, "vipSeat":false,"row":row,"column":column,"confirmed":false}
+					data.push(seat)
+				}
+				// console.log(seatSelected)
+				// seat = seatSelected[0];
+				// row = seat.slice(0, 1);
+				// column = seat.slice(1, 2);
+				// console.log(row+column)
+				// var data = {"screening_id":{{screening.id}}, "vipSeat":false,"row":row,"column":column,"confirmed":false}
+				console.log(JSON.stringify(data));
+				$.ajax({
+					type : "POST",
+					url : "/api/seatingapi/",
+					csrfmiddlewaretoken: "{% csrf_token %}",
+					data : JSON.stringify(data),
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json'
+					},
+					success: function(some, some1, some2){
+						console.log("Seat sent to database \n" + JSON.stringify(some)+"\n"+JSON.stringify(some2));
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						alert("Error: Couldn't connect with the server\nPlease Refresh the page\n" + String(errorThrown) + String(textStatus) + String(XMLHttpRequest.responseText));
+					}
+				});
+			}
+
 		});
 		$("#previous").click(function() {
 			$(".form2").fadeOut(200, function() {
@@ -51,8 +115,9 @@
 		// ###### SEAT SELECTION CODE ##########
 		vipSeats = {{screen.vipSeats}};
 		standardSeats = {{screen.standardSeats}};
-		clickedSeats = 0;
+		// Seats selected by user
 		seatSelected = [];
+		// Seats reserved from api
 		seatReserved = [];
 		getLiveSeats();
 
@@ -146,7 +211,7 @@
 
 		window.setInterval(function() {
 			getLiveSeats();
-		}, 50000);
+		}, 5000);
 
 		function getLiveSeats() {
 			$.getJSON("/api/seatingapi/{{screening.id}}/", function(data) {
@@ -334,7 +399,7 @@
 				<div class='form-row'>
 						<div class='form-group'>
 							<label class='control-label'></label>
-							<button class='form-control btn btn-primary' type='submit' > Continue </button>
+							<button class='form-control btn btn-primary' type='submit' >Pay now</button>
 						</div>
 					</div>
 			</div>
@@ -343,8 +408,8 @@
 	</div>
 	<div class="row" style="padding:20px">
 		<div class="col-lg-12">
-			<button id="next" type="button" style="float:right" class="btn btn-warning">Continue</button>
-			<button id="previous" type="button" style="float:left" class="btn btn-warning" disabled="">Go back</button>
+			<button id="next" type="button" style="float:right" class="btn btn-warning">Next</button>
+			<button id="previous" type="button" style="float:left" class="btn btn-warning" disabled="">Previous</button>
 		</div>
 	</div>
 	</form>

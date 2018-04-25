@@ -25,20 +25,22 @@ pip3 install cairosvg
 
 cd $DIR/Application/
 
-python manage.py makemigrations
-
-python manage.py migrate
-
-python manage.py populate_db
-
-python manage.py makemigrations
-
-python manage.py migrate
-
 if [[ $1 == "devel" ]]
 then
 	echo "Running DEVELOPMENT session"
+
 else
 	echo "Running NORMAL session"
+
+	python manage.py makemigrations
+
+	python manage.py migrate
+
+	python manage.py populate_db
+
+	python manage.py makemigrations
+
+	python manage.py migrate
+
 	python manage.py runserver
 fi
