@@ -32,6 +32,8 @@ public class Seat {
         this.availability = availability;
     }
 
+    public int getId() { return id; }
+
     public int getScreening_id() { return screening_id; }
 
     public boolean getVipSeat() { return vipSeat; }
@@ -94,5 +96,25 @@ public class Seat {
             System.out.println(e);
         }
         return seats;
+    }
+
+    @Override
+    public boolean equals(Object other){
+        if(this == other){
+            return true;
+        }
+        else if(! (other instanceof Seat)){
+            return false;
+        }
+        else{
+            Seat otherSeat = (Seat) other;
+            return this.id == otherSeat.getId()
+                    && this.screening_id == otherSeat.getScreening_id()
+                    && this.vipSeat == otherSeat.getVipSeat()
+                    && this.row == otherSeat.getRow()
+                    && this.column == otherSeat.getColumn()
+                    && this.availability == otherSeat.getAvailability();
+        }
+
     }
 }

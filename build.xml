@@ -43,7 +43,7 @@
   </target>
 
   <target name="test" depends="compile" description="Run unit tests">
-    <delete file="${build.dir}/APIConnection"/>
+    <delete file="${build.dir}/APIConnection.class"/>
     <javac srcdir="${test.dir}" destdir="${build.dir}"
       includeantruntime="false">
       <classpath refid="project.classpath"/>
@@ -51,18 +51,18 @@
     <junit fork="true">
       <classpath refid="project.classpath"/>
       <formatter type="brief" usefile="false"/>
-      <test name="TillApp/bin/MovieTest"/>
-      <test name="TillApp/bin/OrderTest"/>
-      <test name="TillApp/bin/ScreeningTest"/>
-      <test name="TillApp/bin/SeatTest"/>
-      <test name="TillApp/bin/TicketTest"/>
+      <test name="MovieTest"/>
+      <test name="ScreeningTest"/>
+      <test name="SeatTest"/>
+      <test name="OrderTest"/>
+      <test name="TicketTest"/>
     </junit>
   </target>
 
 
   <target name="clean" description="Remove compiled code">
     <delete dir="${build.dir}"/>
-    <delete dir="out"/>
+    <delete dir="TillApp/out"/>
     <delete file="WebApp/Application/databse.db"/>
   </target>
 

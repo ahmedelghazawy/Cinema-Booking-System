@@ -116,4 +116,23 @@ public class Screening {
         }
         return screenings;
     }
+
+    @Override
+    public boolean equals(Object other){
+        if(this == other){
+            return true;
+        }
+        else if(! (other instanceof Screening)){
+            return false;
+        }
+        else{
+            Screening otherScreening = (Screening) other;
+            return this.id == otherScreening.getId()
+                    && this.date == otherScreening.getDate()
+                    && this.time == otherScreening.getTime()
+                    && this.movie_id == otherScreening.getMovie_id()
+                    && this.screen_id == otherScreening.getScreen_id();
+        }
+
+    }
 }
