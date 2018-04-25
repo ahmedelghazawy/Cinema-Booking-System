@@ -34,6 +34,11 @@
               			</div>
               		</div>
               		{% endif %}
+                    {% if ageLimit %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ageLimit}}
+                    </div>
+                    {% endif %}
                   <div class="form-group">
                     <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
                   </div>

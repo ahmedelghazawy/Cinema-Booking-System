@@ -7,6 +7,7 @@
 			<img src="{% static movie.cover %}"/>
 		</div>
 		<div class="col-lg-6" >
+
 			<div class="ratingBlock" >
 				<h1>{{movie.title}}</h1>
 				{% for star in stars %}
@@ -22,11 +23,16 @@
 				{% endfor %}
 
 
-				<p><span>{{movie.rating}}</span> / 10<p>
-				<p style="float:right;margin-top:14px;font-size:18px;">Duration: {{movie.duration}} mins </p>
+				<p><span>{{movie.rating}}</span> / 10</p><br>
 			</div>
-			<p class="movieBlurb">{{movie.blurb}}{{movie.blurb}}{{movie.blurb}}</p>
+			<p class="movieBlurb">{{movie.blurb}}</p>
+			<p>Duration: {{movie.duration}} minutes </p>
+			<p>Certificate: {{movie.certificate}}</p><br>
 			<p>Director: {{movie.director}}</p>
+			<p style="display:inline;">Starring:</p>
+			{% for i in movie.cast.all %}
+			<p style="display:inline;">{{i.name}},</p>
+			{% endfor%}
 
 
 			<h3>Timings</h3>
