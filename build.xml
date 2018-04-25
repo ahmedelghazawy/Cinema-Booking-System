@@ -31,10 +31,6 @@
       includeantruntime="false">
       <classpath refid="project.classpath"/>
     </javac>
-    <javac srcdir="${javaFx.dir}" destdir="${build.dir}"
-      includeantruntime="false">
-      <classpath refid="project.classpath"/>
-    </javac>
     <copy file="${src.dir}/sample/mainPage.fxml" todir="${build.dir}/sample"/>
     <copy file="${src.dir}/sample/ticketType.fxml" todir="${build.dir}/sample"/>
     <copy file="${src.dir}/sample/seatSelection.fxml" todir="${build.dir}/sample"/>
