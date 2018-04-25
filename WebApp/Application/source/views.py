@@ -16,8 +16,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import Http404
-
-#libaries for email
+from django.db.models import Q
 from django.core import mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -104,7 +103,7 @@ def registerPage(request):
 	form = UserRegisterForm(request.POST or None)
 	currentDateTime = datetime.datetime.utcnow()
 	currentDate = currentDateTime.date()
-	ageLimit = ''
+	error = ''
 	next = request.GET.get('next')
 	if form.is_valid():
 		user = form.save(commit=False)
@@ -114,21 +113,24 @@ def registerPage(request):
 		confirmpassword = form.cleaned_data.get('confirmpassword')
 		email = form.cleaned_data.get('email')
 		dob = form.cleaned_data.get('dob')
+		if len(password) < 8:
+			error = "password needs to be atleast 8 characters long"
+			return render(request,'register.html',{'title':title,'form':form, 'error':error} )
 		if password != confirmpassword:
-			ageLimit = "passwords do not match"
-			return render(request,'register.html',{'title':title,'form':form, 'ageLimit':ageLimit} )
+			error = "passwords do not match"
+			return render(request,'register.html',{'title':title,'form':form, 'error':error} )
 		userEmail = djangoUser.objects.filter(email = email).first()
 		if userEmail is not None:
-			ageLimit = "email already exists"
-			return render(request,'register.html',{'title':title,'form':form, 'ageLimit':ageLimit} )
+			error = "email already exists"
+			return render(request,'register.html',{'title':title,'form':form, 'error':error} )
 
 		currentDate = currentDate.strftime('%d/%m/%Y')
 		currentDate = currentDate.split("/")
 		birthday = dob.split("/")
 		age = (int(currentDate[2]) - int(birthday[2]) - ((int(currentDate[1]), int(currentDate[0])) < (int(birthday[1]), int(birthday[0]))))
 		if age < 14:
-			ageLimit = "Not old enough. Minimum age allowed is 13"
-			return render(request,'register.html',{'title':title,'form':form, 'ageLimit':ageLimit} )
+			error = "Not old enough. Minimum age allowed is 13"
+			return render(request,'register.html',{'title':title,'form':form, 'error':error} )
 
 
 
@@ -309,7 +311,6 @@ class movieTimingsapi(APIView):
 	def get(self, request, MovieID, date):
 		movie = Movie.objects.filter(id = MovieID).first()
 		movie = movie.id
-		#dateString = year + "-" + month + "-" + day
 		date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
 		timing = Screening.objects.filter(movie_id = movie).filter(date = date).all()
 		serializer = ScreeningSerializer(timing, many=True)
@@ -321,7 +322,6 @@ class screenapi(APIView):
 	def get(self, request, screeningId):
 		screening = Screening.objects.filter(id = screeningId).first()
 		screen = screening.screen_id
-		#screen = Screen.objects.filter(id = screen).first()
 		serializer = ScreenSerializer(screen, many=False)
 		return Response(serializer.data)
 
