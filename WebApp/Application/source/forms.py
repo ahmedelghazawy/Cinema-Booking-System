@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator, MaxLengthValidator
-
+import datetime
 class BookingForm(forms.Form):
 	normal = forms.DecimalField(validators=[MaxValueValidator(99,message="Too many normal seats chosen"),MinValueValidator(0,message="You can't have negative seats...")])
 	normal.widget.attrs.update({'class': 'form-control','max':99,'min':0,'value':0})
@@ -69,21 +69,22 @@ class UserLoginForm(forms.Form):
         return super(UserLoginForm, self).clean(*args, **kwargs)
 
 class UserRegisterForm(forms.ModelForm):
-    username = forms.CharField(label = "username")
-    email = forms.EmailField(label = "email address")
-    dob = forms.CharField(label = "dob")
-    password = forms.CharField(widget=forms.PasswordInput)
-    confirmpassword = forms.CharField(widget=forms.PasswordInput)
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'password', 'confirmpassword','dob']
+	username = forms.CharField(label = "username")
+	email = forms.EmailField(label = "email address")
+	dob = forms.CharField(label = "dob")
+	password = forms.CharField(widget=forms.PasswordInput)
+	confirmpassword = forms.CharField(widget=forms.PasswordInput)
 
-    # def clean_email2(self):
-    #     email = self.cleaned_data.get('email')
-    #     email2 = self.cleaned_data.get('email2')
-    #     if email != email2:
-    #         raise forms.ValidationError("emails do not match")
-    #     tempEmail = User.objects.filter(email=email)
-    #     if tempEmail.exists():
-    #         raise forms.ValidationError("email already exists")
-    #     return email
+	class Meta:
+		model = User
+		fields = ['username', 'email', 'password', 'confirmpassword','dob']
+
+	def clean_email2(self):
+		email = self.cleaned_data.get('email')
+			#     email2 = self.cleaned_data.get('email2')
+			#     if email != email2:
+			#         raise forms.ValidationError("emails do not match")
+		tempEmail = User.objects.filter(email=email)
+		if tempEmail.exists():
+			raise forms.ValidationError("email already exists")
+			return email
