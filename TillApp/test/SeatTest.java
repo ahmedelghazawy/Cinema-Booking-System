@@ -1,9 +1,12 @@
+package test;
+
 import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import src.Seat;
 /**
  * Created by sc16tdad on 09/02/18.
  */

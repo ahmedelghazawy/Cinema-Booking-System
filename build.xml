@@ -2,7 +2,6 @@
 <project name="toucan" basedir="." default="compile">
 
   <property name="src.dir" value="TillApp/src"/>
-  <property name="javaFx.dir" value="TillApp/javaFx"/>
   <property name="test.dir" value="TillApp/test"/>
   <property name="lib.dir" value="TillApp/lib"/>
   <property name="scripts.dir" value="scripts"/>
@@ -36,10 +35,10 @@
       includeantruntime="false">
       <classpath refid="project.classpath"/>
     </javac>
-    <copy file="${javaFx.dir}/src/sample/mainPage.fxml" todir="${build.dir}/sample"/>
-    <copy file="${javaFx.dir}/src/sample/ticketType.fxml" todir="${build.dir}/sample"/>
-    <copy file="${javaFx.dir}/src/sample/seatSelection.fxml" todir="${build.dir}/sample"/>
-    <copy file="${javaFx.dir}/src/sample/payment.fxml" todir="${build.dir}/sample"/>
+    <copy file="${src.dir}/sample/mainPage.fxml" todir="${build.dir}/sample"/>
+    <copy file="${src.dir}/sample/ticketType.fxml" todir="${build.dir}/sample"/>
+    <copy file="${src.dir}/sample/seatSelection.fxml" todir="${build.dir}/sample"/>
+    <copy file="${src.dir}/sample/payment.fxml" todir="${build.dir}/sample"/>
   </target>
 
   <target name="test" depends="compile" description="Run unit tests">

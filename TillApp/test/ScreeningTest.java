@@ -1,5 +1,9 @@
+package test;
 import org.junit.Before;
 import org.junit.Test;
+import src.Movie;
+import src.Screening;
+
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;

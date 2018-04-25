@@ -1,6 +1,7 @@
 /**
  * Created by sc16tdad on 09/02/18.
  */
+package src;
 public class Ticket {
 
     private Screening screening;

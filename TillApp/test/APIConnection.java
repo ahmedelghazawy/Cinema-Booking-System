@@ -1,4 +1,6 @@
+package test;
 import java.lang.*;
+
 public class APIConnection{
   public static String[] get(String url) throws Exception{
     String[] array = new String[2];

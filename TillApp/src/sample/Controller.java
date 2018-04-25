@@ -1,4 +1,4 @@
-package sample;
+package src.sample;
 
 
 
@@ -13,13 +13,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage; // top level UI container in JavaFX - the window frame itself
 import javafx.scene.Node;
 import java.io.*;
+import src.*;
 
 import static java.lang.Integer.parseInt;
 
 
 public class Controller {
-
-//    TillApp.src.Order order = new TillApp.src.Order();
+    
+    Order order = new Order();
     int standardAdultQuantity = 0;
     int vipAdultQuantity = 0;
     int standardStudentQuantity = 0;
