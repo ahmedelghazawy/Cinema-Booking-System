@@ -164,4 +164,4 @@ class Command(BaseCommand):
 				vipSeat = False
 				if ( row+1 <= math.floor(vipSeats/10) ):
 					vipSeat = True
-				Seat(screening_id=scr,vipSeat = vipSeat, row = row, column = column).save()
+				Seat(screening_id=scr,vipSeat = vipSeat, row = row, column = column,heldFor=None).save()

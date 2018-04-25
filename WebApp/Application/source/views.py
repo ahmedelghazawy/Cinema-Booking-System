@@ -296,11 +296,22 @@ class seatingapi(APIView):
 		serializer = SeatSerializer(seats , many = True)
 		return Response(serializer.data)
 
-	def post(self, request,screeningId="", amountOfSeats="", format = None):
-		serializer = SeatSerializer(data=request.data,many=True )
-		print(serializer)
-		if serializer.is_valid():
-			instance = serializer.save()
-			return Response(serializer.data, status=status.HTTP_201_CREATED)
+	def post(self, request,screeningId="", format = None):
+		print(request.data)
+		if isinstance(request.data,dict):
+			screening_id = request.data["screening_id"]
+			user_id = request.data["user_id"]
+			print("YES")
+			print(User.objects.filter(id=user_id)[0].id)
+			s = Seat.objects.filter(screening_id=Screening.objects.filter(id=screening_id)[0]).filter(heldFor=User.objects.filter(id=user_id)[0].id)
+			print("SECONG P{}".format(s))
+			s.delete()
+			return Response("Seats Remove", status=status.HTTP_201_CREATED)
 		else:
-			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+			serializer = SeatSerializer(data=request.data,many=True )
+			if serializer.is_valid():
+				instance = serializer.save()
+				return Response(serializer.data, status=status.HTTP_201_CREATED)
+			else:
+				return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+		#

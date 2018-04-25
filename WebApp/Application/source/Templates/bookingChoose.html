@@ -72,7 +72,7 @@
 				for (var i = 0; i < seatSelected.length;i++){
 					row = seatSelected[i].slice(0, 1);
 					column = seatSelected[i].slice(1, 2);
-					var seat = {"screening_id":{{screening.id}}, "vipSeat":false,"row":row,"column":column,"confirmed":false}
+					var seat = {"screening_id":{{screening.id}}, "vipSeat":false,"row":row,"column":column,"heldFor":{{user.id}}}
 					data.push(seat)
 				}
 				// console.log(seatSelected)
@@ -108,6 +108,23 @@
 				$("input:not([name=seats]):not([name=vip])").removeAttr("readonly")
 				$("#next").prop("disabled",false);
 				$("#previous").prop("disabled",true);
+				var data = {"screening_id":{{screening.id}},"user_id":{{user.id}}}
+				$.ajax({
+					type : "POST",
+					url : "/api/seatingapi/",
+					csrfmiddlewaretoken: "{% csrf_token %}",
+					data : JSON.stringify(data),
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json'
+					},
+					success: function(some, some1, some2){
+						console.log("Seat sent to database \n" + JSON.stringify(some)+"\n"+JSON.stringify(some2));
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						alert("Error: Couldn't connect with the server\nPlease Refresh the page\n" + String(errorThrown) + String(textStatus) + String(XMLHttpRequest.responseText));
+					}
+				});
 			});
 		});
 
@@ -144,14 +161,14 @@
 			updateVipAmount();
 		});
 		// ## When a seat is clicked
-		$(".seat").click(function() {
+		$(".seat").not(".legend").click(function() {
 			row = $(this).data("row");
 			column = $(this).data("column");
 			seatPos = String(row) + String(column);
 			totalSeats = getTotalSeats();
 			if (totalSeats > 0) {
 				// If the seat is not already reserved (by somebody else)
-				if (seatReserved.indexOf(seatPos) < 0) {
+				if (seatReserved.indexOf(seatPos) < 0 && seatUnconfirmed.indexOf(seatPos) < 0) {
 					// #1 If the seat is not already selected
 					if (seatSelected.indexOf(seatPos) < 0) {
 						// #1.1 If the seat limit is reached, remove one seat
@@ -228,11 +245,19 @@
 				for (i = 0; i < seatReserved.length; i++) {
 					seatRedraw(seatReserved[i], "free");
 				}
+				console.log("FReeing"+seatUnconfirmed)
+				for (i = 0; i < seatUnconfirmed.length; i++) {
+					seatRedraw(seatUnconfirmed[i], "free");
+				}
 				seatReserved = [];
+				seatUnconfirmed = [];
 				// Parse new data
 				$.each(data, function(key, val) {
-					if (val["confirmed"]==true){
+					if (val["heldFor"]==null){
 						seatReserved.push(String(val.row) + String(val.column));
+					}
+					else if (val["heldFor"]!=null && val["heldFor"]!={{user.id}}) {
+						seatUnconfirmed.push(String(val.row) + String(val.column));
 					}
 				});
 				// Reverse clicked overlapping seats
@@ -241,6 +266,12 @@
 					if (seatSelected.indexOf(seatReserved[i]) >= 0) {
 						seatRemovePos(seatReserved[i]);
 						removedString += seatReserved[i] + ", ";
+					}
+				}
+				for (i = 0; i < seatUnconfirmed.length; i++) {
+					if (seatSelected.indexOf(seatUnconfirmed[i]) >= 0) {
+						seatRemovePos(seatUnconfirmed[i]);
+						removedString += seatUnconfirmed[i] + ", ";
 					}
 				}
 				if (removedString.length > 1) {
@@ -255,6 +286,9 @@
 				// Draw all seats
 				for (i = 0; i < seatReserved.length; i++) {
 					seatRedraw(seatReserved[i], "reserved");
+				}
+				for (i = 0; i < seatUnconfirmed.length; i++) {
+					seatRedraw(seatUnconfirmed[i], "unconfirmed");
 				}
 			});
 		}
@@ -359,14 +393,17 @@
 			<div class="col-lg-4 col-md-4">
 				<h1>Legend</h1>
 				<hr>
-				<br>
 				<div class="seat free legend"></div> Standard Avaiable
 				<br>
 				<div class="seat free vip legend"></div> VIP Avaiable
 				<br>
 				<div class="seat reserved legend"></div> Reserved
 				<br>
-				<div class="seat chosen legend"></div> Reserved
+				<span data-toggle="tooltip" style="cursor:pointer" data-placement="right" title="This seat is currently being booked.<br> It may be avaiable soon if the payment is not confirmed">
+					<div class="seat unconfirmed legend" ></div> Being booked <span class="glyphicon glyphicon-info-sign"></span>
+				</span>
+				<br>
+				<div class="seat chosen legend"></div> Chosen
 				<h2> Seats Selected</h2>
 				<h3>{{ form.seats }}</h3>
 				<br><br>

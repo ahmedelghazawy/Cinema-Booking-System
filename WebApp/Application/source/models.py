@@ -50,7 +50,7 @@ class Seat(models.Model):
 	vipSeat = models.BooleanField(default=False)
 	row = models.IntegerField(null=True)
 	column = models.IntegerField(null=True)
-	confirmed = models.BooleanField(default=False)
+	heldFor = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
 
 class Ticket(models.Model):
 	movie_id = models.ForeignKey('Movie',on_delete=models.CASCADE,)
