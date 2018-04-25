@@ -52,6 +52,23 @@ def whatson(request):
 	movies = Movie.objects.all()
 	return render(request,'whatson.html',{'nbar':'whatson','movies':movies} )
 
+def search(request):
+	movies = Movie.objects.all()
+	screenings = Screening.objects.all()
+	query = request.GET.get("search")
+	if query:
+		results = movies.filter(Q(title__icontains=query)|Q(director__icontains=query)|Q(certificate__icontains=query)).all()
+		if results.count() < 1:
+			results = []
+			scr = screenings.filter(Q(date__icontains=query)).distinct()
+			scr2 = scr.filter()
+			for q in scr:
+				if q.movie_id not in results:
+					results.append(q.movie_id)
+	else:
+		results=""
+	return render(request,'search.html',{'nbar':'whatson','movies':results} )
+
 def loginPage(request):
 	title="login"
 	form = UserLoginForm(request.POST or None)
