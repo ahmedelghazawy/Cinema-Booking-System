@@ -119,6 +119,8 @@
 		seatSelected = [];
 		// Seats reserved from api
 		seatReserved = [];
+		// Seats unconfirmed from api
+		seatUnconfirmed = [];
 		getLiveSeats();
 
 		// ## Generate the graphical seats
@@ -229,7 +231,9 @@
 				seatReserved = [];
 				// Parse new data
 				$.each(data, function(key, val) {
-					seatReserved.push(String(val.row) + String(val.column));
+					if (val["confirmed"]==true){
+						seatReserved.push(String(val.row) + String(val.column));
+					}
 				});
 				// Reverse clicked overlapping seats
 				removedString = "";
