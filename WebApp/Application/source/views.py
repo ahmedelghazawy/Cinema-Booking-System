@@ -99,14 +99,38 @@ def checkoutPage(request):
 
 def registerPage(request):
 	title ="register"
+	djangoUser = get_user_model()
 	form = UserRegisterForm(request.POST or None)
+	currentDateTime = datetime.datetime.utcnow()
+	currentDate = currentDateTime.date()
+	ageLimit = ''
 	next = request.GET.get('next')
 	if form.is_valid():
 		user = form.save(commit=False)
 		username = form.cleaned_data.get('username')
 		password = form.cleaned_data.get('password')
 		email = form.cleaned_data.get('email')
+		confirmpassword = form.cleaned_data.get('confirmpassword')
+		email = form.cleaned_data.get('email')
 		dob = form.cleaned_data.get('dob')
+		if password != confirmpassword:
+			ageLimit = "passwords do not match"
+			return render(request,'register.html',{'title':title,'form':form, 'ageLimit':ageLimit} )
+		userEmail = djangoUser.objects.filter(email = email).first()
+		if userEmail is not None:
+			ageLimit = "email already exists"
+			return render(request,'register.html',{'title':title,'form':form, 'ageLimit':ageLimit} )
+
+		currentDate = currentDate.strftime('%d/%m/%Y')
+		currentDate = currentDate.split("/")
+		birthday = dob.split("/")
+		age = (int(currentDate[2]) - int(birthday[2]) - ((int(currentDate[1]), int(currentDate[0])) < (int(birthday[1]), int(birthday[0]))))
+		if age < 14:
+			ageLimit = "Not old enough. Minimum age allowed is 13"
+			return render(request,'register.html',{'title':title,'form':form, 'ageLimit':ageLimit} )
+
+
+
 		usert = User(username = username, dob = dob)
 		usert.save()
 		user.set_password(password)
