@@ -93,7 +93,6 @@ def logoutPage(request):
 	return redirect("/")
 
 def profilePage(request):
-	print("sdfsdf {}".format(settings.MEDIA_ROOT))
 	if request.user.is_authenticated:
 		tickets = Ticket.objects.filter(user_id = request.user.id).all()
 		allTickets = {}
@@ -159,7 +158,6 @@ def bookingChoose(request, screeningId):
 		vip = int(form.cleaned_data['vip'])
 		child = int(form.cleaned_data['child'])
 		tickets = {'normal':normal,'student':student,'senior':senior,'child':child}
-		print(tickets)
 		name = form.cleaned_data['name']
 		number = form.cleaned_data['number']
 		cvc = form.cleaned_data['cvc']
@@ -191,12 +189,10 @@ def bookingChoose(request, screeningId):
 			# Set ticket type
 			ticket_type = ""
 			for key, value in tickets.items():
-				print("key {} val {}".format(key,value))
 				if (value > 0):
 					ticket_type = key
 					tickets[key] -= 1
 					break
-			print(ticket_type)
 			# Save the seat and ticket to database
 			seat = Seat(screening_id = screening,vipSeat = isVip,row=seats[x][0:1],column=seats[x][1:2])
 			seat.save()
