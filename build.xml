@@ -24,9 +24,6 @@
   </target>
 
   <target name="compile" depends="init" description="Compile source code">
-    <waitfor maxwait="3" maxwaitunit="minute" checkevery="500">
-      <http url="http://127.0.0.1:8000/api/whatsonapi?format=json"/>
-    </waitfor>
     <javac srcdir="${src.dir}" destdir="${build.dir}"
       includeantruntime="false">
       <classpath refid="project.classpath"/>
@@ -52,6 +49,17 @@
       <test name="OrderTest"/>
       <test name="TicketTest"/>
     </junit>
+  </target>
+
+  <target name="run" depends="compile" description="Runs java Application">
+      <waitfor maxwait="3" maxwaitunit="minute" checkevery="500">
+          <http url="http://127.0.0.1:8000/api/whatsonapi?format=json"/>
+      </waitfor>
+      <java classname="src.sample.Main">
+          <classpath refid="project.classpath"/>
+              <!-- <pathelement path="${build.dir}"/>
+          </classpath> -->
+      </java>
   </target>
 
 
