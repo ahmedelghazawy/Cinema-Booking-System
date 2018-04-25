@@ -118,4 +118,11 @@ public class Seat {
         }
 
     }
+
+    @Override
+    public String toString(){
+        String number = "";
+        number += "Row: " + this.getRow() + " Col: " + this.getColumn();
+        return number;
+    }
 }

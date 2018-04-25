@@ -15,18 +15,26 @@ public class SeatTest {
     private Seat second;
     private Seat third;
     private Seat fourth;
+    private Seat fifth;
     private ArrayList<Seat> bookedSeats;
     private ArrayList<Seat> emptyList;
 
     @Before
     public void setup(){
         bookedSeats = Seat.getBookedSeats(2);
+        for (Seat curSeat : bookedSeats) {
+            System.out.println("Beginning");
+            System.out.println(curSeat.toString());
+            System.out.println("End");
+        }
+        System.out.println(bookedSeats.toString());
         emptyList = Seat.getBookedSeats(1);
 
         first = new Seat(1, 2, true, 1, 5, false);
         second = new Seat(2, 2, true, 6, 2, true);
         third = bookedSeats.get(0);
         fourth = new Seat(3,1,false,4,3,true);
+        fifth = new Seat(3,1,false,4,3,true);
     }
 
     public boolean compareLists(ArrayList<Seat> actual, ArrayList<Seat> acquired){
@@ -62,6 +70,17 @@ public class SeatTest {
             }
             return true;
         }
+    }
+
+    @Test
+    public void getSeatsTest(){
+        ArrayList<Seat> trialSeat= new ArrayList<>();
+        trialSeat.add(fourth);
+
+        ArrayList<Seat> trialSeat2= new ArrayList<>();
+        trialSeat2.add(fifth);
+
+        assertThat(compareLists(trialSeat2,trialSeat), is(true));
     }
 
     @Test
