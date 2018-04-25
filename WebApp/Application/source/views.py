@@ -42,8 +42,11 @@ def download(request,ticketID):
 				return response
 	return redirect("/")
 
+
+
+	return render(request,'confirmation.html', {'user':user})
 def confirmation(request):
-	return render(request,'confirmation.html')
+	return render(request,'confirmation.html', {'user':user, 'cardSaved':cardSaved})
 # Create your views here.
 def index(request):
 	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
@@ -97,14 +100,38 @@ def checkoutPage(request):
 
 def registerPage(request):
 	title ="register"
+	djangoUser = get_user_model()
 	form = UserRegisterForm(request.POST or None)
+	currentDateTime = datetime.datetime.utcnow()
+	currentDate = currentDateTime.date()
+	ageLimit = ''
 	next = request.GET.get('next')
 	if form.is_valid():
 		user = form.save(commit=False)
 		username = form.cleaned_data.get('username')
 		password = form.cleaned_data.get('password')
 		email = form.cleaned_data.get('email')
+		confirmpassword = form.cleaned_data.get('confirmpassword')
+		email = form.cleaned_data.get('email')
 		dob = form.cleaned_data.get('dob')
+		if password != confirmpassword:
+			ageLimit = "passwords do not match"
+			return render(request,'register.html',{'title':title,'form':form, 'ageLimit':ageLimit} )
+		userEmail = djangoUser.objects.filter(email = email).first()
+		if userEmail is not None:
+			ageLimit = "email already exists"
+			return render(request,'register.html',{'title':title,'form':form, 'ageLimit':ageLimit} )
+
+		currentDate = currentDate.strftime('%d/%m/%Y')
+		currentDate = currentDate.split("/")
+		birthday = dob.split("/")
+		age = (int(currentDate[2]) - int(birthday[2]) - ((int(currentDate[1]), int(currentDate[0])) < (int(birthday[1]), int(birthday[0]))))
+		if age < 14:
+			ageLimit = "Not old enough. Minimum age allowed is 13"
+			return render(request,'register.html',{'title':title,'form':form, 'ageLimit':ageLimit} )
+
+
+
 		usert = User(username = username, dob = dob)
 		usert.save()
 		user.set_password(password)
@@ -179,7 +206,14 @@ def bookingPage(request):
 @login_required(login_url='/login')
 def bookingChoose(request, screeningId):
 	# Passing first element of the query as query is a list with 1 object
+	user = request.user
+	user = User.objects.filter(username = user).first()
 	form = BookingForm(request.POST or None)
+	if user.cardNo is not None:
+		form.fields['name'].widget.attrs.update({'value':user.username})
+		form.fields['number'].widget.attrs.update({'value':user.cardNo})
+		form.fields['year'].widget.attrs.update({'value':user.expirationYear})
+		form.fields['month'].widget.attrs.update({'value':user.expirationMonth})
 	if form.is_valid():
 		# Get all the data from form
 		normal = int(form.cleaned_data['normal'])
@@ -199,6 +233,16 @@ def bookingChoose(request, screeningId):
 		# Details of booking
 		screening = Screening.objects.filter(id=screeningId)[0]
 		movie = screening.movie_id
+
+		if request.method == "POST":
+			user = request.user
+			user = User.objects.filter(username = user).first()
+			if user.cardNo is None:
+				user.cardNo = number
+				user.nameOnCard = name
+				user.expirationMonth = month
+				user.expirationYear = year
+				user.save()
 
 		#email data
 		subject = 'Your Toucan cinema booking'
@@ -251,7 +295,7 @@ def bookingChoose(request, screeningId):
 	screening = Screening.objects.filter(id=screeningId)[0]
 	movie = screening.movie_id
 	screen = screening.screen_id
-	return render(request,'bookingChoose.html',{'nbar':'whatson','movie':movie, 'screen':screen, 'screening':screening,'form':form} )
+	return render(request,'bookingChoose.html',{'nbar':'whatson','movie':movie, 'screen':screen, 'screening':screening,'form':form, 'user':user} )
 
 class whatsonapi(APIView):
 	@csrf_exempt
