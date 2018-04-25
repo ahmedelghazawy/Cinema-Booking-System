@@ -25,6 +25,21 @@ from django.core.mail import EmailMessage
 import pyqrcode
 import cairosvg
 import os
+import re
+
+def download(request,ticketID):
+	if request.user.is_authenticated:
+		if int(ticketID) in Ticket.objects.filter(user_id=request.user).values_list('id', flat=True):
+			with open("Static/tickets/"+ticketID+".svg", 'rb') as fh:
+				info = Ticket.objects.filter(id=ticketID)[0]
+				title = info.movie_id.title
+				ticketType = info.ticket_type
+				seat = str(info.seat_id.row) +str(info.seat_id.column)
+				name = re.sub("\ ","_",title)+"_"+ticketType+"_"+seat
+				response = HttpResponse(fh.read(), content_type="image/plain")
+				response['Content-Disposition'] = 'inline; filename=' +name+".svg"
+				return response
+	return redirect("/")
 
 def confirmation(request):
 	return render(request,'confirmation.html')
@@ -78,6 +93,7 @@ def logoutPage(request):
 	return redirect("/")
 
 def profilePage(request):
+	print("sdfsdf {}".format(settings.MEDIA_ROOT))
 	if request.user.is_authenticated:
 		tickets = Ticket.objects.filter(user_id = request.user.id).all()
 		allTickets = {}

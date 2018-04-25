@@ -1,10 +1,13 @@
 from django.conf.urls import url, include
+from django.conf.urls.static import static
 from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
+from django.conf import settings
 
 urlpatterns = [
     url(r'^$', views.index, name = 'index'),
     url(r'^whatson$', views.whatson, name = 'whatson'),
+    url(r'^download/(?P<ticketID>\d+)/$', views.download, name = 'download'),
 	url(r'^confirmation$', views.confirmation, name = 'confirmation'),
     url(r'^login$', views.loginPage, name = 'loginPage'),
     url(r'^logout$', views.logoutPage, name = 'logoutPage'),
