@@ -41,8 +41,11 @@ def download(request,ticketID):
 				return response
 	return redirect("/")
 
+
+
+	return render(request,'confirmation.html', {'user':user})
 def confirmation(request):
-	return render(request,'confirmation.html')
+	return render(request,'confirmation.html', {'user':user, 'cardSaved':cardSaved})
 # Create your views here.
 def index(request):
 	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
@@ -178,7 +181,14 @@ def bookingPage(request):
 @login_required(login_url='/login')
 def bookingChoose(request, screeningId):
 	# Passing first element of the query as query is a list with 1 object
+	user = request.user
+	user = User.objects.filter(username = user).first()
 	form = BookingForm(request.POST or None)
+	if user.cardNo is not None:
+		form.fields['name'].widget.attrs.update({'value':user.username})
+		form.fields['number'].widget.attrs.update({'value':user.cardNo})
+		form.fields['year'].widget.attrs.update({'value':user.expirationYear})
+		form.fields['month'].widget.attrs.update({'value':user.expirationMonth})
 	if form.is_valid():
 		# Get all the data from form
 		normal = int(form.cleaned_data['normal'])
@@ -198,6 +208,16 @@ def bookingChoose(request, screeningId):
 		# Details of booking
 		screening = Screening.objects.filter(id=screeningId)[0]
 		movie = screening.movie_id
+
+		if request.method == "POST":
+			user = request.user
+			user = User.objects.filter(username = user).first()
+			if user.cardNo is None:
+				user.cardNo = number
+				user.nameOnCard = name
+				user.expirationMonth = month
+				user.expirationYear = year
+				user.save()
 
 		#email data
 		subject = 'Your Toucan cinema booking'
@@ -250,7 +270,7 @@ def bookingChoose(request, screeningId):
 	screening = Screening.objects.filter(id=screeningId)[0]
 	movie = screening.movie_id
 	screen = screening.screen_id
-	return render(request,'bookingChoose.html',{'nbar':'whatson','movie':movie, 'screen':screen, 'screening':screening,'form':form} )
+	return render(request,'bookingChoose.html',{'nbar':'whatson','movie':movie, 'screen':screen, 'screening':screening,'form':form, 'user':user} )
 
 class whatsonapi(APIView):
 	@csrf_exempt
