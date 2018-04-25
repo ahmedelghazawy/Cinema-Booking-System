@@ -1,4 +1,5 @@
-{% load staticfiles %} {% include 'navbar.html' %}
+{% load staticfiles %}
+{% include 'navbar.html' %}
 <script>
 	$(document).ready(function() {
 		// ###### Form updating #########
@@ -330,11 +331,19 @@
 						{{form.month.label_tag}}
 						{{form.month}}
 					</div>
+					{% if user.cardNo is None%}
+					<div class="form-group">
+						<label for="saveCard">Save card for quicker checkout</label>
+						<form method="post" action="" class="form-horizontal">
+							<input type="checkbox" name="saveCard" value="saveCard">Save<br>
+						</form>
+					</div>
+					{% endif %}
 				</div>
 				<div class='form-row'>
 						<div class='form-group'>
 							<label class='control-label'></label>
-							<button class='form-control btn btn-primary' type='submit' > Continue </button>
+							<button class='form-control btn btn-primary' type='submit'> Continue </button>
 						</div>
 					</div>
 			</div>
