@@ -26,6 +26,7 @@ import pyqrcode
 import cairosvg
 import os
 import re
+import json
 
 def download(request,ticketID):
 	if request.user.is_authenticated:
@@ -327,14 +328,34 @@ class screenapi(APIView):
 class seatingapi(APIView):
 	@csrf_exempt
 	def get(self, request, screeningId):
+		# if (amountOfSeats != ''):git
+		# 	amountOfSeats = int(float(amountOfSeats))
+		# 	seats = []
+		# 	for amount in range(amountOfSeats):
+		# 		seat = Seat(screening_id=Screening.objects.filter(id=screeningId)[0],vipSeat = False, row = None, column = None, confirmed = False)
+		# 		seat.save()
+		# 		seats.append(seat.id)
+		# 	return Response(seats)
 		seats = Seat.objects.filter(screening_id = screeningId).all()
 		serializer = SeatSerializer(seats , many = True)
 		return Response(serializer.data)
 
-	def post(self, request,screeningId, format = None):
-		serializer = SeatSerializer(data=request.data)
-		if serializer.is_valid():
-			instance = serializer.save()
-			return Response(serializer.data, status=status.HTTP_201_CREATED)
+	def post(self, request,screeningId="", format = None):
+		print(request.data)
+		if isinstance(request.data,dict):
+			screening_id = request.data["screening_id"]
+			user_id = request.data["user_id"]
+			print("YES")
+			print(User.objects.filter(id=user_id)[0].id)
+			s = Seat.objects.filter(screening_id=Screening.objects.filter(id=screening_id)[0]).filter(heldFor=User.objects.filter(id=user_id)[0].id)
+			print("SECONG P{}".format(s))
+			s.delete()
+			return Response("Seats Remove", status=status.HTTP_201_CREATED)
 		else:
-			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+			serializer = SeatSerializer(data=request.data,many=True )
+			if serializer.is_valid():
+				instance = serializer.save()
+				return Response(serializer.data, status=status.HTTP_201_CREATED)
+			else:
+				return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+		#
