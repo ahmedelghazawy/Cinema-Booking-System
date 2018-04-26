@@ -41,17 +41,17 @@
     <children>
         <ImageView pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
             <image>
-                <Image url="@media/bigBanner.jpg" />
+                <Image url="@media/theGreatestShowmanBigBanner.jpg" />
             </image>
         </ImageView>
         <HBox alignment="CENTER" GridPane.rowIndex="5">
             <children>
-                <Button alignment="CENTER" mnemonicParsing="false" onAction="#backToTicket" prefHeight="40.0" prefWidth="100.0" text="Back" textAlignment="CENTER" />
+                <Button alignment="CENTER" mnemonicParsing="false" onAction="#moveToTicketTheGreatestShowman" prefHeight="40.0" prefWidth="100.0" text="Back" textAlignment="CENTER" />
             </children>
         </HBox>
-        <Label alignment="CENTER" prefHeight="40.0" prefWidth="350.0" text="Black Panther" textAlignment="CENTER" underline="true" GridPane.rowIndex="2">
+        <Label alignment="CENTER" prefHeight="40.0" prefWidth="350.0" text="The Greatest Showman" textAlignment="CENTER" underline="true" GridPane.rowIndex="2">
             <font>
-                <Font name="System Bold" size="32.0" />
+                <Font name="System Bold" size="22.0" />
             </font></Label>
         <VBox maxWidth="-Infinity" prefHeight="522.0" prefWidth="524.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
             <children>
