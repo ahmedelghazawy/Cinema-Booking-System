@@ -25,9 +25,6 @@
   </target>
 
   <target name="compile" depends="init" description="Compile source code">
-    <waitfor maxwait="3" maxwaitunit="minute" checkevery="500">
-      <http url="http://127.0.0.1:8000/api/whatsonapi?format=json"/>
-    </waitfor>
     <javac srcdir="${src.dir}" destdir="${build.dir}"
       includeantruntime="false">
       <classpath refid="project.classpath"/>
@@ -57,6 +54,18 @@
       <test name="TillApp/bin/SeatTest"/>
       <test name="TillApp/bin/TicketTest"/>
     </junit>
+  </target>
+
+  <target name="till" depends="compile" description="Run command line based interface">
+      <waitfor maxwait="3" maxwaitunit="minute" checkevery="500">
+          <http url="http://127.0.0.1:8000/api/whatsonapi?format=json"/>
+      </waitfor>
+      <java classname="Till">
+          <classpath>
+              <pathelement location="${lib.dir}/jackson-all-1.9.0.jar"/>
+              <pathelement path="${build.dir}"/>
+          </classpath>
+      </java>
   </target>
 
 

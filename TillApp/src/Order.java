@@ -6,9 +6,9 @@ import java.util.List;
 public class Order {
 
     private List<Ticket> tickets;
-    private float totalPrice;
-    private float moneyPaid;
-    private float change;
+    private double totalPrice;
+    private double moneyPaid;
+    private double change;
 
     public Order() {
         tickets = new ArrayList<>();
@@ -22,9 +22,14 @@ public class Order {
         totalPrice += ticket.getPrice();
     }
 
-    public void offer(){}
+    public void reset(){
+        this.tickets.removeAll(this.tickets);
+        this.totalPrice = 0.0;
+        this.moneyPaid = 0.0;
+        this.change = 0.0;
+    }
 
-    public float checkout(float money) {
+    public double checkout(double money) {
         if (money < totalPrice) {
             return -1;
         }
@@ -37,6 +42,7 @@ public class Order {
 
     public void printTickets(){}
 
+/*
     // Main class for testing if he API connection is work
     public static void main(String[] args)
     {
@@ -64,5 +70,5 @@ public class Order {
         else{
             System.out.println("AL empty");
         }
-    }
+    }*/
 }
