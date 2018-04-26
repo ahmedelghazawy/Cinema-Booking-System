@@ -143,7 +143,7 @@
         </font>
     </Label>
 
-    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="4" GridPane.rowIndex="2">
+    <Button maxHeight="261" maxWidth="175" onAction="#moveToTicketPatelKiPunjabiShaadi" GridPane.columnIndex="4" GridPane.rowIndex="2">
         <graphic>
             <ImageView>
                 <Image url="@/src/sample/media/banner10.jpg" />

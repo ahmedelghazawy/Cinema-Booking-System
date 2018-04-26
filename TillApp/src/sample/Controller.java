@@ -237,6 +237,16 @@ public class Controller {
 
     }
 
+    @FXML
+    public void moveToTicketPatelKiPunjabiShaadi(ActionEvent event) throws IOException {
+
+        Parent ticket = FXMLLoader.load(getClass().getResource("ticketTypePatelKiPunjabiShaadi.fxml"));
+        Scene ticketScene = new Scene(ticket, 1165, 700);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(ticketScene);
+
+    }
+
 
 
     @FXML
