@@ -1,6 +1,6 @@
 {% load staticfiles %}
 {% include "navbar.html" %}
-		<div>
+		<div class="container-fluid">
 			<div class="row" >
 				<div class="col-sm-12">
 					<div id="homeCarousel" class="carousel slide" data-ride="carousel">
@@ -56,9 +56,9 @@
 					<h1>New Releases</h1>
 					<p>Check what new movies have appeared in our cinema this week</p>
 				</div>
-				{% for movie in latest_movies %}
+				{% for movie in latestMovies %}
 				<div class="col-lg-3 col-sm-6 col-xs-12 movie-tile-no-time" style="margin-bottom:60px;">
-					<a href="#">
+					<a href="/moviePage/{{movie.id}}/">
 						<div class=" movie-tile-no-time">
 							<div class="image-wrapper">
 								<img src="{% static movie.cover %}" style="width:75%;">
@@ -72,4 +72,5 @@
 				</div>
 				{% endfor %}
 			</div>
+		</div>
 {% include 'footer.html' %}

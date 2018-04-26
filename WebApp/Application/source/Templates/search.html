@@ -2,11 +2,15 @@
 {% include 'navbar.html' %}
 		<!--Whats On-->
 		<div class="container-fluid" >
-			<div class="col-lg-12">
-				{% if movies.count > 0 %}
+			<div class="col-lg-12" style="text-align:center;">
+				{% if movies.count > 1 %}
 				<h1 style="margin:30px 0 50px 0">{{movies.count}} results found for "{{request.GET.search}}"</h1>
-				{% else %}
-				<h1 style="margin:30px 0 700px 0">Sorry, no results found for "{{request.GET.search}}"</h1>
+				{% endif %}
+				{% if movies.count > 0 and movies.count < 2 %}
+				<h1 style="margin:30px 0 50px 0">{{movies.count}} result found for "{{request.GET.search}}"</h1>
+				{% endif %}
+				{% if movies.count < 1 %}
+				<h1 style="margin:30px 0 50px 0">no results found for "{{request.GET.search}}"</h1>
 				{% endif %}
 			</div>
 			<div class= "row">

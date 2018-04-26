@@ -7,6 +7,7 @@
 			<img src="{% static movie.cover %}"/>
 		</div>
 		<div class="col-lg-6" >
+
 			<div class="ratingBlock" >
 				<h1>{{movie.title}}</h1>
 				{% for star in stars %}
@@ -22,11 +23,16 @@
 				{% endfor %}
 
 
-				<p><span>{{movie.rating}}</span> / 10<p>
-				<p style="float:right;margin-top:14px;font-size:18px;">Duration: {{movie.duration}} mins </p>
+				<p><span>{{movie.rating}}</span> / 10</p><br>
 			</div>
-			<p class="movieBlurb">{{movie.blurb}}{{movie.blurb}}{{movie.blurb}}</p>
+			<p class="movieBlurb">{{movie.blurb}}</p>
+			<p>Duration: {{movie.duration}} minutes </p>
+			<p>Certificate: {{movie.certificate}}</p><br>
 			<p>Director: {{movie.director}}</p>
+			<p style="display:inline;">Starring:</p>
+			{% for i in movie.cast.all %}
+			<p style="display:inline;">{{i.name}},</p>
+			{% endfor%}
 
 
 			<h3>Timings</h3>
@@ -45,9 +51,6 @@
 				{% for day in dates %}
 					{% if forloop.first %}
 						<div id="{{ day.0 }}" class="tab-pane fade in active">
-					{% else %}
-						<div id="{{ day.0 }}" class="tab-pane fade">
-					{% endif %}
 						{% for screening in day.1 %}
 							{% if currentTime > screening.time %}
 							<p class="screeningTime backgroundgrey">{{screening.time|time:"H:i"}}</p>
@@ -60,6 +63,16 @@
 						{% empty %}
 							<h3>Sorry, there are no screenings for this day.</h3>
 						{% endfor %}
+					{% else %}
+						<div id="{{ day.0 }}" class="tab-pane fade">
+							{% for screening in day.1 %}
+								<a href="/bookingChoose/{{ screening.id }}">
+									<p class="screeningTime">{{screening.time|time:"H:i"}}</p>
+								</a>
+							{% empty %}
+								<h3>Sorry, there are no screenings for this day.</h3>
+							{% endfor %}
+					{% endif %}
 					</div>
 				{% endfor %}
 			</div>

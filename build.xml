@@ -55,14 +55,15 @@
     </junit>
   </target>
 
-  <target name="run" depends="compile" description="Runs java Application">
+  <target name="till" depends="compile" description="Run command line based interface">
       <waitfor maxwait="3" maxwaitunit="minute" checkevery="500">
           <http url="http://127.0.0.1:8000/api/whatsonapi?format=json"/>
       </waitfor>
-      <java classname="${build.dir}/src.sample.Main">
-          <!-- <classpath>
+      <java classname="Till">
+          <classpath>
+              <pathelement location="${lib.dir}/jackson-all-1.9.0.jar"/>
               <pathelement path="${build.dir}"/>
-          </classpath> -->
+          </classpath>
       </java>
   </target>
 

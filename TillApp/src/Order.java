@@ -11,9 +11,9 @@ import java.util.List;
 public class Order {
 
     private List<Ticket> tickets;
-    private float totalPrice;
-    private float moneyPaid;
-    private float change;
+    private double totalPrice;
+    private double moneyPaid;
+    private double change;
 
     /**
      * Empty constructor
@@ -34,12 +34,14 @@ public class Order {
         totalPrice += ticket.getPrice();
     }
 
-    /**
-     * Method for calculating the change to be given to the customer
-     * @param money the amount given by the customer
-     * @return float Being the change that needs to be given back by the employee
-     */
-    public float checkout(float money) {
+    public void reset(){
+        this.tickets.removeAll(this.tickets);
+        this.totalPrice = 0.0;
+        this.moneyPaid = 0.0;
+        this.change = 0.0;
+    }
+
+    public double checkout(double money) {
         if (money < totalPrice) {
             return -1;
         }
@@ -55,6 +57,7 @@ public class Order {
      */
     public void printTickets(){}
 
+/*
     // Main class for testing if he API connection is work
     public static void main(String[] args)
     {
@@ -82,5 +85,5 @@ public class Order {
         else{
             System.out.println("AL empty");
         }
-    }
+    }*/
 }

@@ -1,25 +1,14 @@
 from django.db import models
 import datetime
+from django.conf import settings
 
 class User(models.Model):
-	username = models.CharField(max_length = 100, unique = True)
-	dob = models.CharField(max_length = 10)
+	username = models.CharField(max_length = 100, unique = True,null=True)
+	dob = models.CharField(max_length = 10,null=True)
 	cardNo = models.CharField(blank=True, null=True, max_length = 16)
 	nameOnCard = models.CharField(blank=True, null=True, max_length = 100)
 	expirationMonth = models.CharField(blank=True, null=True, max_length = 2)
 	expirationYear = models.CharField(blank=True, null=True, max_length = 2)
-
-
-class User2(models.Model):
-	username = models.CharField(max_length = 100)
-	email = models.EmailField(max_length = 50)
-	password = models.CharField(max_length = 100)
-	dob = models.CharField(max_length = 10)
-	cardNo = models.CharField(blank=True, null=True, max_length = 16)
-	nameOnCard = models.CharField(blank=True, null=True, max_length = 100)
-	expirationMonth = models.CharField(blank=True, null=True, max_length = 2)
-	expirationYear = models.CharField(blank=True, null=True, max_length = 2)
-
 
 class Actor(models.Model):
 	name = models.CharField(max_length = 200)
@@ -46,13 +35,17 @@ class Screening(models.Model):
 	time = models.TimeField(auto_now_add=False, null=True)
 
 class Seat(models.Model):
-	screening_id = models.ForeignKey('Screening',on_delete=models.CASCADE, default="")
+	screening_id = models.ForeignKey('Screening',on_delete=models.CASCADE, null=True)
 	vipSeat = models.BooleanField(default=False)
-	row = models.IntegerField()
-	column = models.IntegerField()
+	row = models.IntegerField(null=True)
+	column = models.IntegerField(null=True)
+	heldFor = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
+	time = models.TimeField(auto_now_add=True,null=True)
 
 class Ticket(models.Model):
 	movie_id = models.ForeignKey('Movie',on_delete=models.CASCADE,)
 	screening_id = models.ForeignKey('Screening',on_delete=models.CASCADE, default="")
-	seat_id = models.ForeignKey('Seat',on_delete=models.CASCADE,)
-	user_id = models.ForeignKey('User',on_delete=models.CASCADE,null=True)
+	seat_id = models.ForeignKey('Seat',on_delete=models.CASCADE)
+	user_id = models.ForeignKey('User',
+		on_delete=models.CASCADE, null=True)
+	ticket_type = models.CharField(max_length=10, null=True)
