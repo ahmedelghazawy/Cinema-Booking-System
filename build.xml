@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <project name="toucan" basedir="." default="compile">
 
-  <property name="src.dir" value="TillApp/src"/>
-  <property name="javaFx.dir" value="TillApp/javaFx"/>
+  <property name="src.dir" value="TillApp/src/"/>
   <property name="test.dir" value="TillApp/test"/>
   <property name="lib.dir" value="TillApp/lib"/>
   <property name="scripts.dir" value="scripts"/>
@@ -14,6 +13,7 @@
     <pathelement location="${lib.dir}/junit-4.12.jar"/>
     <pathelement location="${lib.dir}/hamcrest-core-1.3.jar"/>
     <pathelement location="${lib.dir}/mockito-all-1.9.5.jar"/>
+    <pathelement location="${lib.dir}/itextpdf-5.3.5.jar"/>
     <pathelement location="/usr/java/jdk1.8.0_141/jre/lib/ext/jfxrt.jar"/>
   </path>
 
@@ -29,18 +29,17 @@
       includeantruntime="false">
       <classpath refid="project.classpath"/>
     </javac>
-    <javac srcdir="${javaFx.dir}" destdir="${build.dir}"
-      includeantruntime="false">
-      <classpath refid="project.classpath"/>
-    </javac>
-    <copy file="${javaFx.dir}/src/sample/mainPage.fxml" todir="${build.dir}/sample"/>
-    <copy file="${javaFx.dir}/src/sample/ticketType.fxml" todir="${build.dir}/sample"/>
-    <copy file="${javaFx.dir}/src/sample/seatSelection.fxml" todir="${build.dir}/sample"/>
-    <copy file="${javaFx.dir}/src/sample/payment.fxml" todir="${build.dir}/sample"/>
+    <copy file="${src.dir}/sample/mainPage.fxml" todir="${build.dir}/src/sample"/>
+    <copy file="${src.dir}/sample/ticketType.fxml" todir="${build.dir}/src/sample"/>
+    <copy file="${src.dir}/sample/seatSelection.fxml" todir="${build.dir}/src/sample"/>
+    <copy file="${src.dir}/sample/payment.fxml" todir="${build.dir}/src/sample"/>
+    <copy todir="${build.dir}/src/sample/media">
+        <fileset dir="${src.dir}/sample/media"/>
+    </copy>
   </target>
 
   <target name="test" depends="compile" description="Run unit tests">
-    <delete file="${build.dir}/APIConnection"/>
+    <delete file="${build.dir}/APIConnection.class"/>
     <javac srcdir="${test.dir}" destdir="${build.dir}"
       includeantruntime="false">
       <classpath refid="project.classpath"/>
@@ -48,11 +47,11 @@
     <junit fork="true">
       <classpath refid="project.classpath"/>
       <formatter type="brief" usefile="false"/>
-      <test name="TillApp/bin/MovieTest"/>
-      <test name="TillApp/bin/OrderTest"/>
-      <test name="TillApp/bin/ScreeningTest"/>
-      <test name="TillApp/bin/SeatTest"/>
-      <test name="TillApp/bin/TicketTest"/>
+      <test name="MovieTest"/>
+      <test name="ScreeningTest"/>
+      <test name="SeatTest"/>
+      <test name="OrderTest"/>
+      <test name="TicketTest"/>
     </junit>
   </target>
 
@@ -71,7 +70,7 @@
 
   <target name="clean" description="Remove compiled code">
     <delete dir="${build.dir}"/>
-    <delete dir="out"/>
+    <delete dir="TillApp/out"/>
     <delete file="WebApp/Application/databse.db"/>
   </target>
 

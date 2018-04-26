@@ -1,11 +1,21 @@
+package src;
 import org.codehaus.jackson.map.ObjectMapper;
 import java.net.*;
 import java.io.*;
 import java.util.*;
 import javax.net.ssl.HttpsURLConnection;
 
+/**
+ * Class containing methods for requesting or posting information to the REST API
+ */
 public class APIConnection{
 
+    /**
+     * Method for getting the information from the API
+     * @param link for knowing which link to take the information from
+     * @return String[] containing all the json objects gotten from the API
+     * @throws Exception in case Link is not found
+     */
     public static String[] get(String link) throws Exception
     {
         URL url = new URL (link);
@@ -51,6 +61,13 @@ public class APIConnection{
         return jsons;
     }
 
+    /**
+     * Method for posting information to the REST API
+     * @param link for knowing which link to post the information to
+     * @param json the json string which is to be posted in the API
+     * @return int informing whether the post request was successful or not
+     * @throws Exception
+     */
     public static int post(String link, String json) throws Exception{
       URL url = new URL(link);
       HttpURLConnection con = (HttpURLConnection) url.openConnection();

@@ -1,10 +1,11 @@
+package src;
 import org.codehaus.jackson.map.ObjectMapper;
 import java.util.*;
 import java.net.*;
 import java.io.*;
-
 /**
  * Created by sc16tdad on 09/02/18.
+ * Class used for accessing the REST API about the movie details.
  */
 public class Movie {
     private int id;
@@ -70,7 +71,13 @@ public class Movie {
 
     public void setCertificate(String certificate) { this.certificate = certificate; }
 
-
+    /**
+     *
+     * Method for checking whether two movie objects are the same.
+     * @param other the second movie for comparison
+     * @return boolean stating whether the two movie objects are equal or not
+     */
+    @Override
     public boolean equals(Object other){
       if(this == other){
         return true;

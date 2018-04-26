@@ -1,8 +1,13 @@
 /**
  * Created by sc16tdad on 09/02/18.
  */
+package src;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Class for combining all the Tickets, and finalising the total price for purchase
+ */
 public class Order {
 
     private List<Ticket> tickets;
@@ -10,6 +15,9 @@ public class Order {
     private double moneyPaid;
     private double change;
 
+    /**
+     * Empty constructor
+     */
     public Order() {
         tickets = new ArrayList<>();
         totalPrice = 0;
@@ -17,6 +25,10 @@ public class Order {
         change = 0;
     }
 
+    /**
+     * Method for adding more tickets to the order
+     * @param ticket The ticket to be added
+     */
     public void add(Ticket ticket) {
         tickets.add(ticket);
         totalPrice += ticket.getPrice();
@@ -40,6 +52,9 @@ public class Order {
         }
     }
 
+    /**
+     * Method for printing the ticket as a PDF
+     */
     public void printTickets(){}
 
 /*

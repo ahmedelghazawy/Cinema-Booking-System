@@ -1,20 +1,34 @@
+package src;
 import org.codehaus.jackson.map.ObjectMapper;
 import java.util.*;
 import java.net.*;
 import java.io.*;
 
+/**
+ * Class to get the information from the Screen API,
+ * which contains the amount of seats in a certain screening
+ */
 public class Screen {
 
     private int id;
     private int standardSeats;
     private int vipSeats;
 
+    /**
+     * Empty constructor
+     */
     public Screen() {
         this.id = 0;
         this.standardSeats = 0;
         this.vipSeats = 0;
     }
 
+    /**
+     * Construtor
+     * @param id of the seat
+     * @param standardSeats amount of standard seats in this screening
+     * @param vipSeats amount of vip seats in this screening
+     */
     public Screen(int id, int standardSeats, int vipSeats) {
         this.id = id;
         this.standardSeats = standardSeats;
@@ -33,6 +47,11 @@ public class Screen {
 
     public void setVipSeats() { this.vipSeats = vipSeats; }
 
+    /**
+     * Method which collects the information from the API
+     * @param screening_id The ID of the screening we want the information from
+     * @return Screen Being the information of how many seats there are in this screening
+     */
     public static Screen getScreen(int screening_id) {
 
         Screen screen = null;

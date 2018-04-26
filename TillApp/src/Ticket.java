@@ -1,6 +1,12 @@
 /**
  * Created by sc16tdad on 09/02/18.
  */
+package src;
+
+/**
+ * Method for creating a ticket object, which contains a screening,
+ * seat and type of ticket (adult, child, or student)
+ */
 public class Ticket {
 
     private Screening screening;
@@ -8,6 +14,12 @@ public class Ticket {
     private float price;
     private String type;
 
+    /**
+     * Constructor
+     * @param screening informing which screening the ticket is for
+     * @param seat informing which seat the ticket is for
+     * @param type informing which type the ticket is for
+     */
     public Ticket(Screening screening, Seat seat, String type){
         this.screening = screening;
         this.seat = seat;
