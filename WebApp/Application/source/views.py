@@ -243,9 +243,12 @@ def bookingChoose(request, screeningId):
 				user.expirationYear = year
 				user.save()
 
+
+
 		#email data
+		seat = Seat.objects.filter(screening_id = screening.id).first()
 		subject = 'Your Toucan cinema booking'
-		html_message = render_to_string('email.html', {'context': 'values', 'movie': movie})
+		html_message = render_to_string('email.html', {'context': 'values', 'movie': movie, 'screening':screening, 'total_seats':total_seats})
 		plain_message = strip_tags(html_message)
 		from_email = settings.EMAIL_HOST_USER
 		to_email = [from_email,request.user.email]
@@ -271,7 +274,7 @@ def bookingChoose(request, screeningId):
 			ticket = Ticket(movie_id = movie,user_id=User.objects.filter(username=request.user).first(),screening_id = screening, seat_id=seat,ticket_type=ticket_type )
 			ticket.save()
 			# Generate QR code
-			codeQR = pyqrcode.create(str(ticket.id), error='L', version=6, mode='binary')
+			codeQR = pyqrcode.create("Movie: "+ str(movie.title) + "\nTime: " + str(screening.time) + "\nTicket type: " + str(ticket_type)+"\nSeat number: " + str(ticket.id), error='L', version=6, mode='binary')
 			codeQR.svg(str(ticket.id)+'.svg', scale=8)
 
 			# Generate pdf QR code for email

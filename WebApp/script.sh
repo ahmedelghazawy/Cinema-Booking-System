@@ -23,7 +23,7 @@ pip install pyqrcode
 
 pip3 install cairosvg
 
-pip intall schedule
+pip install schedule
 
 cd $DIR/Application/
 
