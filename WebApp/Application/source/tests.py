@@ -107,7 +107,7 @@ class error200(TestCase):
 
 	def test_content_login2(self):
 		response = self.client.get('/login')
-		self.assertContains(response, '<label for="remember"> Remember Me</label>')
+		self.assertContains(response, '<a href="/register">Register</a>')
 
 
 	def test_NotContent_login1(self):
@@ -147,9 +147,18 @@ class error200(TestCase):
 		self.assertNotContains(response, '<h1>Card Transcation fail</h1>')
 
 
-
-
-
 ##header
 
-##foote
+
+	def test_content_navbar2(self):
+		response = self.client.get('/')
+		self.assertContains(response, '	<li><a href="/">Home</a></li>')
+
+
+	def test_NotContent_navbar1(self):
+		response = self.client.get('/register')
+		self.assertNotContains(response, '<li><a href="/login"></span>||||||||</a></li>')
+
+	def test_NotContent_navbar2(self):
+		response = self.client.get('/search')
+		self.assertNotContains(response, '	<li><a href="/">sterling</a></li>')
