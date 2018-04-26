@@ -72,7 +72,7 @@
         </font>
     </Label>
 
-    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="4" GridPane.rowIndex="0">
+    <Button maxHeight="261" maxWidth="175" onAction="#moveToTicketTheGreatestShowman" GridPane.columnIndex="4" GridPane.rowIndex="0">
         <graphic>
             <ImageView>
                 <Image url="@/src/sample/media/banner5.jpg" />
