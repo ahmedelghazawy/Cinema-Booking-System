@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="toucan" basedir="." default="compile">
 
-  <property name="src.dir" value="TillApp/src"/>
+  <property name="src.dir" value="TillApp/src/"/>
   <property name="test.dir" value="TillApp/test"/>
   <property name="lib.dir" value="TillApp/lib"/>
   <property name="scripts.dir" value="scripts"/>
@@ -28,10 +28,13 @@
       includeantruntime="false">
       <classpath refid="project.classpath"/>
     </javac>
-    <copy file="${src.dir}/sample/mainPage.fxml" todir="${build.dir}/sample"/>
-    <copy file="${src.dir}/sample/ticketType.fxml" todir="${build.dir}/sample"/>
-    <copy file="${src.dir}/sample/seatSelection.fxml" todir="${build.dir}/sample"/>
-    <copy file="${src.dir}/sample/payment.fxml" todir="${build.dir}/sample"/>
+    <copy file="${src.dir}/sample/mainPage.fxml" todir="${build.dir}/src/sample"/>
+    <copy file="${src.dir}/sample/ticketType.fxml" todir="${build.dir}/src/sample"/>
+    <copy file="${src.dir}/sample/seatSelection.fxml" todir="${build.dir}/src/sample"/>
+    <copy file="${src.dir}/sample/payment.fxml" todir="${build.dir}/src/sample"/>
+    <copy todir="${build.dir}/src/sample/media">
+        <fileset dir="${src.dir}/sample/media"/>
+    </copy>
   </target>
 
   <target name="test" depends="compile" description="Run unit tests">
@@ -55,9 +58,9 @@
       <waitfor maxwait="3" maxwaitunit="minute" checkevery="500">
           <http url="http://127.0.0.1:8000/api/whatsonapi?format=json"/>
       </waitfor>
-      <java classname="src.sample.Main">
-          <classpath refid="project.classpath"/>
-              <!-- <pathelement path="${build.dir}"/>
+      <java classname="${build.dir}/src.sample.Main">
+          <!-- <classpath>
+              <pathelement path="${build.dir}"/>
           </classpath> -->
       </java>
   </target>

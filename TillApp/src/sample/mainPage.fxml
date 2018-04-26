@@ -20,14 +20,14 @@
     <!--<Button text="Proceed" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />-->
 
 
-    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <Button maxHeight="261" maxWidth="175" onAction="#moveToTicketTheMercy" GridPane.columnIndex="0" GridPane.rowIndex="0">
         <graphic>
             <ImageView fitHeight="240.0" fitWidth="170.0">
                 <Image url="@/src/sample/media/banner1.jpg" />
             </ImageView>
         </graphic>
     </Button>
-    <Label text="Film Title 1" textFill="darkgreen" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+    <Label text="The Mercy" textFill="darkgreen" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
         <font>
             <Font size="15" />
         </font>

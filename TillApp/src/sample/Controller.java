@@ -4,23 +4,22 @@ package src.sample;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene; // what changes within the stage - backed by a scene graph - contains the UI nodes - scenes make it easier to use a container
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage; // top level UI container in JavaFX - the window frame itself
 import javafx.scene.Node;
 import java.io.*;
-import src.*;
+//import src.*;
 
 import static java.lang.Integer.parseInt;
 
 
 public class Controller {
-    
-    Order order = new Order();
+
     int standardAdultQuantity = 0;
     int vipAdultQuantity = 0;
     int standardStudentQuantity = 0;
@@ -32,7 +31,10 @@ public class Controller {
 
 
     @FXML
+    private Button theMercy;
+    @FXML
     private Button blackPanther;
+
 
     @FXML
     private Button plusButton1;
@@ -96,6 +98,9 @@ public class Controller {
     @FXML
     private TextField amountGivenField;
 
+    @FXML
+    private GridPane gridPane;
+
 
     int amountGiven = 0;
     int change = 0;
@@ -107,19 +112,56 @@ public class Controller {
     @FXML
     public void moveToTicket(ActionEvent event) throws IOException {
 
-        finalPrice = totalCost;
+//        Label bigTitle = new Label("Film Title");
+//        gridPane.add(bigTitle, 0, 2);
+
+//        Group myGroup = new Group();
+
+//        Parent ticket = FXMLLoader.load(getClass().getResource("ticketType.fxml"));
+
+
+//        myGroup.getChildren().add(bigTitle);
+//        myGroup.getChildren().add(ticket);
+
 
         Parent ticket = FXMLLoader.load(getClass().getResource("ticketType.fxml"));
         Scene ticketScene = new Scene(ticket, 1165, 700);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(ticketScene);
+
+
+//        @Override
+//        public void start(Stage primaryStage) {
+//            Group root = new Group();
+//            Scene scene = new Scene(root, 300, 130);
+//
+//            GridPane gridpane = new GridPane();
+//            gridpane.setHgap(10);
+//            gridpane.setVgap(10);
+//
+//            Label label = new Label("Label");
+//            gridpane.add(label, 0, 0);
+//
+//            root.getChildren().add(gridpane);
+//            primaryStage.setScene(scene);
+//            primaryStage.show();
+//        }
+
+    }
+
+    @FXML
+    public void moveToTicketTheMercy(ActionEvent event) throws IOException {
+
+        Parent ticket = FXMLLoader.load(getClass().getResource("ticketTypeTheMercy.fxml"));
+        Scene ticketScene = new Scene(ticket, 1165, 700);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(ticketScene);
+
     }
 
 
     @FXML
     public void backToMain(ActionEvent event) throws IOException {
-
-        finalPrice = totalCost;
 
         Parent main = FXMLLoader.load(getClass().getResource("mainPage.fxml"));
         Scene mainScene = new Scene(main, 1165, 700);
