@@ -5,6 +5,9 @@ package src;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class for combining all the Tickets, and finalising the total price for purchase
+ */
 public class Order {
 
     private List<Ticket> tickets;
@@ -12,6 +15,9 @@ public class Order {
     private float moneyPaid;
     private float change;
 
+    /**
+     * Empty constructor
+     */
     public Order() {
         tickets = new ArrayList<>();
         totalPrice = 0;
@@ -19,13 +25,20 @@ public class Order {
         change = 0;
     }
 
+    /**
+     * Method for adding more tickets to the order
+     * @param ticket The ticket to be added
+     */
     public void add(Ticket ticket) {
         tickets.add(ticket);
         totalPrice += ticket.getPrice();
     }
 
-    public void offer(){}
-
+    /**
+     * Method for calculating the change to be given to the customer
+     * @param money the amount given by the customer
+     * @return float Being the change that needs to be given back by the employee
+     */
     public float checkout(float money) {
         if (money < totalPrice) {
             return -1;
@@ -37,6 +50,9 @@ public class Order {
         }
     }
 
+    /**
+     * Method for printing the ticket as a PDF
+     */
     public void printTickets(){}
 
     // Main class for testing if he API connection is work
