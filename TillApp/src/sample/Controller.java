@@ -193,6 +193,17 @@ public class Controller {
 
 
     @FXML
+    public void moveToTicketPadMan(ActionEvent event) throws IOException {
+
+        Parent ticket = FXMLLoader.load(getClass().getResource("ticketTypePadMan.fxml"));
+        Scene ticketScene = new Scene(ticket, 1165, 700);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(ticketScene);
+
+    }
+
+
+    @FXML
     public void backToMain(ActionEvent event) throws IOException {
 
         Parent main = FXMLLoader.load(getClass().getResource("mainPage.fxml"));

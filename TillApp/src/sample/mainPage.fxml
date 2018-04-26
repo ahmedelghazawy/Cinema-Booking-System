@@ -91,7 +91,7 @@
 
 
 
-    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="0" GridPane.rowIndex="2">
+    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="0" onAction="#moveToTicketPadMan" GridPane.rowIndex="2">
         <graphic>
             <ImageView>
                 <Image url="@/src/sample/media/banner6.jpg" />
