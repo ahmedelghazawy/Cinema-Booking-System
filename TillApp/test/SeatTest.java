@@ -62,7 +62,7 @@ public class SeatTest {
                     if(actualSeat.getColumn() != acquiredSeat.getColumn()){
                         System.out.println("Column id not equal");
                     }
-                    if(actualSeat.getAvailability() != acquiredSeat.getAvailability()){
+                    if(actualSeat.getConfirmed() != acquiredSeat.getConfirmed()){
                         System.out.println("Availability not equal");
                     }
                     return false;
