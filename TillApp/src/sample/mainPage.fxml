@@ -59,7 +59,7 @@
         </font>
     </Label>
 
-    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="3" GridPane.rowIndex="0">
+    <Button maxHeight="261" maxWidth="175" onAction="#moveToTicketEarlyMan" GridPane.columnIndex="3" GridPane.rowIndex="0">
         <graphic>
             <ImageView>
                 <Image url="@/src/sample/media/banner4.jpg" />
