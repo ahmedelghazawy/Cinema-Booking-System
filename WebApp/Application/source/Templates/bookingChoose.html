@@ -26,6 +26,8 @@
 				}
 			}
 		});
+
+		removeUnconfirmedSeats();
 		// Makes sure that form controlling buttons are displayed correctly
 		correctButtons();
 		// ###### Form updating #########
@@ -76,13 +78,13 @@
 					var seat = {"screening_id":{{screening.id}}, "vipSeat":false,"row":row,"column":column,"heldFor":{{user.id}}}
 					data.push(seat)
 				}
-				// console.log(seatSelected)
+				//
 				// seat = seatSelected[0];
 				// row = seat.slice(0, 1);
 				// column = seat.slice(1, 2);
-				// console.log(row+column)
+				//
 				// var data = {"screening_id":{{screening.id}}, "vipSeat":false,"row":row,"column":column,"confirmed":false}
-				console.log(JSON.stringify(data));
+				
 				$.ajax({
 					type : "POST",
 					url : "/api/seatingapi/",
@@ -92,11 +94,8 @@
 						'Accept': 'application/json',
 						'Content-Type': 'application/json'
 					},
-					success: function(some, some1, some2){
-						console.log("Seat sent to database \n" + JSON.stringify(some)+"\n"+JSON.stringify(some2));
-					},
 					error: function(XMLHttpRequest, textStatus, errorThrown) {
-						alert("Error: Couldn't connect with the server\nPlease Refresh the page\n" + String(errorThrown) + String(textStatus) + String(XMLHttpRequest.responseText));
+						alert("Error: Couldn't connect with the server\nPlease Refresh the page\n" );
 					}
 				});
 			}
@@ -109,26 +108,26 @@
 				$("input:not([name=seats]):not([name=vip])").removeAttr("readonly")
 				$("#next").prop("disabled",false);
 				$("#previous").prop("disabled",true);
-				var data = {"screening_id":{{screening.id}},"user_id":{{user.id}}}
-				$.ajax({
-					type : "POST",
-					url : "/api/seatingapi/",
-					csrfmiddlewaretoken: "{% csrf_token %}",
-					data : JSON.stringify(data),
-					headers: {
-						'Accept': 'application/json',
-						'Content-Type': 'application/json'
-					},
-					success: function(some, some1, some2){
-						console.log("Seat sent to database \n" + JSON.stringify(some)+"\n"+JSON.stringify(some2));
-					},
-					error: function(XMLHttpRequest, textStatus, errorThrown) {
-						alert("Error: Couldn't connect with the server\nPlease Refresh the page\n" + String(errorThrown) + String(textStatus) + String(XMLHttpRequest.responseText));
-					}
-				});
+				removeUnconfirmedSeats();
 			});
 		});
 
+		function removeUnconfirmedSeats(){
+			var data = {"screening_id":{{screening.id}},"user_id":{{user.id}}}
+			$.ajax({
+				type : "POST",
+				url : "/api/seatingapi/",
+				csrfmiddlewaretoken: "{% csrf_token %}",
+				data : JSON.stringify(data),
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					alert("Error: Couldn't connect with the server\nPlease Refresh the page\n");
+				}
+			});
+		}
 
 		// ###### SEAT SELECTION CODE ##########
 		vipSeats = {{screen.vipSeats}};
@@ -167,6 +166,7 @@
 			column = $(this).data("column");
 			seatPos = String(row) + String(column);
 			totalSeats = getTotalSeats();
+
 			if (totalSeats > 0) {
 				// If the seat is not already reserved (by somebody else)
 				if (seatReserved.indexOf(seatPos) < 0 && seatUnconfirmed.indexOf(seatPos) < 0) {
@@ -198,7 +198,7 @@
 		// Returns a number of seats selected in the Form
 		function getTotalSeats() {
 			total = 0;
-			$(":input[type=number]:not(input[name=vip])").each(function() {
+			$(".table").find(":input[type=number]:not(input[name=vip])").each(function() {
 				amount = parseInt($(this).val());
 				if ( amount > 0) {
 					if($(this).attr("name")!="vip"){
@@ -206,7 +206,7 @@
 					}
 				}
 			})
-			console.log(total);
+
 			return total;
 		}
 		// Updates the seats numbers displayed for user
@@ -236,17 +236,17 @@
 		function getLiveSeats() {
 			$.getJSON("/api/seatingapi/{{screening.id}}/", function(data) {
 				// Print live data
-				console.log("\n###### Fresh from API ##### \n");
+
 				string = "Seats reserved: ";
 				$.each(data, function(key, val) {
 					string += val.row + ":" + val.column + ", ";
 				});
-				console.log(string);
+
 				// Clear reserved seats
 				for (i = 0; i < seatReserved.length; i++) {
 					seatRedraw(seatReserved[i], "free");
 				}
-				console.log("FReeing"+seatUnconfirmed)
+
 				for (i = 0; i < seatUnconfirmed.length; i++) {
 					seatRedraw(seatUnconfirmed[i], "free");
 				}
@@ -403,7 +403,7 @@
 				<br>
 				<div class="seat reserved legend"></div> Reserved
 				<br>
-				<span data-toggle="tooltip" style="cursor:pointer" data-placement="right" title="This seat is currently being booked.<br> It may be avaiable soon if the payment is not confirmed">
+				<span data-toggle="tooltip" style="cursor:pointer" data-placement="right" title="This seat is currently being booked. It may be avaiable soon if the payment will not confirmed.">
 					<div class="seat unconfirmed legend" ></div> Being booked <span class="glyphicon glyphicon-info-sign"></span>
 				</span>
 				<br>
@@ -435,21 +435,29 @@
 						{{form.cvc}}
 					</div>
 					<div class="form-inline date required">
-						{{form.year.label_tag}}
-						{{form.year}}
-						{{form.month.label_tag}}
-						{{form.month}}
+						<div class="row">
+							<div class="col-lg-6 col-lg-md-12">
+								{{form.year.label_tag}}
+								{{form.year}}
+							</div>
+							<div class="col-lg-6 col-lg-md-12">
+								{{form.month.label_tag}}
+								{{form.month}}
+							</div>
+						</div>
 					</div>
 					{% if user.cardNo is None%}
+					<br>
 					<div class="form-group">
-						<label for="saveCard">Save card for quicker checkout</label>
+						<label for="saveCard">Save card for quicker checkout &nbsp;</label>
 						<form method="post" action="" class="form-horizontal">
-							<input type="checkbox" name="saveCard" value="saveCard">Save<br>
+							<input type="checkbox" name="saveCard" value="saveCard">&nbsp; Save<br>
 						</form>
 					</div>
 					{% endif %}
 				</div>
-				<div class='form-row'>
+				<br>
+				<div class='form-row' style="text-align:center">
 						<div class='form-group'>
 							<label class='control-label'></label>
 							<button class='form-control btn btn-primary' type='submit' >Pay now</button>

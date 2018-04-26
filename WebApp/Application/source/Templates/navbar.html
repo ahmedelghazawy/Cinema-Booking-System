@@ -41,10 +41,10 @@
 				    </form>
 					</li>
 					{% if user.is_authenticated %}
-					<li><a href="/profile"><span class="glyphicon glyphicon-user"></span>{{user}}</a></li>
+					<li><a href="/profile"><span class="glyphicon glyphicon-user"></span> {{user}}</a></li>
 						<li><a href="/logout"></span>Logout</a></li>
 					{% else%}
-		      	<li><a href="/login"></span>Login | Register </a></li>
+		      	<li><a href="/login"></span> Login | Register </a></li>
 					{% endif %}
 		    </ul>
 			</div>

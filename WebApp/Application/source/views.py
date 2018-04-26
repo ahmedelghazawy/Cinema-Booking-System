@@ -40,12 +40,8 @@ def download(request,ticketID):
 				response['Content-Disposition'] = 'inline; filename=' +name+".svg"
 				return response
 	return redirect("/")
-
-
-
-	return render(request,'confirmation.html', {'user':user})
 def confirmation(request):
-	return render(request,'confirmation.html', {'user':user, 'cardSaved':cardSaved})
+	return render(request,'confirmation.html')
 # Create your views here.
 def index(request):
 	latestMovies = Movie.objects.order_by('-releaseDate')[:4]
@@ -209,7 +205,8 @@ def bookingPage(request):
 def bookingChoose(request, screeningId):
 	# Passing first element of the query as query is a list with 1 object
 	user = request.user
-	user = User.objects.filter(username = user).first()
+	user = User.objects.filter(username=user).first()
+	print (user)
 	form = BookingForm(request.POST or None)
 	if user.cardNo is not None:
 		form.fields['name'].widget.attrs.update({'value':user.username})
@@ -233,7 +230,7 @@ def bookingChoose(request, screeningId):
 		# Total amount of tickets purchased
 		total_seats = normal+student+senior+child
 		# Details of booking
-		screening = Screening.objects.filter(id=screeningId)[0]
+		screening = Screening.objects.filter(id=screeningId).first()
 		movie = screening.movie_id
 
 		if request.method == "POST":
@@ -251,12 +248,11 @@ def bookingChoose(request, screeningId):
 		html_message = render_to_string('email.html', {'context': 'values', 'movie': movie})
 		plain_message = strip_tags(html_message)
 		from_email = settings.EMAIL_HOST_USER
-		to_email = ""
+		to_email = [from_email,request.user.email]
 		#email attributes
 		email = EmailMessage(subject,plain_message,	from_email,	to_email,[],
 			headers={'Message-ID': 'Toucan Cinema'},
 		)
-
 		for x in range(total_seats):
 			# Set VIP flag
 			isVip = False
@@ -270,9 +266,9 @@ def bookingChoose(request, screeningId):
 					tickets[key] -= 1
 					break
 			# Save the seat and ticket to database
-			seat = Seat(screening_id = screening,vipSeat = isVip,row=seats[x][0:1],column=seats[x][1:2])
-			seat.save()
-			ticket = Ticket(movie_id = movie,screening_id = screening, seat_id=seat,ticket_type=ticket_type )
+
+			seat = Seat.objects.filter(screening_id=screening).filter(heldFor=user.id).first()
+			ticket = Ticket(movie_id = movie,user_id=User.objects.filter(username=request.user).first(),screening_id = screening, seat_id=seat,ticket_type=ticket_type )
 			ticket.save()
 			# Generate QR code
 			codeQR = pyqrcode.create(str(ticket.id), error='L', version=6, mode='binary')
@@ -285,6 +281,7 @@ def bookingChoose(request, screeningId):
 			email.attach_file(str(ticket.id)+'.pdf')
 
 		email.send()
+		Seat.objects.filter(screening_id=screening).filter(heldFor=user.id).update(heldFor=None)
 		root = os.listdir(os.getcwd())
 
 		# Remove pdf's which were used to send email
@@ -341,14 +338,10 @@ class seatingapi(APIView):
 		return Response(serializer.data)
 
 	def post(self, request,screeningId="", format = None):
-		print(request.data)
 		if isinstance(request.data,dict):
 			screening_id = request.data["screening_id"]
 			user_id = request.data["user_id"]
-			print("YES")
-			print(User.objects.filter(id=user_id)[0].id)
 			s = Seat.objects.filter(screening_id=Screening.objects.filter(id=screening_id)[0]).filter(heldFor=User.objects.filter(id=user_id)[0].id)
-			print("SECONG P{}".format(s))
 			s.delete()
 			return Response("Seats Remove", status=status.HTTP_201_CREATED)
 		else:

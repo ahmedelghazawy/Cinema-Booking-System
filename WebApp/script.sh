@@ -23,6 +23,8 @@ pip install pyqrcode
 
 pip3 install cairosvg
 
+pip intall schedule
+
 cd $DIR/Application/
 
 if [[ $1 == "devel" ]]
@@ -42,5 +44,8 @@ else
 
 	python manage.py migrate
 
+	while true; do sleep 15; python manage.py clear_unconf ; done &
+
 	python manage.py runserver
+
 fi

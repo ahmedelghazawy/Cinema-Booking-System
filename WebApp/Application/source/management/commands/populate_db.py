@@ -3,8 +3,16 @@ from source.models import *
 import datetime
 import random
 import math
+import schedule
+import time
 
 class Command(BaseCommand):
+
+
+
+	def job():
+		print("I'm working...")
+
 	args = 'accepts no arguments'
 	help = "Commands the databse with relation to Today's date"
 
@@ -17,6 +25,8 @@ class Command(BaseCommand):
 	movieDuration = 150
 	# How many seats there is in a row
 	rowWidth = 10
+
+	schedule.every(1).minutes.do(Command.job)
 
 	# Shifts the date from today to given number of days
 	def getReleaseDate(noOfDays):
