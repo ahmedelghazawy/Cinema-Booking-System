@@ -40,7 +40,7 @@
             </ImageView>
         </graphic>
     </Button>
-    <Label text="Film Title 2" textFill="darkgreen" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+    <Label text="Darkest Hour" textFill="darkgreen" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
         <font>
             <Font size="15" />
         </font>
@@ -53,7 +53,7 @@
             </ImageView>
         </graphic>
     </Button>
-    <Label text="Film Title 3" textFill="darkgreen" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+    <Label text="The Black Panther" textFill="darkgreen" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
         <font>
             <Font size="15" />
         </font>
@@ -66,7 +66,7 @@
             </ImageView>
         </graphic>
     </Button>
-    <Label text="Film Title 4" textFill="darkgreen" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+    <Label text="Early Man" textFill="darkgreen" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
         <font>
             <Font size="15" />
         </font>
@@ -79,7 +79,7 @@
             </ImageView>
         </graphic>
     </Button>
-    <Label text="Film Title 5" textFill="darkgreen" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+    <Label text="The Greatest Showman" textFill="darkgreen" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
         <font>
             <Font size="15" />
         </font>
@@ -98,7 +98,7 @@
             </ImageView>
         </graphic>
     </Button>
-    <Label text="Film Title 6" textFill="darkgreen" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+    <Label text="Pad Man" textFill="darkgreen" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="3">
         <font>
             <Font size="15" />
         </font>
@@ -111,7 +111,7 @@
             </ImageView>
         </graphic>
     </Button>
-    <Label text="Film Title 7" textFill="darkgreen" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+    <Label text="COCO" textFill="darkgreen" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
         <font>
             <Font size="15" />
         </font>
@@ -124,7 +124,7 @@
             </ImageView>
         </graphic>
     </Button>
-    <Label text="Film Title 8" textFill="darkgreen" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+    <Label text="The Shape of Water" textFill="darkgreen" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
         <font>
             <Font size="15" />
         </font>
@@ -137,7 +137,7 @@
             </ImageView>
         </graphic>
     </Button>
-    <Label text="Film Title 9" textFill="darkgreen" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+    <Label text="The 15:17 to Paris" textFill="darkgreen" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
         <font>
             <Font size="15" />
         </font>
@@ -150,7 +150,7 @@
             </ImageView>
         </graphic>
     </Button>
-    <Label text="Film Title 10" textFill="darkgreen" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+    <Label text="Patel Ki Punjabi Shaadi" textFill="darkgreen" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3">
         <font>
             <Font size="15" />
         </font>
