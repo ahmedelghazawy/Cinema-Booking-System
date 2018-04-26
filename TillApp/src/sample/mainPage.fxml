@@ -33,7 +33,7 @@
         </font>
     </Label>
 
-    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="1" GridPane.rowIndex="0">
+    <Button maxHeight="261" maxWidth="175" onAction="#moveToTicketDarkestHour" GridPane.columnIndex="1" GridPane.rowIndex="0">
         <graphic>
             <ImageView>
                 <Image url="@/src/sample/media/banner2.jpg" />
