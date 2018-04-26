@@ -21,7 +21,7 @@
 		{% for ticket in tickets %}
 			<div class="profileTickets" style="display:inline-block;text-align:center;width:100px">
 				<a href="/download/{{ticket.id}}">
-				<img style="height:100px" src="../../Static/tickets/{{ticket.id}}.svg"></img>
+				<img style="height:100px" src="/Static/tickets/{{ticket.id}}.svg"></img>
 				<div class="well">
 					 <b>{{ticket.ticket_type}}</b>
 					 Seat: <b>{{ticket.seat_id.row}}{{ticket.seat_id.column}}</b>

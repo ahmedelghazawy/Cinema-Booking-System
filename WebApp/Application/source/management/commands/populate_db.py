@@ -26,7 +26,6 @@ class Command(BaseCommand):
 	# How many seats there is in a row
 	rowWidth = 10
 
-	schedule.every(1).minutes.do(Command.job)
 
 	# Shifts the date from today to given number of days
 	def getReleaseDate(noOfDays):
