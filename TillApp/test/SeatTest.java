@@ -32,7 +32,7 @@ public class SeatTest {
 
         first = new Seat(1, 2, true, 1, 5, false);
         second = new Seat(2, 2, true, 6, 2, true);
-        third = bookedSeats.get(0);
+//        third = bookedSeats.get(0);
         fourth = new Seat(3,1,false,4,3,true);
         fifth = new Seat(3,1,false,4,3,true);
     }
@@ -62,7 +62,7 @@ public class SeatTest {
                     if(actualSeat.getColumn() != acquiredSeat.getColumn()){
                         System.out.println("Column id not equal");
                     }
-                    if(actualSeat.getAvailability() != acquiredSeat.getAvailability()){
+                    if(actualSeat.getConfirmed() != acquiredSeat.getConfirmed()){
                         System.out.println("Availability not equal");
                     }
                     return false;
@@ -85,7 +85,7 @@ public class SeatTest {
 
     @Test
     public void equalityTest(){
-        assertTrue(first.equals(third));
+        assertTrue(fourth.equals(fifth));
         assertFalse(first.equals(second));
     }
 }

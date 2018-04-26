@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 
 /**
  * Created by sc16tdad on 09/02/18.
+ * Class used for accessing the REST API about the screening for each movie.
  */
 public class Screening {
 
@@ -65,11 +66,19 @@ public class Screening {
 
     public void setScreen_id() { this.screen_id = screen_id; }
 
+    /**
+     * Method getting the amount of numbers available of standard seats for this screening
+     * @return int Being the number of standard seats in the screening
+     */
     public int numberOfStandardSeats() {
         Screen screen = Screen.getScreen(this.id);
         return screen.getStandardSeats();
     }
 
+    /**
+     * Method getting the amount of numbers available of vip seats for this screening
+     * @return int Being the number of vip seats in the screening
+     */
     public int numberOfVipSeats() {
         Screen screen = Screen.getScreen(this.id);
         return screen.getVipSeats();
@@ -118,6 +127,11 @@ public class Screening {
         return screenings;
     }
 
+    /**
+     * Method for checking if two screening objects are the same
+     * @param other the object to be compared to
+     * @return boolean informing whether these are equal or not
+     */
     @Override
     public boolean equals(Object other){
         if(this == other){

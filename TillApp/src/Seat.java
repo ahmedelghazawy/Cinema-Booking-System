@@ -6,6 +6,7 @@ import java.io.*;
 
 /**
  * Created by sc16tdad on 09/02/18.
+ * Class for accessing the Seat API, getting all the information needed and creating post requests
  */
 public class Seat {
     private int id;
@@ -13,24 +14,36 @@ public class Seat {
     private boolean vipSeat;
     private int row;
     private int column;
-    private boolean availability;
+    private boolean confirmed;
 
+    /**
+     * Empty constructor
+     */
     public Seat(){
         this.id = 0;
         this.screening_id = 0;
         this.vipSeat = false;
         this.row = 0;
         this.column = 0;
-        this.availability = true;
+        this.confirmed = true;
     }
 
-    public Seat(int id, int screening_id, boolean vipSeat, int row, int column, boolean availability){
+    /**
+     * Constructo
+     * @param id Of the seat
+     * @param screening_id Id of the screening we are getting the information for
+     * @param vipSeat Whether this seat is vip or not
+     * @param row of this seat
+     * @param column of this seat
+     * @param confirmed Whether it's available for booking or if it's already booked
+     */
+    public Seat(int id, int screening_id, boolean vipSeat, int row, int column, boolean confirmed){
         this.id = id;
         this.screening_id = screening_id;
         this.vipSeat = vipSeat;
         this.row = row;
         this.column = column;
-        this.availability = availability;
+        this.confirmed = confirmed;
     }
 
     public int getId() { return id; }
@@ -43,7 +56,7 @@ public class Seat {
 
     public int getColumn() { return column; }
 
-    public boolean getAvailability() { return availability; }
+    public boolean getConfirmed() { return confirmed; }
 
     public void setID(int id) { this.id = id; }
 
@@ -55,8 +68,11 @@ public class Seat {
 
     public void setColumn(int column) { this.column = column; }
 
-    public void changeAvailability() {
-        this.availability = false;
+    /**
+     * Method changing the information from seat available to seat not available
+     */
+    public void changeconfirmed() {
+        this.confirmed = false;
         String link = "http://127.0.0.1:8000/api/seatingapi/" + screening_id;
 
         String jsonSeat = "{\"vipSeat\":" + this.getVipSeat() + ", \"screening_id\":" + this.getScreening_id() + ", \"row\":" + this.getRow() + ", \"column\":" + this.getColumn() + "}";
@@ -70,6 +86,11 @@ public class Seat {
         }
     }
 
+    /**
+     * Method which checks which seats have been booked already or not
+     * @param screeningID Id of the screening which this is being looked into
+     * @return ArrayList<Seat> containing all seats which are booked
+     */
     public static ArrayList<Seat> getBookedSeats(int screeningID) {
 
         //ArrayList contain the movies being shown in the cinema
@@ -87,7 +108,7 @@ public class Seat {
             for (String json: jsons)
             {
                 Seat seat = mapper.readValue(json, Seat.class);
-                seat.availability = false;
+                seat.confirmed = false;
                 seats.add(seat);
             }
             return seats;
@@ -99,6 +120,11 @@ public class Seat {
         return seats;
     }
 
+    /**
+     * Method for checking whether two Seat objects are equal
+     * @param other second seat object to be compared to
+     * @return boolean showing whether they are equal or not
+     */
     @Override
     public boolean equals(Object other){
         if(this == other){
@@ -114,11 +140,15 @@ public class Seat {
                     && this.vipSeat == otherSeat.getVipSeat()
                     && this.row == otherSeat.getRow()
                     && this.column == otherSeat.getColumn()
-                    && this.availability == otherSeat.getAvailability();
+                    && this.confirmed == otherSeat.getConfirmed();
         }
 
     }
 
+    /**
+     * Method for turning Seat into a string
+     * @return String of the equivalent Seat object
+     */
     @Override
     public String toString(){
         String number = "";

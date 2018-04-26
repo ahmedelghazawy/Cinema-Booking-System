@@ -23,10 +23,10 @@ public class ScreeningTest {
 
     @Before
     public void setup() {
-        screenings = Screening.getScreenings(movie, 3);
-        first = new Screening(2,"2018-06-10","16:00:00",3,2);
+        screenings = Screening.getScreenings(movie, 1);
+        first = new Screening(2,"","",3,2);
         second = new Screening(6,"2010-07-10","11:10:00",7,3);
-        third = new Screening(2,"2018-06-10","16:00:00",3,2);
+        third = new Screening(2,"","",3,2);
         fourth = screenings.get(0);
         fifth = new Screening(2,"2018-06-10","16:00:00",3,2);
         sixth = screenings.get(1);
@@ -67,10 +67,10 @@ public class ScreeningTest {
     @Test
     public void getScreeningTest(){
         ArrayList<Screening> trialScreening= new ArrayList<>();
-        trialScreening.add(fourth);
+        trialScreening.add(first);
 
         ArrayList<Screening> trialScreening2= new ArrayList<>();
-        trialScreening2.add(sixth);
+        trialScreening2.add(third);
 
         assertThat(compareLists(trialScreening2,trialScreening), is(true));
     }
