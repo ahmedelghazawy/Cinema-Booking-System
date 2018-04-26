@@ -104,20 +104,20 @@
         </font>
     </Label>
 
-    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="1" GridPane.rowIndex="2">
+    <Button maxHeight="261" maxWidth="175" onAction="#moveToTicketCoco" GridPane.columnIndex="1" GridPane.rowIndex="2">
         <graphic>
             <ImageView>
                 <Image url="@/src/sample/media/banner7.jpg" />
             </ImageView>
         </graphic>
     </Button>
-    <Label text="COCO" textFill="darkgreen" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+    <Label text="Coco" textFill="darkgreen" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
         <font>
             <Font size="15" />
         </font>
     </Label>
 
-    <Button maxHeight="261" maxWidth="175" GridPane.columnIndex="2" GridPane.rowIndex="2">
+    <Button maxHeight="261" maxWidth="175" onAction="#moveToTicketTheShapeOfWater" GridPane.columnIndex="2" GridPane.rowIndex="2">
         <graphic>
             <ImageView>
                 <Image url="@/src/sample/media/banner8.jpg" />
